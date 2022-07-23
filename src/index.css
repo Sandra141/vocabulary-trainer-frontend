@@ -1,13 +1,53 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Poppins', sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  color: #06062F;
+}
+
+h1 {
+  
+}
+
+h2 {
+  
+}
+
+h3 {
+  
+}
+
+p {
+  
+}
+
+/*------- Registration, Login, Profile, Settings Main Container -------*/
+.ContainerForHeaderBlankAndMain {
+  height: 99vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/*------- Colour classes -------*/
+
+.lightBlue {
+  background-image: linear-gradient(#82A4F7, #557CF3);
+}
+
+.darkBlue {
+  background-image: linear-gradient(#403F9B, #28276A);
+}
+
+.gray {
+  background-image: linear-gradient(#8083C0, #5E619A);
+}
+
+.pink {
+  background-image: linear-gradient(#FC8994, #D07688);
 }
