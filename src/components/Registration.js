@@ -115,7 +115,7 @@ const Registration = () => {
                     <label for="password">Password:</label><br />
                     <input ref={refPassword} onChange={handleChange} type="password" id="password" name="password" className='darkBlue' /><br />
                     {renderNotificationPassword()}
-                    <input type="submit" value="Log in" id="submitRegistration" className='pink' />
+                    <input type="submit" value="Sign up" id="submitRegistration" className='pink' />
                 </form>
                 <div className='alreadyAMember'>
                     <p>Already a member?</p>
