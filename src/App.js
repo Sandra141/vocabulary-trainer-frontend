@@ -7,25 +7,23 @@ import Profile from './components/Profile';
 import Settings from './components/Settings';
 import Login from './components/Login';
 import Registration from './components/Registration';
-import useFetch from './hooks/useFetch';
+import RequireAuthentification from './components/RequireAuthentification';
 
 function App() {
-  const { data, isError, isLoading } = useFetch("https://pokeapi.co/api/v2/pokemon/ditto")
-  console.log("data", data)
-  console.log("isError", isError)
-  console.log("isLoading", isLoading)
-
   return (
     <div className="app">
       <div className='appContent'>
         <Routes>
-          <Route path="/" element={<MyDecks />} />
-          <Route path="/find-Decks" element={<PublishedDecks />} />
-          <Route path="/games" element={<Games />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/settings" element={<Settings />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registration" element={<Registration />} />
+          <Route path="*" element={<h1>Warning! <br/>Page not available</h1>} />
+
+          <Route path="/" element={<RequireAuthentification><MyDecks /></RequireAuthentification>} />
+          <Route path="/find-Decks" element={<RequireAuthentification><PublishedDecks /></RequireAuthentification>} />
+          <Route path="/games" element={<RequireAuthentification><Games /></RequireAuthentification>} />
+          <Route path="/profile" element={<RequireAuthentification><Profile /></RequireAuthentification>} />
+          <Route path="/settings" element={<RequireAuthentification><Settings /></RequireAuthentification>} />
+
         </Routes>
       </div>
     </div>
