@@ -3,6 +3,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { useAuthentification } from '../contexts/Authentification.js'
 import useFetch from '../hooks/useFetch.js';
 import { createURL_loginCredentials, createURL_loginJWT } from '../services/authentification'
+import Loading from './modals/Loading.js';
 
 
 const RequireAuthentification = ({ children }) => {
@@ -32,7 +33,7 @@ const RequireAuthentification = ({ children }) => {
     }, [])
 
     // Step 1: show first loading
-    if (isLoading) return <h1>Loading</h1>
+    if (isLoading) return <Loading isLoading={isLoading}/>
 
     if (!access) return <h1>NO ACCESS. Maxybe if you have created an account pleaxe try in a few minutes again.</h1>
     // Step 2: no access
