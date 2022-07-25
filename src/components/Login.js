@@ -119,9 +119,9 @@ const Login = () => {
         ? <br />
         : <div>{notificationPassword}</div>
 
-    const renderLoading = () => error
-        ? <Error error={error} />
-        : <Loading isLoading={isLoading} />
+    const renderLoading = () => !error
+        ? null
+        : <Error error={error} />
 
     // Stufe 1: Zeige Loading spinner an
     if (!showLogin) return <Loading isLoading={isLoading} />
