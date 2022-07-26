@@ -9,13 +9,10 @@ import footerHomeGray from './../images/footerHomeGray.svg';
 import footerHomeWhite from './../images/footerHomeWhite.svg';
 
 const Footer = () => {
-    // "ref" ist besser, weil mit "document.getElementById" führst du jedesmal eine Suche durch, das Kostet Leistung und du musst überprüfen ob du etwas gefunden hast. Mit ref hast du direkt eine Referenz und du musst nicht überprüfen ob du etwas gefunden hast. Es ist also SCHNELLER und SICHERER
-    // Die refs sieht du unten Zeile 44-46. Du kannst jedem element eine "ref" zuweisen als Beispiel:<img ref={refHomeImage}>
     const refHomeImage = useRef(null)
     const refProfileImage = useRef(null)
     const refSettingsImage = useRef(null)
 
-    // Behandle Elemente die de-/active sind
     const handleActiveStatus = (ref, imgActive, imgDeactive) => {
         const element = ref.current
         const isActive = element?.parentElement?.classList.contains('active')
