@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import './../css/myDecks.css';
 import Header from './Header';
 import Footer from './Footer';
@@ -17,6 +18,7 @@ const MyDecks = () => {
             <div className='mainContent'>
                 {
                     dummyDataArray.map((card) => {
+                        /*---- defining colours ----*/
                         counter < 4 ? counter++ : counter = 1;
                         switch(counter) {
                             case 1:
@@ -36,12 +38,13 @@ const MyDecks = () => {
                         }
 
 
-                        console.log(counter, colourClass);
+                        
                         return(
-                            <div className={colourClass} key={card.id} >
+                            <NavLink to='/' id='home' >
+                                <div className={colourClass} key={card.id} >
                                 <div className='heartContainer'><img src={card.liked ? filledHeart : emptyHeart} alt="" /></div>
                                 <h2>{card.name}</h2>
-                            </div>
+                        </div></NavLink>
                         );
                     })
                 }

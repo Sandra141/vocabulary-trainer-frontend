@@ -37,7 +37,7 @@ const Footer = () => {
     }, [])
 
     return (
-        <footer className="appFooter2">
+        <footer className="appFooter">
             <NavLink to='/' id='home' ><img ref={refHomeImage} src={footerHomeGray} alt='home icon' id='footerHomeImage' /></NavLink>
             <NavLink to='/profile' id='profile' ><img ref={refProfileImage} src={footerProfileGray} alt='profile icon' id='footerProfileImage' /></NavLink>
             <NavLink to='/settings' id='settings' ><img ref={refSettingsImage} src={footerSettingsGray} alt='settings icon' id='footerSettingsImage' /></NavLink>
