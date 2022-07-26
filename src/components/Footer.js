@@ -1,26 +1,53 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './../css/footer.css';
-import footerProfile from './../images/footerProfile.svg';
-import footerSettings from './../images/footerSettings.svg';
-import footerHome from './../images/footerHome.svg';
+import footerProfileGray from './../images/footerProfileGray.svg';
+import footerProfileWhite from './../images/footerProfileWhite.svg';
+import footerSettingsGray from './../images/footerSettingsGray.svg';
+import footerSettingsWhite from './../images/footerSettingsWhite.svg';
+import footerHomeGray from './../images/footerHomeGray.svg';
+import footerHomeWhite from './../images/footerHomeWhite.svg';
 
+const Footer = () => {
 
-const Footer = () => {   
+    const changeSrc = () => {
+        setTimeout(() => {
+            /*---- home: check for active class and change src accordingly ----*/
+            const homeImage = document.getElementById('footerHomeImage');
+            const homeNavLinkContainsClass = homeImage?.parentElement?.classList.contains('active');
+            if(homeNavLinkContainsClass) {
+                homeImage.setAttribute('src', `${footerHomeWhite}`);
+            } else {
+                homeImage.setAttribute('src', `${footerHomeGray}`);
+            }
+
+            /*---- profile: check for active class and change src accordingly ----*/
+            const profileImage = document.getElementById('footerProfileImage');
+            const profileNavLinkContainsClass = profileImage?.parentElement?.classList.contains('active');
+            if(profileNavLinkContainsClass) {
+                profileImage.setAttribute('src', `${footerProfileWhite}`);
+            } else {
+                profileImage.setAttribute('src', `${footerProfileGray}`);
+            }
+
+            /*---- settings: check for active class and change src accordingly ----*/
+            const settingsImage = document.getElementById('footerSettingsImage');
+            const settingsNavLinkContainsClass = settingsImage?.parentElement?.classList.contains('active');
+            if(settingsNavLinkContainsClass) {
+                settingsImage.setAttribute('src', `${footerSettingsWhite}`);
+            } else {
+                settingsImage.setAttribute('src', `${footerSettingsGray}`);
+            }
+        }, 50);
+    }
+
+    changeSrc();
 
     return (
-        <footer className="appFooter">
-            <NavLink to='/profile' ><img src={footerProfile} alt="profile icon" /></NavLink>
-
-            <div className='footerCenter'>
-                <div className='footerBackground1'>
-                    <div className='footerBackground2'>
-                        <NavLink to="/" id="footerMainLink"><img src={footerHome} alt="home icon" id="footerMainImg" /></NavLink>
-                    </div>
-                </div>
-            </div>
-            <NavLink to="/settings"><img src={footerSettings} alt="settings icon" /></NavLink>
-            
+        <footer className="appFooter2">
+            <NavLink to='/' id='home' ><img src={footerHomeGray} alt='home icon' id='footerHomeImage' /></NavLink>
+            <NavLink to='/profile' id='profile' ><img src={footerProfileGray} alt='profile icon' id='footerProfileImage' /></NavLink>
+            <NavLink to='/settings' id='settings' ><img src={footerSettingsGray} alt='settings icon' id='footerSettingsImage' /></NavLink>
         </footer>
     );
 }
