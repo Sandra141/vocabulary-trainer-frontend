@@ -1,13 +1,14 @@
-.appFooter2 {
+.appFooter {
     background-color: white;
     width: calc(100vw - 2vh);
     height: 10vh;
     position: fixed;
     bottom: 0;
     padding: 0 4rem;
+    z-index: 2;
 }
 
-.appFooter2 a {
+.appFooter a {
     position: absolute;
     bottom: calc(5vh - 20px - 1rem); /*5vh: middle of footer hight, 20px: half of image height, 1rem: padding and border on one side*/
     display: flex;
@@ -16,7 +17,7 @@
     border-radius: 50%;
 }
 
-.appFooter2 img {
+.appFooter img {
     height: 40px;
     width: 40px;
 }
@@ -34,7 +35,7 @@
 }
 
 /*---- animations and its class ----*/
-.appFooter2 .active {
+.appFooter .active {
     position: absolute;
     padding: 0.5rem;
     background-color: #557CF3;
