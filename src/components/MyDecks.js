@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import './../css/myDecks.css';
 import Header from './Header';
 import Footer from './Footer';
-import dummyDataArray from './dummyDataArray';
+import dummyDataArray from './dummyDataArrayDecks';
 import emptyHeart from './../images/emptyHeart.svg';
 import filledHeart from './../images/filledHeart.svg';
 import Decks from './../images/decks.png';
@@ -34,9 +34,9 @@ const MyDecks = () => {
             <div className='mainContent'>
                 {
                     dummyDataArray.length === 0
-                    ?   <div className='noDecksContainer' >
+                    ?   <div className='noContentContainer' >
                             <h2>You don't have any decks yet</h2>
-                            <div className='noDecksImgContainer' ><img src={Decks} alt='no decks icon' /></div>
+                            <div className='noContentImgContainer' ><img src={Decks} alt='no decks icon' /></div>
                         </div>
                     : dummyDataArray.map((card) => {
                         /*---- defining colour classNames ----*/

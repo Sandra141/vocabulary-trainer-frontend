@@ -1,0 +1,80 @@
+#vocabContent {
+    position: relative;
+    align-items: center;
+    text-align: center;
+}
+
+/*---- if there are no cards to be fetched: use the classes from myDecks.css ----*/
+.cardsDeckName {
+    width: 100%;
+    border-radius: 20px;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+
+/*---- if there are decks ----*/
+.cardSearchField {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    padding-right: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.cardSearchField input {
+    width: 100%;
+    border: none;
+    height: 2rem;
+    border-radius: 10px;
+    padding-left: 0.5rem;
+}
+
+.cardSearchField img {
+    height: 80%;
+}
+
+.cards {
+    padding: 0.2rem 0;
+    width: 100%;
+    border-bottom: solid 1px #06062F;
+    box-shadow: 0 2px 0 rgb(227, 227, 227);
+}
+
+.cards:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+}
+
+/*---- Popup to edit the card ----*/
+.cardsPopup {
+    background-color: white;
+    border-radius: 20px;
+    height: 70%;
+    width: 80vw;
+    position: absolute;
+    top: calc(50% - 35%); /* 50%: half of next relative parent element (#vocabContent), 35%: half of own height*/
+}
+
+.darkBackground {
+    display: block;
+    position: absolute;
+    top: -40px;
+    left: 0;
+    height: calc(100% + 40px); /* 100% of next relative parent element (#vocabContent), 40% for the 40px in top-property */
+    width: calc(100vw - 2vh);
+    animation: darkBackground 0.2s forwards;
+}
+
+@keyframes darkBackground {
+    100% { background-color: rgba(6, 6, 47, 0.69); } /*8vh: footer hight, 20px: half of image height, 1rem: padding and border on one side*/
+}
+
+.hidden {
+    display: none;
+}

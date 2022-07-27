@@ -26,6 +26,10 @@ p {
   
 }
 
+input:focus {
+  outline: none;
+}
+
 /*------- Registration, Login, Profile, Settings Main Container -------*/
 .ContainerForHeaderBlankAndMain {
   height: 99vh;
@@ -43,7 +47,7 @@ p {
 
 .mainContent {
   height: 100%;
-  padding: 6%;
+  padding: 6% 6% 0;
   display: flex;
   flex-direction: column;
 }
@@ -53,19 +57,23 @@ p {
 .lightBlue {
   background-image: linear-gradient(#82A4F7, #557CF3);
   box-shadow: 1px 4px 5px rgb(131, 131, 131);
+  color: white;
 }
 
 .darkBlue {
   background-image: linear-gradient(#403F9B, #28276A);
   box-shadow: 1px 4px 5px rgb(131, 131, 131);
+  color: white;
 }
 
 .gray {
   background-image: linear-gradient(#8083C0, #5E619A);
   box-shadow: 1px 4px 5px rgb(131, 131, 131);
+  color: white;
 }
 
 .pink {
   background-image: linear-gradient(#FC8994, #D07688);
   box-shadow: 1px 4px 5px rgb(131, 131, 131);
+  color: white;
 }
