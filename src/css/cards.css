@@ -53,10 +53,11 @@
 
 /*---- Popup to edit the card ----*/
 .cardsPopup {
-    background-color: white;
+    border: 2px solid white;
     border-radius: 20px;
     height: 70%;
     width: 80vw;
+    color: white;
     position: absolute;
     top: calc(50% - 35%); /* 50%: half of next relative parent element (#vocabContent), 35%: half of own height*/
 }

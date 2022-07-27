@@ -8,18 +8,26 @@ import SearchIcon from './../images/searchIcon.svg';
 
 const Cards = () => {
     const [popupIsShown, setPopupIsShown] = useState(false);
-    const refPopupBackground = useRef(null)
+    const [firstSide, setFirstSide] = useState(null);
+    const [secondSide, setSecondSide] = useState(null);
+    const refPopupBackground = useRef(null);
 
     const handleOpenCardDetails = (e) => {
+        const idInArray = parseInt(e.target.parentElement.id);
+        const clickedObject = dummyDataArrayCards.cards.find(obj => obj.id === idInArray);
+        setFirstSide(clickedObject.firstSide);
+        setSecondSide(clickedObject.secondSide);
         setPopupIsShown(current => !current);
     }
+
+    console.log(firstSide);
 
     useEffect(() => {
         const popupBackground = refPopupBackground.current;
         if(popupIsShown) {
-            popupBackground.setAttribute('class', 'darkBackground');
+            popupBackground?.setAttribute('class', 'darkBackground');
         } else {
-            popupBackground.setAttribute('class', 'hidden');
+            popupBackground?.setAttribute('class', 'hidden');
         }
     }, [popupIsShown]);
 
@@ -49,7 +57,7 @@ const Cards = () => {
                     {
                     dummyDataArrayCards.cards.map((card) => {
                         return(
-                            <div className='cards' key={card.id} onClick={handleOpenCardDetails} >
+                            <div className='cards' key={card.id} onClick={handleOpenCardDetails} id={card.id} >
                                 <p>{card.firstSide}</p>
                                 <p>{card.secondSide}</p>
                             </div>
@@ -58,7 +66,10 @@ const Cards = () => {
                     }
                     <div className="hidden" ref={refPopupBackground}></div>
                     <div className="cardsPopup" style={{display: popupIsShown ? 'block' : 'none'}} >
-                        <p>I am a popup</p>
+                        <p>Side 1:</p>
+                        <input type='text' value={firstSide} disabled />
+                        <p>Side 2:</p>
+                        <input type='text' value={secondSide} disabled />
                     </div>
                     </>
             }
