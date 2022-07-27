@@ -6,7 +6,7 @@ const Header = () => {
         <header className="appHeader">
             <h1>Heading</h1>
             <nav>
-                <NavLink to="/" style={({ isActive }) => ({
+                <NavLink to="/decks" style={({ isActive }) => ({
                     color: isActive ? '#06062F' : '#9FACC7'
                 })}>Decks</NavLink>
 
