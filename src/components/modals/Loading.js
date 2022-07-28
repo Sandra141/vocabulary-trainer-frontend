@@ -3,8 +3,10 @@ import Modal from './Modal'
 import '../../css/loading.css'
 
 const Loading = (props) => {
-    const { isLoading } = props
+    const { isLoading, msg } = props
     const [showModal, setShowModal] = useState(false)
+
+    console.log("first", props)
 
     useEffect(() => {
         // activate Modal
@@ -16,7 +18,7 @@ const Loading = (props) => {
         : (<Modal>
             <div className='loading'>
                 <div className="card">
-                    <h1>Loading...</h1>
+                    <h1>{!msg ? "Loading..." : msg}</h1>
                     <p>Please wait...</p>
                 </div>
             </div>

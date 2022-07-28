@@ -5,14 +5,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Authentification } from './contexts/Authentification';
+import { Vocabulary } from './contexts/Vocabulary';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Authentification>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <Vocabulary>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Vocabulary>
     </Authentification>
   </React.StrictMode>
 );

@@ -8,6 +8,8 @@ import Error from './modals/Error';
 import { useAuthentification } from '../contexts/Authentification.js'
 
 const Login = () => {
+    const { token, handleSetToken } = useAuthentification()
+
     const refUsername = useRef(null)
     const refPassword = useRef(null)
 
@@ -18,7 +20,6 @@ const Login = () => {
     const [request, setRequest] = useState(null)
 
     const location = useLocation();
-    const { token, handleSetToken } = useAuthentification()
 
     const { data, error, isLoading } = useFetch(request)
 
@@ -122,7 +123,7 @@ const Login = () => {
     if (showLoading) return <Loading isLoading={isLoading} />
 
     // Stufe 2: jwt authentifizierung ok, dann navigiere direkt zu...
-    if (isAuthentificated) return <Navigate to="/" state={{ from: location }} replace />;
+    if (isAuthentificated) return <Navigate to="/download" state={{ from: location }} replace />;
 
     // Stufe 3: Zeige Login-maske an
     return (

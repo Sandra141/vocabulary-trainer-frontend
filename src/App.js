@@ -8,6 +8,7 @@ import Settings from './components/Settings';
 import Login from './components/Login';
 import Registration from './components/Registration';
 import RequireAuthentification from './components/RequireAuthentification';
+import Download from './components/Download';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="*" element={<h1>Warning! <br/>Page not available</h1>} />
 
           <Route path="/" element={<RequireAuthentification><MyDecks /></RequireAuthentification>} />
+          <Route path="/download" element={<RequireAuthentification><Download /></RequireAuthentification>} />
           <Route path="/find-Decks" element={<RequireAuthentification><PublishedDecks /></RequireAuthentification>} />
           <Route path="/games" element={<RequireAuthentification><Games /></RequireAuthentification>} />
           <Route path="/profile" element={<RequireAuthentification><Profile /></RequireAuthentification>} />
