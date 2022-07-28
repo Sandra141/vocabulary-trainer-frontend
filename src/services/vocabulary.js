@@ -1,5 +1,6 @@
-//createURL_download
-const API_URL = "http://localhost:9000/api"
+import React from "react";
+import env from "react-dotenv";
+const API_URL = process.env.REACT_APP_API_URL + "/api"
 const PATH_DOWNLOAD = "/download"
 
 const createURL_download = (token) => {
@@ -13,6 +14,8 @@ const createURL_download = (token) => {
         }
     }
 }
+
+// TODO: upload data from context.Vocabulary to mongoDB
 
 
 export {

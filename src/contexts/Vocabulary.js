@@ -18,6 +18,8 @@ export const Vocabulary = ({ children }) => {
         return cards.filter(x => card_ids.includes(x._id))
     }
 
+    // TODO: build synchronisation
+
     return (
         <StateContext.Provider
             value={{
