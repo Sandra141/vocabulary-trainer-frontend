@@ -1,3 +1,4 @@
+import React, { useRef, useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import './../css/myDecks.css';
 import Header from './Header';
@@ -10,6 +11,8 @@ import Decks from './../images/decks.png';
 const MyDecks = () => {
     let counter = 0;
     let colourClass;
+    const [popupIsShown, setPopupIsShown] = useState(false);
+    const refPopupBackground = useRef(null);
 
     const handleHeartClick = (e) => {
         /*---- needs to be reworked ----*/
@@ -26,19 +29,60 @@ const MyDecks = () => {
         }
     }
 
+    /*---- logic for popup ----*/
+    const handleAddDecksButton = (e) => {
+        setPopupIsShown(current => !current);
+        console.log(popupIsShown);
+    }
+
+    useEffect(() => {
+        const popupBackground = refPopupBackground.current;
+        if(popupIsShown) {
+            popupBackground?.setAttribute('class', 'darkBackground');
+        } else {
+            popupBackground?.setAttribute('class', 'hidden');
+        }
+    }, [popupIsShown]);
+
+    /*---- logic for closing the popup ----*/
+    const closePopup = (e) => {
+        setPopupIsShown(false);
+    }
+
     return(
         <>
         <div className='ContainerForHeaderAndMain'>
             <Header />
 
-            <div className='mainContent'>
+            <div className='mainContent' id='decksContent'>
                 {
                     dummyDataArray.length === 0
-                    ?   <div className='noContentContainer' >
+                    ?   <>
+                     {/*---- if the user doesn't have decks ----*/}
+                        <div className='noContentContainer' >
                             <h2>You don't have any decks yet</h2>
                             <div className='noContentImgContainer' ><img src={Decks} alt='no decks icon' /></div>
+                            <div className="addButton" onClick={handleAddDecksButton} >+</div>
                         </div>
-                    : dummyDataArray.map((card) => {
+
+                        {/*--- popup container ----*/}
+                        <div ref={refPopupBackground} onClick={closePopup} ></div>
+                        <div className="popup" style={{display: popupIsShown ? 'block' : 'none'}} >
+                            <div className='popupContent'>
+                                <h2>Create a new Deck</h2>
+                                <input type='text' placeholder='name your deck' id='nameNewDeck' />
+                                <input type='submit' value='create' id='submitDeck' />
+                            </div>
+                        </div>
+                        </>
+
+
+                    : 
+                    <>
+                    <div className='addButtonContainer'>
+                        <div className="addButton" id='addButtonDecks' onClick={handleAddDecksButton} >+</div>
+                    </div>
+                    {dummyDataArray.map((card) => {
                         /*---- defining colour classNames ----*/
                         counter < 4 ? counter++ : counter = 1;
                         switch(counter) {
@@ -57,18 +101,31 @@ const MyDecks = () => {
                             default:
                                 colourClass = 'lightBlue card';
                         }
-
+                        /*---- user has some decks ----*/
                         return(
+                            <>
                             <div className='deck' key={card.id}>
-                                <NavLink to={'/decks/' + card.id} id='home' className='decksNavLinkContainer' >
+                                <NavLink to={'/decks/' + card.id} className='decksNavLinkContainer' >
                                     <div className={colourClass} >
                                         <h2>{card.name}</h2>
                                     </div>
                                 </NavLink>
                                 <div className='heartContainer' ><img src={card.liked ? filledHeart : emptyHeart} onClick={handleHeartClick} id={'heartOfCard' + card.id} alt="" /></div>
                             </div>
+
+                            {/*--- popup container ----*/}
+                            <div ref={refPopupBackground} onClick={closePopup} ></div>
+                            <div className="popup" style={{display: popupIsShown ? 'block' : 'none'}} >
+                                <div className='popupContent'>
+                                    <h2>Create a new Deck</h2>
+                                    <input type='text' placeholder='name your deck' id='nameNewDeck' />
+                                    <input type='submit' value='create' id='submitDeck' />
+                                </div>
+                            </div>
+                        </>
                         );
-                    })
+                    })}
+                    </>
                 }
             </div>
             

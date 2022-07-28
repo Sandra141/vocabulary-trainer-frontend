@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import ContentEditable from 'react-contenteditable';
 import './../css/cards.css';
 import Header from "./Header";
 import Footer from "./Footer";
@@ -8,19 +9,21 @@ import SearchIcon from './../images/searchIcon.svg';
 
 const Cards = () => {
     const [popupIsShown, setPopupIsShown] = useState(false);
-    const [firstSide, setFirstSide] = useState(null);
-    const [secondSide, setSecondSide] = useState(null);
+    const [firstSide, setFirstSide] = useState('');
+    const [secondSide, setSecondSide] = useState('');
     const refPopupBackground = useRef(null);
+    const addCardsButton = useRef(null);
 
+    /*---- logic for popup ----*/
     const handleOpenCardDetails = (e) => {
-        const idInArray = parseInt(e.target.parentElement.id);
-        const clickedObject = dummyDataArrayCards.cards.find(obj => obj.id === idInArray);
-        setFirstSide(clickedObject.firstSide);
-        setSecondSide(clickedObject.secondSide);
+        if(e.target !== addCardsButton.current) {
+            const idInArray = parseInt(e.target.parentElement.id);
+            const clickedObject = dummyDataArrayCards.cards.find(obj => obj.id === idInArray);
+            setFirstSide(clickedObject.firstSide);
+            setSecondSide(clickedObject.secondSide);
+        }
         setPopupIsShown(current => !current);
     }
-
-    console.log(firstSide);
 
     useEffect(() => {
         const popupBackground = refPopupBackground.current;
@@ -31,6 +34,16 @@ const Cards = () => {
         }
     }, [popupIsShown]);
 
+    /*---- logic for editing the popup ----*/
+    const handleChange = e => {
+        this.setState({ html: e.target.value });
+    };
+
+    /*---- logic for closing the popup ----*/
+    const closePopup = (e) => {
+        setPopupIsShown(false);
+    }
+
     return (
         <>
         <div className='ContainerForHeaderAndMain'>
@@ -38,14 +51,16 @@ const Cards = () => {
             <div className='mainContent' id='vocabContent'>
             {
                 dummyDataArrayCards.cards.length === 0
-                ?   <div className='noContentContainer' >
+                /*---- there were no cards to be fetched ----*/
+                ?       <div className='noContentContainer' >
                         <div className="cardsDeckName lightBlue">
                             {dummyDataArrayCards.name}
                         </div>
                         <h2>You don't have any cards yet</h2>
                         <div className='noContentImgContainer' ><img src={Decks} alt='no cards icon' /></div>
+                        <div className="addButton" ref={addCardsButton} onClick={handleOpenCardDetails} >+</div>
                     </div>
-
+                /*---- cards were fetched ----*/
                 :   <>
                     <div className="cardsDeckName lightBlue">
                         {dummyDataArrayCards.name}
@@ -64,15 +79,32 @@ const Cards = () => {
                         );
                     })
                     }
-                    <div className="hidden" ref={refPopupBackground}></div>
-                    <div className="cardsPopup" style={{display: popupIsShown ? 'block' : 'none'}} >
-                        <p>Side 1:</p>
-                        <input type='text' value={firstSide} disabled />
-                        <p>Side 2:</p>
-                        <input type='text' value={secondSide} disabled />
-                    </div>
                     </>
             }
+                {/*---- popup ----*/}
+                <div className="hidden" ref={refPopupBackground} onClick={closePopup} ></div>
+                <div className="popup" style={{display: popupIsShown ? 'block' : 'none'}} >
+                    <div className="popupDecksContent">
+                        <p>Side 1:</p>
+                        <ContentEditable
+                            className="editableCardDetails"
+                            html={firstSide ? firstSide : ''}
+                            disabled={false} // use true to disable edition
+                            onChange={handleChange}
+                        />
+                        <p>Side 2:</p>
+                        <ContentEditable
+                            className="editableCardDetails"
+                            html={secondSide ? secondSide : ''}
+                            disabled={false}
+                            onChange={handleChange}
+                        />
+                        <div className="cardDetailsPopupBottom">
+                            <button>Save this Card</button>
+                            <p><a href='https://tenor.com/view/jeff-goldblum-crazy-son-of-a-bitch-you-did-it-jurrasic-park-gif-19484615' target='_blank' rel="noreferrer" >Delete</a> this Card</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <Footer />
