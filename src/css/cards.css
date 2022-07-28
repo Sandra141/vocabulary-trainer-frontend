@@ -57,7 +57,7 @@
 
 /*---- Popup to edit/add the card ----*/
 .popup {
-    background-color: rgba(6, 6, 47, 0.65); /* other option: rgba(255, 255, 255, 0.00001) */
+    background-color: rgba(6, 6, 47, 0.65); /* brighter option: rgba(255, 255, 255, 0.00001) */
     border: 2px solid white;
     border-radius: 20px;
     height: 70%;

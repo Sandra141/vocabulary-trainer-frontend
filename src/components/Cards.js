@@ -100,8 +100,8 @@ const Cards = () => {
                             onChange={handleChange}
                         />
                         <div className="cardDetailsPopupBottom">
-                            <button>Save this Card</button>
-                            <p><a href='https://tenor.com/view/jeff-goldblum-crazy-son-of-a-bitch-you-did-it-jurrasic-park-gif-19484615' target='_blank' rel="noreferrer" >Delete</a> this Card</p>
+                            <button onClick={closePopup} >Save this Card</button>
+                            <p><a onClick={closePopup} href='https://tenor.com/view/jeff-goldblum-crazy-son-of-a-bitch-you-did-it-jurrasic-park-gif-19484615' target='_blank' rel="noreferrer" >Delete</a> this Card</p>
                         </div>
                     </div>
                 </div>

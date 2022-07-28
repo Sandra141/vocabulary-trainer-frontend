@@ -71,11 +71,10 @@ const MyDecks = () => {
                             <div className='popupContent'>
                                 <h2>Create a new Deck</h2>
                                 <input type='text' placeholder='name your deck' id='nameNewDeck' />
-                                <input type='submit' value='create' id='submitDeck' />
+                                <input type='submit' value='create' id='submitDeck' onClick={closePopup} />
                             </div>
                         </div>
                         </>
-
 
                     : 
                     <>
@@ -119,7 +118,7 @@ const MyDecks = () => {
                                 <div className='popupContent'>
                                     <h2>Create a new Deck</h2>
                                     <input type='text' placeholder='name your deck' id='nameNewDeck' />
-                                    <input type='submit' value='create' id='submitDeck' />
+                                    <input type='submit' value='create' id='submitDeck' onClick={closePopup}  />
                                 </div>
                             </div>
                         </>
