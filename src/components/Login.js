@@ -10,22 +10,31 @@ import { useAuthentification } from '../contexts/Authentification.js'
 const Login = () => {
     const refUsername = useRef(null)
     const refPassword = useRef(null)
+
     const [notificationUsername, setNotificationUsername] = useState("")
     const [notificationPassword, setNotificationPassword] = useState("")
-    const [url, setUrl] = useState(null)
-    const { data, error, isLoading } = useFetch(url)
-    const { token, handleSetToken } = useAuthentification()
-    const location = useLocation();
     const [isAuthentificated, setIsAuthentificated] = useState(false)
-    const [showLogin, setShowLogin] = useState(false)
+    const [showLoading, setShowLoading] = useState(true)
+    const [request, setRequest] = useState(null)
 
+    const location = useLocation();
+    const { token, handleSetToken } = useAuthentification()
+
+    const { data, error, isLoading } = useFetch(request)
+
+    // clear notifcations
+    const clearNotifications = () => {
+        setNotificationUsername("")
+        setNotificationPassword("")
+    }
+
+    // validate user input before communicate with server
     const validateInput = () => {
+        clearNotifications()
+
         let result = true
         const username = refUsername.current.value
         const password = refPassword.current.value
-
-        setNotificationUsername("")
-        setNotificationPassword("")
 
         // Username is empty
         if (!username) {
@@ -46,11 +55,12 @@ const Login = () => {
         return result
     }
 
+    // Delete Notifications when user is typing
     const handleChange = e => {
-        setNotificationUsername("")
-        setNotificationPassword("")
+        clearNotifications()
     }
 
+    // Submit
     const handleSubmit = e => {
         e.preventDefault();
 
@@ -61,55 +71,40 @@ const Login = () => {
         const password = refPassword.current.value
 
         const newUrl = createURL_loginCredentials(username, password)
-
-        setUrl(newUrl)
+        setRequest(newUrl)
     }
 
-    // handle authentification with credentials
-    // TRUE: Fetch jwt
-    // FALSE: Delete everything
-    useEffect(() => {
-        console.log("err--------------", error)
-        if (error) {
-            console.log("ERRRRRRRRRRRRRRRRRRRRRRRRR", error)
-            setNotificationUsername(!error ? "" : error.status)
-            setNotificationPassword(!error ? "" : JSON.stringify(error))
-        }
-        else if (data && data.success && data.success === true) {
-            // authentification ok
-            console.log("WOWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW", data)
-
-            // TOKEN
-            if (data.data.token) {
-                console.log("save token", data.data.token)
-                handleSetToken(data.data.token)
-            }
-            // handleSetToken()
-            setIsAuthentificated(true)
-
-        } else if (data) {
-            // authentification not ok
-            console.log("FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU", data)
-            setNotificationUsername(!data.email ? "" : data.email)
-            setNotificationPassword(!data.password ? "" : data.password)
-        }
-    }, [data, error])
-
-    // can we authentification with JWT
+    // when token available try to fetch data
     useEffect(() => {
         // zeige erst loading screen an
         setTimeout(() => {
-            // EXIT: kein token gefunden
-            console.log("token", token)
-            if (token) {
-                const newUrl = createURL_loginJWT(token)
-                setUrl(newUrl)
-                
-            } 
-            
-            setShowLogin(true)
+            setShowLoading(false)
         }, 3000);
     }, [])
+
+    // handle authentification
+    useEffect(() => {
+        clearNotifications()
+
+        // EXIT: error
+        if (error) return console.log(error)
+
+        // EXIT: no data
+        if (!data) return
+
+        // EXIT: authentification is not ok
+        if (!data.success) {
+            if (data.email) setNotificationUsername(data.email)
+            if (data.password) setNotificationUsername(data.password)
+            return
+        }
+
+        // Wurde ein Token vom Server mitgesendet?
+        if (data.data?.token) handleSetToken(data.data.token)
+
+        // SUCCESS: authentification is ok        
+        setIsAuthentificated(true)
+    }, [data, error])
 
     const renderNotificationUsername = () => !notificationUsername
         ? <br />
@@ -124,7 +119,7 @@ const Login = () => {
         : <Error error={error} />
 
     // Stufe 1: Zeige Loading spinner an
-    if (!showLogin) return <Loading isLoading={isLoading} />
+    if (showLoading) return <Loading isLoading={isLoading} />
 
     // Stufe 2: jwt authentifizierung ok, dann navigiere direkt zu...
     if (isAuthentificated) return <Navigate to="/" state={{ from: location }} replace />;

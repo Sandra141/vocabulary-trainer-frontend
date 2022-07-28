@@ -9,11 +9,6 @@ const Loading = (props) => {
     useEffect(() => {
         // activate Modal
         if (isLoading) return setShowModal(true)
-
-        // deactivate Modal
-        setTimeout(() => {
-            setShowModal(false);
-        }, 3000);
     }, [isLoading])
 
     const renderModal = () => !showModal
@@ -21,7 +16,8 @@ const Loading = (props) => {
         : (<Modal>
             <div className='loading'>
                 <div className="card">
-                    Loading...Please wait...
+                    <h1>Loading...</h1>
+                    <p>Please wait...</p>
                 </div>
             </div>
         </Modal >)

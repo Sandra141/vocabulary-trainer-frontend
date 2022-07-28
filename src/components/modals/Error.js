@@ -6,16 +6,11 @@ const Error = (props) => {
     const { error } = props
     const [showModal, setShowModal] = useState(false)
 
-    const deeactivateModal = () => setShowModal(false)
+    const deactivateModal = () => setShowModal(false)
 
     useEffect(() => {
         // activate Modal
         if (error) return setShowModal(true)
-
-        // deactivate Modal
-        setTimeout(() => {
-            setShowModal(false);
-        }, 3000);
     }, [error])
 
     const renderError = () => !error
@@ -29,7 +24,7 @@ const Error = (props) => {
                 <div className="card">
                     <h1>ERROR</h1>
                     {renderError()}
-                    <button onClick={deeactivateModal}>OK</button>
+                    <button onClick={deactivateModal}>OK</button>
                 </div>
             </div>
         </Modal >)
