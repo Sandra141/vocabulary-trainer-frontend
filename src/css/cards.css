@@ -1,0 +1,55 @@
+#vocabContent {
+    align-items: center;
+    text-align: center;
+}
+
+/*---- if there are no cards to be fetched: use the classes from myDecks.css ----*/
+.cardsDeckName {
+    width: 100%;
+    border-radius: 20px;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+
+/*---- if there are decks ----*/
+.cardSearchField {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    padding-right: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.cardSearchField input {
+    width: 100%;
+    border: none;
+    height: 2rem;
+    border-radius: 10px;
+    padding-left: 0.5rem;
+}
+
+.cardSearchField img {
+    height: 80%;
+}
+
+.cards {
+    padding: 0.2rem 0;
+    width: 100%;
+    border-bottom: solid 1px #06062F;
+    box-shadow: 0 2px 0 rgb(227, 227, 227);
+}
+
+.cards:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+}
+
+.cards p {
+    height: 50%;
+}

@@ -7,5 +7,5 @@
     background-color: #EAEFF8;
     width: 100%;
     min-height: 100vh;
-    border-radius: 30px;
+    position: relative;
 }
