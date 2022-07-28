@@ -10,7 +10,8 @@ const dummyDataArrayCards = {
     {'id': 5, 'firstSide': 'bla', 'secondSide': 'bla die dritte', 'ranking': 50},
     {'id': 6, 'firstSide': 'bla', 'secondSide': 'bla die vierte', 'ranking': 50},
     {'id': 5, 'firstSide': 'bla', 'secondSide': 'bla die dritte', 'ranking': 50},
-    {'id': 6, 'firstSide': 'bla', 'secondSide': 'bla die vierte', 'ranking': 50}]
+    {'id': 6, 'firstSide': 'bla', 'secondSide': 'bla die vierte', 'ranking': 50}
+]
 };
 
 export default dummyDataArrayCards;

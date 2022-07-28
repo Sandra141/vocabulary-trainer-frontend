@@ -1,0 +1,46 @@
+.decksNavLinkContainerGames {
+    text-decoration: none;
+    margin-bottom: 8%;
+}
+
+.cardGames {
+    width: 100%;
+    height: 5rem;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.heartContainerGames {
+    position: absolute;
+    display: flex;
+    height: 30px;
+    z-index: 1;
+    top: calc(2.5rem - 15px); /* 2.5rem: half of deck height, 15px: half of own height*/
+    left: 30px;
+}
+
+.heartContainerGames:hover {
+    cursor: pointer;
+}
+
+.heartContainerGames img {
+    height: 30px;
+    width: 30px;
+}
+
+.backgroundContainerGames {
+    position: absolute;
+    display: flex;
+    height: 4rem;
+    z-index: 1;
+    bottom: 0; /* 2.5rem: half of deck height, 15px: half of own height*/
+    right: 0;
+    overflow: hidden;
+}
+
+#backgroundCentered {
+    right: 1rem;
+    bottom: 0.5rem;
+}
