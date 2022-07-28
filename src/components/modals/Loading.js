@@ -6,8 +6,6 @@ const Loading = (props) => {
     const { isLoading, msg } = props
     const [showModal, setShowModal] = useState(false)
 
-    console.log("first", props)
-
     useEffect(() => {
         // activate Modal
         if (isLoading) return setShowModal(true)

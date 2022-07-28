@@ -9,8 +9,8 @@ import Profile from './components/Profile';
 import Settings from './components/Settings';
 import Login from './components/Login';
 import Registration from './components/Registration';
-import RequireAuthentification from './components/RequireAuthentification';
-import Download from './components/Download';
+import RequireAuthentification from './components/system/RequireAuthentification';
+import Download from './components/system/Download';
 
 function App() {
   return (

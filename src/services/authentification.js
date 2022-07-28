@@ -1,5 +1,3 @@
-import React from "react";
-import env from "react-dotenv";
 const API_URL = process.env.REACT_APP_API_URL + "/api/auth"
 const PATH_LOGIN = "/login"
 const PATH_REGISTER = "/register"

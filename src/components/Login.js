@@ -8,7 +8,7 @@ import Error from './modals/Error';
 import { useAuthentification } from '../contexts/Authentification.js'
 
 const Login = () => {
-    const { token, handleSetToken } = useAuthentification()
+    const { handleSetToken } = useAuthentification()
 
     const refUsername = useRef(null)
     const refPassword = useRef(null)

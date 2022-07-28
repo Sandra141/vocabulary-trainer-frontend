@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Navigate, NavLink, useLocation } from 'react-router-dom';
-import { useAuthentification } from '../contexts/Authentification.js'
-import useFetch from '../hooks/useFetch.js';
-import { createURL_loginCredentials, createURL_loginJWT } from '../services/authentification'
-import Loading from './modals/Loading.js';
+import React, { useEffect, useState } from 'react'
+import useFetch from '../../hooks/useFetch.js';
+import Loading from '../modals/Loading.js';
+import { NavLink } from 'react-router-dom';
+import { useAuthentification } from '../../contexts/Authentification'
+import { createURL_loginJWT } from '../../services/authentification'
 
 const RequireAuthentification = ({ children }) => {
     const { token } = useAuthentification()
@@ -44,7 +44,6 @@ const RequireAuthentification = ({ children }) => {
             <NavLink to="/login">GO back to login</NavLink>
         </div>
     )
-    // if (!access) return <Navigate to="/login" state={{ from: location }} replace />;
 
     // Step 3: access
     return children

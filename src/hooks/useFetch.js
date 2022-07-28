@@ -7,7 +7,7 @@ const useFetch = (request) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            console.log("FETCH")
+            // console.log("FETCH")
             // EXIT: url is empty
             if (request === null) {
                 setData(null)

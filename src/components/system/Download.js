@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Navigate, NavLink, useLocation } from 'react-router-dom';
-import useFetch from '../hooks/useFetch'
-import { createURL_download } from '../services/vocabulary'
-import { useAuthentification } from '../contexts/Authentification.js'
-import { useVocabulary } from '../contexts/Vocabulary'
-import Loading from './modals/Loading.js';
+import useFetch from '../../hooks/useFetch'
+import Loading from '../modals/Loading.js';
+import { Navigate, useLocation } from 'react-router-dom';
+import { createURL_download } from '../../services/vocabulary'
+import { useAuthentification } from '../../contexts/Authentification.js'
+import { useVocabulary } from '../../contexts/Vocabulary'
 
 const Download = () => {
     const { token } = useAuthentification()
-    const { setDecks, setDecks_cards, setCards } = useVocabulary()
+    const { setUser_id, setDecks, setDecks_cards, setCards } = useVocabulary()
 
     const [showLoading, setShowLoading] = useState(true)
     const [request, setRequest] = useState(null)
@@ -27,6 +27,7 @@ const Download = () => {
 
         // SUCCESS: authentification und download ok
         const { _id: user_id, decks, decks_cards, cards } = data.data[0]
+        setUser_id(user_id)
         setDecks(decks)
         setDecks_cards(decks_cards)
         setCards(cards)
@@ -46,7 +47,7 @@ const Download = () => {
     if (showLoading) return <Loading msg={"Download"} isLoading={isLoading} />
 
     // Download complete
-    return <Navigate to="/" state={{ from: location }} replace />;
+    return <Navigate to="/decks" state={{ from: location }} replace />;
 }
 
 export default Download

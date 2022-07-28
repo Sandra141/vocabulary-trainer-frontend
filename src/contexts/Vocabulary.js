@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState } from 'react'
 const StateContext = createContext()
 
 export const Vocabulary = ({ children }) => {
+    const [user_id, setUser_id] = useState([])
     const [decks, setDecks] = useState([])
     const [decks_cards, setDecks_cards] = useState([])
     const [cards, setCards] = useState([])
@@ -23,9 +24,11 @@ export const Vocabulary = ({ children }) => {
     return (
         <StateContext.Provider
             value={{
+                user_id, setUser_id,
                 decks, setDecks,
                 decks_cards, setDecks_cards,
                 cards, setCards,
+                getDeck, getCards,
             }}
         >
             {children}
