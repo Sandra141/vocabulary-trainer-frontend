@@ -33,7 +33,7 @@ const MyDecks = () => {
 
     /*---- logic for popup ----*/
     const handleAddDecksButton = (e) => {
-        document.body.classList.add("no-scroll");
+        document.body.style.overflow = 'hidden';
         setPopupIsShown(current => !current);
     }
 
@@ -48,6 +48,7 @@ const MyDecks = () => {
 
     /*---- logic for closing the popup ----*/
     const closePopup = (e) => {
+        document.body.style.overflow = 'visible';
         setPopupIsShown(false);
     }
 
@@ -66,10 +67,7 @@ const MyDecks = () => {
                             <div className='noContentImgContainer' ><img src={Decks} alt='no decks icon' /></div>
                             <div className="addButton" onClick={handleAddDecksButton} >+</div>
                         </div>
-
-                        
                         </>
-
                     : 
                     <>
                     <div className='addButtonContainer'>
@@ -114,13 +112,13 @@ const MyDecks = () => {
                 }
                 {/*--- popup container ----*/}
                 <div ref={refPopupBackground} onClick={closePopup} ></div>
-                        <div className="popup" style={{display: popupIsShown ? 'block' : 'none'}} >
-                            <div className='popupContent'>
-                                <h2>Create a new Deck</h2>
-                                <input type='text' placeholder='name your deck' id='nameNewDeck' />
-                                <input type='submit' value='create' id='submitDeck' onClick={closePopup} />
-                            </div>
-                        </div>
+                <div className="popup" style={{display: popupIsShown ? 'block' : 'none'}} >
+                    <div className='popupContent'>
+                        <h2>Create a new Deck</h2>
+                        <input type='text' placeholder='name your deck' id='nameNewDeck' />
+                        <input type='submit' value='create' id='submitDeck' onClick={closePopup} />
+                    </div>
+                </div>
             </div>
             
         </div>

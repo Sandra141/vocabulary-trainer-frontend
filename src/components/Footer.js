@@ -24,16 +24,10 @@ const Footer = () => {
         }
     }
 
-    // HINT: sobald die Maske fertig geladen ist, dann führe diesen Code-Block hier aus, dann brauchst du keinen Timer mehr 👍
     useEffect(() => {
-        /*---- home: check for active class and change src accordingly ----*/
-        handleActiveStatus(refHomeImage, footerHomeWhite, footerHomeGray)
-
-        /*---- profile: check for active class and change src accordingly ----*/
-        handleActiveStatus(refProfileImage, footerProfileWhite, footerProfileGray)
-
-        /*---- settings: check for active class and change src accordingly ----*/
-        handleActiveStatus(refSettingsImage, footerSettingsWhite, footerSettingsGray)
+        handleActiveStatus(refHomeImage, footerHomeWhite, footerHomeGray);
+        handleActiveStatus(refProfileImage, footerProfileWhite, footerProfileGray);
+        handleActiveStatus(refSettingsImage, footerSettingsWhite, footerSettingsGray);
     }, [])
 
     return (

@@ -6,8 +6,8 @@
     width: 80vw;
     padding: 1rem;
     color: white;
-    position: absolute;
-    top: calc(50% - 25vh); /* 50%: half of next relative parent element (#vocabContent), 25vh: half of own height */
+    position: fixed;
+    top: calc(50vh - 25vh); /* 50vh: half of screen height, 25vh: half of own height */
     left: calc(50% - 40vw); /* 50%: half of next relative parent element (#vocabContent), 40vw: half of own width */
     text-align: left;
     z-index: 3;
