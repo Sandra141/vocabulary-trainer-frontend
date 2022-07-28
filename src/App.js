@@ -22,7 +22,6 @@ function App() {
           <Route path="/registration" element={<Registration />} />
           <Route path="*" element={<h1>Warning! <br />Page not available</h1>} />
 
-          <Route path="/" element={<RequireAuthentification><MyDecks /></RequireAuthentification>} />
           <Route path="/download" element={<RequireAuthentification><Download /></RequireAuthentification>} />
           <Route path="/find-Decks" element={<RequireAuthentification><PublishedDecks /></RequireAuthentification>} />
           <Route path="/games" element={<RequireAuthentification><Games /></RequireAuthentification>} />
