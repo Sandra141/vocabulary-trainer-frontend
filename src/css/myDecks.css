@@ -1,6 +1,6 @@
 /*---- if there are no decks to be fetchend ----*/
 .noContentContainer {
-    height: 100%;
+    height: 65vh;
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -23,6 +23,7 @@ const Cards = () => {
             setFirstSide(clickedObject.firstSide);
             setSecondSide(clickedObject.secondSide);
         }
+        document.body.style.overflow = 'hidden';
         setPopupIsShown(current => !current);
     }
 
@@ -42,6 +43,7 @@ const Cards = () => {
 
     /*---- logic for closing the popup ----*/
     const closePopup = (e) => {
+        document.body.style.overflow = 'visible';
         setPopupIsShown(false);
     }
 
