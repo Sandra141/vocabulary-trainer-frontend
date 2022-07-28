@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import './../css/myDecks.css';
+import './../css/popup.css';
 import Header from './Header';
 import Footer from './Footer';
 import dummyDataArray from './dummyDataArrayDecks';
@@ -14,6 +15,7 @@ const MyDecks = () => {
     const [popupIsShown, setPopupIsShown] = useState(false);
     const refPopupBackground = useRef(null);
 
+    /*---- add a deck to favourites ----*/
     const handleHeartClick = (e) => {
         /*---- needs to be reworked ----*/
         const cardId = e.target.id.replace('heartOfCard', '');
@@ -31,8 +33,8 @@ const MyDecks = () => {
 
     /*---- logic for popup ----*/
     const handleAddDecksButton = (e) => {
+        document.body.classList.add("no-scroll");
         setPopupIsShown(current => !current);
-        console.log(popupIsShown);
     }
 
     useEffect(() => {
@@ -54,7 +56,7 @@ const MyDecks = () => {
         <div className='ContainerForHeaderAndMain'>
             <Header />
 
-            <div className='mainContent' id='decksContent'>
+            <div className='mainContent'>
                 {
                     dummyDataArray.length === 0
                     ?   <>
@@ -65,15 +67,7 @@ const MyDecks = () => {
                             <div className="addButton" onClick={handleAddDecksButton} >+</div>
                         </div>
 
-                        {/*--- popup container ----*/}
-                        <div ref={refPopupBackground} onClick={closePopup} ></div>
-                        <div className="popup" style={{display: popupIsShown ? 'block' : 'none'}} >
-                            <div className='popupContent'>
-                                <h2>Create a new Deck</h2>
-                                <input type='text' placeholder='name your deck' id='nameNewDeck' />
-                                <input type='submit' value='create' id='submitDeck' onClick={closePopup} />
-                            </div>
-                        </div>
+                        
                         </>
 
                     : 
@@ -102,7 +96,7 @@ const MyDecks = () => {
                         }
                         /*---- user has some decks ----*/
                         return(
-                            <>
+                        <>
                             <div className='deck' key={card.id}>
                                 <NavLink to={'/decks/' + card.id} className='decksNavLinkContainer' >
                                     <div className={colourClass} >
@@ -112,20 +106,21 @@ const MyDecks = () => {
                                 <div className='heartContainer' ><img src={card.liked ? filledHeart : emptyHeart} onClick={handleHeartClick} id={'heartOfCard' + card.id} alt="" /></div>
                             </div>
 
-                            {/*--- popup container ----*/}
-                            <div ref={refPopupBackground} onClick={closePopup} ></div>
-                            <div className="popup" style={{display: popupIsShown ? 'block' : 'none'}} >
-                                <div className='popupContent'>
-                                    <h2>Create a new Deck</h2>
-                                    <input type='text' placeholder='name your deck' id='nameNewDeck' />
-                                    <input type='submit' value='create' id='submitDeck' onClick={closePopup}  />
-                                </div>
-                            </div>
+                            
                         </>
                         );
                     })}
                     </>
                 }
+                {/*--- popup container ----*/}
+                <div ref={refPopupBackground} onClick={closePopup} ></div>
+                        <div className="popup" style={{display: popupIsShown ? 'block' : 'none'}} >
+                            <div className='popupContent'>
+                                <h2>Create a new Deck</h2>
+                                <input type='text' placeholder='name your deck' id='nameNewDeck' />
+                                <input type='submit' value='create' id='submitDeck' onClick={closePopup} />
+                            </div>
+                        </div>
             </div>
             
         </div>

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import ContentEditable from 'react-contenteditable';
 import './../css/cards.css';
+import './../css/popup.css';
 import Header from "./Header";
 import Footer from "./Footer";
 import dummyDataArrayCards from "./dummyDataArrayCards";

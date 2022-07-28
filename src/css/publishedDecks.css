@@ -1,5 +1,15 @@
+.searchFieldContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.publicDeckContainer {
+    position: relative;
+}
+
 .publicDeck {
-    margin-bottom: 8%;
+    margin-bottom: 2rem;
     width: 100%;
     text-decoration: none;
     border-radius: 20px;
@@ -17,16 +27,40 @@
 }
 
 .publicDeckBottom {
-    padding: 1.5rem 10%;
+    /*padding: 1.5rem 10%;*/
     display: flex;
     justify-content: space-around;
     align-items: center;
     background-color: rgba(255, 255, 255, 0.13);
     width: 100%;
-    height: 2rem;
+    height: 3rem;
     border-radius: 0 0 20px 20px;
+}
+
+.thumbsContainer {
+    width: 100%;
+    height: 2rem;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 10%;
+    z-index: 1;
+    left: 0;
+    bottom: calc(2rem + 1.5rem - 1rem); /* 2rem: margin, 1.5rem: half of height of .publicDeckBottom, 1 rem: half of own hight*/
 }
 
 .publicDeckThumbs {
     display: flex;
+    align-items: center;
+}
+
+.publicDeckThumbs:hover {
+    cursor: pointer;
+}
+
+.publicDeckThumbs img {
+    height: 30px;
+    width: 30px;
+    margin-right: 0.5rem;
 }

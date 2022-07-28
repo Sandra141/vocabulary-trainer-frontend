@@ -30,24 +30,24 @@ p {
   outline: none;
 }
 
-/*------- Registration, Login, Profile, Settings Main Container -------*/
+/*------- important classes -------*/
 .ContainerForHeaderBlankAndMain {
-  height: 99vh;
+  height: 99vh; /* fixed hight since page is not supposed to be bigger than that */
   width: 100%;
   display: flex;
   flex-direction: column;
 }
 
 .ContainerForHeaderAndMain {
-  height: 90vh;
+  min-height: 90vh;
   width: 100%;
   display: flex;
   flex-direction: column;
 }
 
 .mainContent {
-  height: 100%;
-  padding: 6% 6% 0;
+  height: 70vh;
+  padding: 6% 6% 10vh;
   display: flex;
   flex-direction: column;
 }
