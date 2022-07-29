@@ -29,9 +29,7 @@ const RequireAuthentification = ({ children }) => {
     useEffect(() => {
         setRequest(createURL_loginJWT(token))
         // show 1 sek loading-modal
-        setTimeout(() => {
-            setShowLoading(false)
-        }, 1000);
+        setShowLoading(false)
     }, [])
 
     // Step 1: show first loading

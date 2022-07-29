@@ -87,3 +87,65 @@
     height: 30px;
     width: 30px;
 }
+
+/*---- dot menu ----*/
+.dotMenuContainer {
+    display: none;
+    position: absolute;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+    z-index: 1;
+    top: calc(2rem - 15px); /* 2rem: half of deck height, 15px: half of own height*/
+    right: 20px;
+}
+
+.dotMenuContainer:hover {
+    cursor: pointer;
+}
+
+.dotMenuContainer img {
+    border: 1px solid rgba(255, 255, 255, 0.0001);
+    max-height: 30px;
+    width: 100%;
+    padding: 5px;
+}
+
+.dotMenuContainer img:hover {
+    border: 1px solid white;
+    border-radius: 50%;
+}
+
+/* DotMenu - Details */
+.dotMenuDetailsContainer {
+    display: none;
+    position: absolute;
+    justify-content: center;
+    height: 20px;
+    z-index: 1;
+    top: calc(2rem - 10px + 10px + 1.5rem); /* 2rem: half of deck height, 15px: half of own height, 10px: half of .dotMenuContainer, 1.5rem: additional distance to dotMenu */
+    right: 20px;
+}
+
+.dotMenuDetails {
+    display: inherit;
+    background-color: white;
+    height: 100%;
+    padding: 1rem;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dotMenuDetails:hover {
+    animation: hover 0.2s forwards;
+    cursor: pointer;
+}
+
+@keyframes hover {
+    100% {
+        background-color: #557CF3;
+        color: white;
+    }
+}

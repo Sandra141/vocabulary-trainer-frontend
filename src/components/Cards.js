@@ -57,7 +57,12 @@ const Cards = () => {
                 /*---- there were no cards to be fetched ----*/
                 ?       <div className='noContentContainer' >
                         <div className="cardsDeckName lightBlue">
-                            {dummyDataArrayCards.name}
+                            <ContentEditable
+                                className="editableCardDetails"
+                                html={dummyDataArrayCards.name}
+                                disabled={false} // use true to disable edition
+                                onChange={handleChange}
+                            />
                         </div>
                         <h2>You don't have any cards yet</h2>
                         <div className='noContentImgContainer' ><img src={Decks} alt='no cards icon' /></div>
@@ -66,7 +71,12 @@ const Cards = () => {
                 /*---- cards were fetched ----*/
                 :   <>
                     <div className="cardsDeckName lightBlue">
-                        {dummyDataArrayCards.name}
+                        <ContentEditable
+                            className="editableCardDetails"
+                            html={dummyDataArrayCards.name}
+                            disabled={false} // use true to disable edition
+                            onChange={handleChange}
+                        />
                     </div>
                     <div className="cardSearchField">
                         <input type='text' />

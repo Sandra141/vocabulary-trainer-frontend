@@ -38,9 +38,7 @@ const Download = () => {
     useEffect(() => {
         setRequest(createURL_download(token))
         // show 1 sek loading-modal
-        setTimeout(() => {
-            setShowLoading(false)
-        }, 1000);
+        setShowLoading(false)
     }, [])
 
     // Stufe 1: Zeige Loading spinner an
