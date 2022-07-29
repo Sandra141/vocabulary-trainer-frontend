@@ -78,9 +78,7 @@ const Login = () => {
     // when token available try to fetch data
     useEffect(() => {
         // zeige erst loading screen an
-        setTimeout(() => {
-            setShowLoading(false)
-        }, 3000);
+        setShowLoading(false)
     }, [])
 
     // handle authentification
