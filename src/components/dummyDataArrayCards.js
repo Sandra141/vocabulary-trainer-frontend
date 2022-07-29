@@ -7,10 +7,10 @@ const dummyDataArrayCards = {
     {'id': 4, 'firstSide': 'bla', 'secondSide': 'bla die zweite', 'ranking': 50},
     {'id': 5, 'firstSide': 'bla', 'secondSide': 'bla die dritte', 'ranking': 50},
     {'id': 6, 'firstSide': 'bla', 'secondSide': 'bla die vierte', 'ranking': 50},
-    {'id': 5, 'firstSide': 'bla', 'secondSide': 'bla die dritte', 'ranking': 50},
-    {'id': 6, 'firstSide': 'bla', 'secondSide': 'bla die vierte', 'ranking': 50},
-    {'id': 5, 'firstSide': 'bla', 'secondSide': 'bla die dritte', 'ranking': 50},
-    {'id': 6, 'firstSide': 'bla', 'secondSide': 'bla die vierte', 'ranking': 50}
+    {'id': 7, 'firstSide': 'bla', 'secondSide': 'bla die dritte', 'ranking': 50},
+    {'id': 8, 'firstSide': 'bla', 'secondSide': 'bla die vierte', 'ranking': 50},
+    {'id': 9, 'firstSide': 'bla', 'secondSide': 'bla die dritte', 'ranking': 50},
+    {'id': 10, 'firstSide': 'bla', 'secondSide': 'bla die vierte', 'ranking': 50}
 ]
 };
 

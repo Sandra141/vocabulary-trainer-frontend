@@ -94,7 +94,6 @@ const MyDecks = () => {
                         }
                         /*---- user has some decks ----*/
                         return(
-                        <>
                             <div className='deck' key={card.id}>
                                 <NavLink to={'/decks/' + card.id} className='decksNavLinkContainer' >
                                     <div className={colourClass} >
@@ -103,9 +102,6 @@ const MyDecks = () => {
                                 </NavLink>
                                 <div className='heartContainer' ><img src={card.liked ? filledHeart : emptyHeart} onClick={handleHeartClick} id={'heartOfCard' + card.id} alt="" /></div>
                             </div>
-
-                            
-                        </>
                         );
                     })}
                     </>

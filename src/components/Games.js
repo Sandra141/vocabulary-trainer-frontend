@@ -50,23 +50,18 @@ const Games = () => {
                     counterBackground = counterBackground + 1;
 
                     if(card.id === 1) {
-                        console.log(1);
                         gamesBackground = FlashcardsIcon;
                         backgroundId = '';
                     } else if (card.id === 2) {
-                        console.log(2);
                         gamesBackground = MemoryIcon;
                         backgroundId = '';
                     } else if (card.id === 3) {
-                        console.log(3);
                         gamesBackground = MultipleChoiceIcon;
                         backgroundId = 'backgroundCentered';
                     } else if (card.id === 4) {
-                        console.log(4);
                         gamesBackground = CharsIcon;
                         backgroundId = 'backgroundCentered';
                     } else if (card.id === 5) {
-                        console.log(5);
                         gamesBackground = ConnectIcon;
                         backgroundId = '';
                     } else {
@@ -74,7 +69,6 @@ const Games = () => {
                     }
 
                     return(
-                        <>
                         <div className='deck' key={card.id}>
                             <NavLink to={'/games/' + card.id} className='decksNavLinkContainerGames' >
                                 <div className={colourClass} >
@@ -84,7 +78,6 @@ const Games = () => {
                             <div className='heartContainerGames' ><img src={card.liked ? filledHeart : emptyHeart} id={'heartOfCard' + card.id} alt="" /></div>
                             <div className='backgroundContainerGames' id={backgroundId} ><img src={gamesBackground} alt="" /></div>
                         </div>
-                        </>
                     );
                 })
                 }
