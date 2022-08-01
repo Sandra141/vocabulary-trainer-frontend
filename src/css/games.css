@@ -1,6 +1,11 @@
+.decksForGames {
+    margin-bottom: 8%;
+    position: relative;
+    border-radius: 10px;
+}
+
 .decksNavLinkContainerGames {
     text-decoration: none;
-    margin-bottom: 8%;
 }
 
 .cardGames {
@@ -10,6 +15,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    color: white;
 }
 
 .heartContainerGames {
@@ -38,9 +44,4 @@
     bottom: 0; /* 2.5rem: half of deck height, 15px: half of own height*/
     right: 0;
     overflow: hidden;
-}
-
-#backgroundCentered {
-    right: 1rem;
-    bottom: 0.5rem;
 }
