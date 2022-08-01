@@ -4,22 +4,30 @@ import './../css/myDecks.css';
 import './../css/popup.css';
 import Header from './Header';
 import Footer from './Footer';
-import dummyDataArray from './dummyDataArrayDecks';
+// import dummyDataArray from './dummyDataArrayDecks';
 import emptyHeart from './../images/emptyHeart.svg';
 import filledHeart from './../images/filledHeart.svg';
 import Decks from './../images/decks.png';
+import { useVocabulary } from '../contexts/Vocabulary.js'
 
 const MyDecks = () => {
+    const vocabulary = useVocabulary()
     let counter = 0;
     let colourClass;
     const [popupIsShown, setPopupIsShown] = useState(false);
     const refPopupBackground = useRef(null);
+
+    const dummyDataArray = vocabulary.decks
+    console.log("first",dummyDataArray[0])
+    console.log("mickey", vocabulary.getCards(dummyDataArray[0]))
 
     /*---- add a deck to favourites ----*/
     const handleHeartClick = (e) => {
         /*---- needs to be reworked ----*/
         const cardId = e.target.id.replace('heartOfCard', '');
         const positionInArray = dummyDataArray.findIndex(dummyDataArray => dummyDataArray.id === cardId);
+        
+        
         if(dummyDataArray[positionInArray].liked) {
             /*---- change: send to database ----*/
             dummyDataArray[positionInArray].liked = false;
@@ -48,6 +56,10 @@ const MyDecks = () => {
 
     /*---- logic for closing the popup ----*/
     const closePopup = (e) => {
+        // Create new Deck
+        vocabulary.update_decks({"name": "English 50", "shared": false })
+
+
         document.body.style.overflow = 'visible';
         setPopupIsShown(false);
     }
@@ -95,8 +107,8 @@ const MyDecks = () => {
                         /*---- user has some decks ----*/
                         return(
                         <>
-                            <div className='deck' key={card.id}>
-                                <NavLink to={'/decks/' + card.id} className='decksNavLinkContainer' >
+                            <div className='deck' key={card._id}>
+                                <NavLink to={'/decks/' + card._id} className='decksNavLinkContainer' >
                                     <div className={colourClass} >
                                         <h2>{card.name}</h2>
                                     </div>

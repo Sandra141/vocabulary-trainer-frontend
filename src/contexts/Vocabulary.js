@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import useFetch from '../hooks/useFetch'
-var { ObjectId } = require('mongodb');
+import { ObjectID } from 'bson';
 //new ObjectID();
 
 const StateContext = createContext()
@@ -48,7 +48,10 @@ export const Vocabulary = ({ children }) => {
     const save_local = (data, setState) => setState(prev => {
         console.log("save_local_" + setState)
         // Mit dem Flag, weis ich das ich synchronisieren muss
-        data = [...data, { update_flag: true }]
+        data = {
+            ...data,
+            update_flag: true
+        }
 
         // EXIT: Create new data
         if (!data._id) {
@@ -86,15 +89,17 @@ export const Vocabulary = ({ children }) => {
 
     const getCards = deck => {
         const cards = decks_cards.filter(x => x.decks_id === deck._id)
+        console.log(1111, cards)
         const card_ids = cards.map(x => x.cards_id)
+        console.log(222222, card_ids)
         return cards.filter(x => card_ids.includes(x._id))
     }
 
-    // Update mit DB
-    useEffect(() => {
-        // TODO: alle suchen die das flag haben, dann das flag wieder entfernen und alles hochladen
-        // const update = users.filter(x => x.update_flag).map(x => )
-    }, [users])
+    // // Update mit DB
+    // useEffect(() => {
+    //     // TODO: alle suchen die das flag haben, dann das flag wieder entfernen und alles hochladen
+    //     // const update = users.filter(x => x.update_flag).map(x => )
+    // }, [users])
 
 
     return (
