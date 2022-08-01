@@ -3,7 +3,7 @@ import { Navigate, NavLink, useLocation } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
 import './../css/registration.css';
 import HeaderBlank from "./HeaderBlank";
-import { createURL_register } from '../services/authentification'
+import { url_credentials_update } from '../services/authentification'
 import { useAuthentification } from '../contexts/Authentification.js'
 
 
@@ -59,7 +59,7 @@ const Registration = () => {
         const username = refUsername.current.value
         const password = refPassword.current.value
 
-        const newUrl = createURL_register(username, password)
+        const newUrl = url_credentials_update(username, password)
 
         setUrl(newUrl)
     }
@@ -99,7 +99,7 @@ const Registration = () => {
         ? <br />
         : <div>{notificationPassword}</div>
 
-    if (isAuthentificated) return <Navigate to="/" state={{ from: location }} replace />;
+    if (isAuthentificated) return <Navigate to="/download" state={{ from: location }} replace />;
 
     return (
         <div className='ContainerForHeaderBlankAndMain'>

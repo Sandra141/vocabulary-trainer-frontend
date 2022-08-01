@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import { Navigate, NavLink, useLocation } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
 import HeaderBlank from "./HeaderBlank";
-import { createURL_loginCredentials, createURL_loginJWT } from '../services/authentification'
+import { url_credentials_read } from '../services/authentification'
 import Loading from './modals/Loading';
 import Error from './modals/Error';
 import { useAuthentification } from '../contexts/Authentification.js'
@@ -71,16 +71,16 @@ const Login = () => {
         const username = refUsername.current.value
         const password = refPassword.current.value
 
-        const newUrl = createURL_loginCredentials(username, password)
+        const newUrl = url_credentials_read(username, password)
         setRequest(newUrl)
     }
 
     // when token available try to fetch data
     useEffect(() => {
         // zeige erst loading screen an
-        setTimeout(() => {
+        // setTimeout(() => {
             setShowLoading(false)
-        }, 3000);
+        // }, 3000);
     }, [])
 
     // handle authentification

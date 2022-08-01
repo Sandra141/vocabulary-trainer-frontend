@@ -2,13 +2,17 @@ import React, { useEffect, useState } from 'react'
 import useFetch from '../../hooks/useFetch'
 import Loading from '../modals/Loading.js';
 import { Navigate, useLocation } from 'react-router-dom';
-import { createURL_download } from '../../services/vocabulary'
+import { url_sync_read } from '../../services/vocabulary'
 import { useAuthentification } from '../../contexts/Authentification.js'
 import { useVocabulary } from '../../contexts/Vocabulary'
 
 const Download = () => {
     const { token } = useAuthentification()
-    const { setUser_id, setDecks, setDecks_cards, setCards } = useVocabulary()
+    const { initial_users,
+        initial_decks,
+        initial_users_decks,
+        initial_cards,
+        initial_decks_cards } = useVocabulary()
 
     const [showLoading, setShowLoading] = useState(true)
     const [request, setRequest] = useState(null)
@@ -20,27 +24,28 @@ const Download = () => {
         if (error) return console.log(error)
 
         // EXIT: no data
-        if (!data) return
+        if (!data) return console.log("no data")
 
         // EXIT: authentification is not ok
-        if (!data.success) return
+        if (!data.success) return console.log("authentification is not ok")
 
         // SUCCESS: authentification und download ok
-        const { _id: user_id, decks, decks_cards, cards } = data.data[0]
-        setUser_id(user_id)
-        setDecks(decks)
-        setDecks_cards(decks_cards)
-        setCards(cards)
+        const { users, decks, users_decks, cards, decks_cards } = data.data[0]        
+        initial_users(users)
+        initial_decks(decks)
+        initial_users_decks(users_decks)
+        initial_cards(cards)
+        initial_decks_cards(decks_cards)
 
-        setShowLoading(true)
+        setShowLoading(false)
     }, [data, error, isLoading])
 
     useEffect(() => {
-        setRequest(createURL_download(token))
+        setRequest(url_sync_read(token))
         // show 1 sek loading-modal
-        setTimeout(() => {
-            setShowLoading(false)
-        }, 1000);
+        // setTimeout(() => {
+        // setShowLoading(false)
+        // }, 1000);
     }, [])
 
     // Stufe 1: Zeige Loading spinner an

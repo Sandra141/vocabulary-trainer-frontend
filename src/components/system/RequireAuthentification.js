@@ -3,7 +3,7 @@ import useFetch from '../../hooks/useFetch.js';
 import Loading from '../modals/Loading.js';
 import { NavLink } from 'react-router-dom';
 import { useAuthentification } from '../../contexts/Authentification'
-import { createURL_loginJWT } from '../../services/authentification'
+import { url_jwt_read } from '../../services/authentification'
 
 const RequireAuthentification = ({ children }) => {
     const { token } = useAuthentification()
@@ -27,14 +27,14 @@ const RequireAuthentification = ({ children }) => {
     }, [data, error, isLoading])
 
     useEffect(() => {
-        setRequest(createURL_loginJWT(token))
+        setRequest(url_jwt_read(token))
         // show 1 sek loading-modal
-        setTimeout(() => {
+        // setTimeout(() => {
             setShowLoading(false)
-        }, 1000);
+        // }, 1000);
     }, [])
 
-    // Step 1: show first loading
+    //Step 1: show first loading
     if (showLoading) return <Loading isLoading={isLoading} />
 
     // Step 2: no access

@@ -19,9 +19,10 @@ const useFetch = (request) => {
             setError(null)
             setIsLoading(true)
 
+            console.log("fetch", request)
+
             try {
                 const res = await fetch(request.url, request.options)
-
                 //EXIT: 404
                 if (!res.ok && res.status === 404) return setError("404: Server not found!")
 
