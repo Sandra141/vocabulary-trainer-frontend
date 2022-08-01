@@ -53,6 +53,12 @@ p {
   flex-direction: column;
 }
 
+.gameContainer {
+  max-height: 69vh;
+  width: 100%;
+  display: flex;
+}
+
 /*------- Colour classes -------*/
 
 .lightBlue {

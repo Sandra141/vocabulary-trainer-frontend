@@ -1,0 +1,6 @@
+.flashcardContainer {
+    background-color: yellow;
+    max-height: 69vh;
+    width: 100%;
+    display: flex;
+}

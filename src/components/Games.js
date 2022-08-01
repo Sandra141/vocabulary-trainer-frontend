@@ -20,6 +20,7 @@ const Games = () => {
     let gamesBackground;
     let backgroundSize;
     let backgroundPosition;
+    let gameName;
 
     return(
         <>
@@ -51,22 +52,27 @@ const Games = () => {
                     counterBackground = counterBackground + 1;
 
                     if(card.id === 1) {
+                        gameName = 'Flascards'
                         gamesBackground = FlashcardsIcon;
                         backgroundSize = '40%';
                         backgroundPosition = 'left 90% bottom 0%';
                     } else if (card.id === 2) {
+                        gameName = 'Memory'
                         gamesBackground = MemoryIcon;
                         backgroundSize = '60%';
                         backgroundPosition = 'left 90% bottom 0%';
                     } else if (card.id === 3) {
+                        gameName = 'Multiple-Choice'
                         gamesBackground = MultipleChoiceIcon;
                         backgroundSize = '';
                         backgroundPosition = '90% 50%';
                     } else if (card.id === 4) {
+                        gameName = 'Chars'
                         gamesBackground = CharsIcon;
                         backgroundSize = '';
                         backgroundPosition = '90% 50%';
                     } else if (card.id === 5) {
+                        gameName = 'Connect'
                         gamesBackground = ConnectIcon;
                         backgroundSize = '40%';
                         backgroundPosition = '90% 50%';
@@ -76,7 +82,7 @@ const Games = () => {
 
                     return(
                         <div className={`decksForGames ${colourClass}`} key={card.id} >
-                            <NavLink to={'/games/' + card.id} className='decksNavLinkContainerGames' >
+                            <NavLink to={'/games/' + gameName} className='decksNavLinkContainerGames' >
                                 <div className='cardGames' style={{backgroundImage: `url(${gamesBackground})`,  backgroundRepeat: 'no-repeat', backgroundPosition: backgroundPosition, backgroundSize: backgroundSize}} >
                                     <h2>{card.name}</h2>
                                 </div>
