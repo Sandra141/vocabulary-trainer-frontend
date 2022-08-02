@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 
+// asynchron fetch
 const useFetch = (request) => {
     const [data, setData] = useState(null)
     const [error, setError] = useState(null)
@@ -7,7 +8,6 @@ const useFetch = (request) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            // console.log("FETCH")
             // EXIT: url is empty
             if (request === null) {
                 setData(null)

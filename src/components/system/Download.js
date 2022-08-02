@@ -24,7 +24,7 @@ const Download = () => {
         if (error) return console.log(error)
 
         // EXIT: no data
-        if (!data) return console.log("no data")
+        if (!data) return
 
         // EXIT: authentification is not ok
         if (!data.success) return console.log("authentification is not ok")

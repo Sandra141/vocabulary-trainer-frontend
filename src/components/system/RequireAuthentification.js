@@ -30,7 +30,7 @@ const RequireAuthentification = ({ children }) => {
         setRequest(url_jwt_read(token))
         // show 1 sek loading-modal
         // setTimeout(() => {
-            setShowLoading(false)
+        setShowLoading(false)
         // }, 1000);
     }, [])
 
@@ -38,12 +38,12 @@ const RequireAuthentification = ({ children }) => {
     if (showLoading) return <Loading isLoading={isLoading} />
 
     // Step 2: no access
-    /*if (!access) return (
+    if (!access) return (
         <div>
             <h1>NO ACCESS</h1>
             <NavLink to="/login">GO back to login</NavLink>
         </div>
-    )*/
+    )
 
     // Step 3: access
     return children

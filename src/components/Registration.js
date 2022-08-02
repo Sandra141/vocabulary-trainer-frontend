@@ -12,19 +12,24 @@ const Registration = () => {
     const refPassword = useRef(null)
     const [notificationUsername, setNotificationUsername] = useState("")
     const [notificationPassword, setNotificationPassword] = useState("")
-    const [url, setUrl] = useState(null)
-    const { data, error, isLoading } = useFetch(url)
+    const [request, setRequest] = useState(null)
+    const { data, error, isLoading } = useFetch(request)
     const { token, handleSetToken } = useAuthentification()
     const location = useLocation();
     const [isAuthentificated, setIsAuthentificated] = useState(false)
 
-    const validateInput = () => {
-        let result = true
-        const username = refUsername.current.value
-        const password = refPassword.current.value
-
+    // clear notifcations
+    const clearNotifications = () => {
         setNotificationUsername("")
         setNotificationPassword("")
+    }
+
+    const validateInput = () => {
+        clearNotifications()
+
+        let result = true
+        const username = refUsername.current.value
+        const password = refPassword.current.value        
 
         // Username is empty
         if (!username) {
@@ -46,8 +51,7 @@ const Registration = () => {
     }
 
     const handleChange = e => {
-        setNotificationUsername("")
-        setNotificationPassword("")
+        clearNotifications()
     }
 
     const handleSubmit = e => {
@@ -59,36 +63,31 @@ const Registration = () => {
         const username = refUsername.current.value
         const password = refPassword.current.value
 
-        const newUrl = url_credentials_update(username, password)
-
-        setUrl(newUrl)
+        const newRequest = url_credentials_update(username, password)
+        setRequest(newRequest)
     }
 
     useEffect(() => {
-        console.log("err--------------", error)
-        if (error) {
-            console.log("ERRRRRRRRRRRRRRRRRRRRRRRRR", error)
-            setNotificationUsername(!error ? "" : error.status)
-            setNotificationPassword(!error ? "" : JSON.stringify(error))
-        }
-        else if (data && data.success && data.success === true) {
-            // authentification ok
-            console.log("WOWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW", data)
+        clearNotifications()
 
-            // TOKEN
-            if (data.data.token) {
-                console.log("save token", data.data.token)
-                handleSetToken(data.data.token)
-            }
-            // handleSetToken()
-            setIsAuthentificated(true)
+        // EXIT: error
+        if (error) return console.log(error)
 
-        } else if (data) {
-            // authentification not ok
-            console.log("FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU", data)
-            setNotificationUsername(!data.email ? "" : data.email)
-            setNotificationPassword(!data.password ? "" : data.password)
+        // EXIT: no data
+        if (!data) return
+
+        // EXIT: authentification is not ok
+        if (!data.success) {
+            if (data.email) setNotificationUsername(data.email)
+            if (data.password) setNotificationUsername(data.password)
+            return
         }
+
+        // Wurde ein Token vom Server mitgesendet?
+        if (data.data?.token) handleSetToken(data.data.token)
+
+        // SUCCESS: authentification is ok        
+        setIsAuthentificated(true)
     }, [data, error])
 
     const renderNotificationUsername = () => !notificationUsername

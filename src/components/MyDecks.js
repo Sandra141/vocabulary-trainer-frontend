@@ -19,15 +19,12 @@ const MyDecks = () => {
     const refPopupBackground = useRef(null);
 
     const dummyDataArray = vocabulary.decks
-    console.log("first",dummyDataArray[0])
-    console.log("mickey", vocabulary.getCards(dummyDataArray[0]))
 
     /*---- add a deck to favourites ----*/
     const handleHeartClick = (e) => {
         /*---- needs to be reworked ----*/
         const cardId = e.target.id.replace('heartOfCard', '');
         const positionInArray = dummyDataArray.findIndex(dummyDataArray => dummyDataArray.id === cardId);
-        
         
         if(dummyDataArray[positionInArray].liked) {
             /*---- change: send to database ----*/

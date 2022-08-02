@@ -10,15 +10,18 @@ const PATH_JWT = "/jwt"
 //     "email":"japanese", 
 //     "password":"123456"
 // }
-const url_credentials_update = (email, password) => { 
+const url_credentials_update = (email, password) => {
     const url = API_URL + PATH_CREDENTIALS
 
     return {
         url: url,
         options: {
             method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({email: email, password: password})
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
         }
     }
 }
@@ -38,8 +41,11 @@ const url_credentials_read = (email, password) => {
         url: url,
         options: {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({email: email, password: password})
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
         }
     }
 }
@@ -58,8 +64,10 @@ const url_jwt_read = (token) => {
         url: url,
         options: {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({'authorization': 'Bearer ' + token})
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                'authorization': 'Bearer ' + token
+            })
         }
     }
 }

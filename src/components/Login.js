@@ -17,11 +17,12 @@ const Login = () => {
     const [notificationPassword, setNotificationPassword] = useState("")
     const [isAuthentificated, setIsAuthentificated] = useState(false)
     const [showLoading, setShowLoading] = useState(true)
+
     const [request, setRequest] = useState(null)
+    const { data, error, isLoading } = useFetch(request)
 
     const location = useLocation();
 
-    const { data, error, isLoading } = useFetch(request)
 
     // clear notifcations
     const clearNotifications = () => {
@@ -71,15 +72,15 @@ const Login = () => {
         const username = refUsername.current.value
         const password = refPassword.current.value
 
-        const newUrl = url_credentials_read(username, password)
-        setRequest(newUrl)
+        const newRequest = url_credentials_read(username, password)
+        setRequest(newRequest)
     }
 
     // when token available try to fetch data
     useEffect(() => {
         // zeige erst loading screen an
         // setTimeout(() => {
-            setShowLoading(false)
+        setShowLoading(false)
         // }, 3000);
     }, [])
 
