@@ -65,10 +65,43 @@ export const Vocabulary = ({ children }) => {
     const [cards, set_cards] = useState(get_storage_cards())
     const [decks_cards, set_decks_cards] = useState(get_storage_decks_cards())
 
-    const [request, set_request] = useState(null)
-    const { } = useFetch(request)
+    //# localstorage save
+    useEffect(() => {
+        // EXIT: empty
+        if (!users) return
 
-    //# upload db
+        localStorage.setItem("users", JSON.stringify(users))
+    }, [users])
+
+    useEffect(() => {
+        // EXIT: empty
+        if (!decks) return
+
+        localStorage.setItem("decks", JSON.stringify(decks))
+    }, [decks])
+
+    useEffect(() => {
+        // EXIT: empty
+        if (!users_decks) return
+
+        localStorage.setItem("users_decks", JSON.stringify(users_decks))
+    }, [users_decks])
+
+    useEffect(() => {
+        // EXIT: empty
+        if (!cards) return
+
+        localStorage.setItem("cards", JSON.stringify(cards))
+    }, [cards])
+
+    useEffect(() => {
+        // EXIT: empty
+        if (!decks_cards) return
+
+        localStorage.setItem("decks_cards", JSON.stringify(decks_cards))
+    }, [decks_cards])
+
+    //# request to db
     const [users_request, set_users_request] = useState(null)
     const { } = useFetch(users_request)
 
@@ -84,31 +117,7 @@ export const Vocabulary = ({ children }) => {
     const [decks_cards_request, set_decks_cards_request] = useState(null)
     const { } = useFetch(decks_cards_request)
 
-    //# override
-    const initial_users = users => {
-        set_users(users)
-        localStorage.setItem("users", JSON.stringify(users))
-    }
 
-    const initial_decks = decks => {
-        set_decks(decks)
-        localStorage.setItem("decks", JSON.stringify(decks))
-    }
-
-    const initial_users_decks = users_decks => {
-        set_users_decks(users_decks)
-        localStorage.setItem("users_decks", JSON.stringify(users_decks))
-    }
-
-    const initial_cards = cards => {
-        set_cards(cards)
-        localStorage.setItem("cards", cards)
-    }
-
-    const initial_decks_cards = decks_cards => {
-        set_decks_cards(decks_cards)
-        localStorage.setItem("decks_cards", JSON.stringify(decks_cards))
-    }
 
     //# create
     //## create new deck
@@ -235,6 +244,27 @@ export const Vocabulary = ({ children }) => {
         return cards.filter(x => card_ids.includes(x._id))
     }
 
+    const getDeckFromDeckId = _id => {
+        // EXIT: required forgetten
+        if (!_id) return
+
+        const index = decks.findIndex(x => x._id === _id)
+
+        // EXIT: no deck found
+        if(index === -1) return
+
+        return decks[index]
+    }
+
+    const getCardsFromDeckId = _id => {
+        // EXIT: required forgetten
+        if (!_id) return
+
+        const cards = decks_cards.filter(x => x.decks_id === _id)
+        const card_ids = cards.map(x => x.cards_id)
+        return cards.filter(x => card_ids.includes(x._id))
+    }
+
     return (
         <StateContext.Provider
             value={{
@@ -244,11 +274,11 @@ export const Vocabulary = ({ children }) => {
                 cards,
 
                 // override
-                initial_users,
-                initial_decks,
-                initial_users_decks,
-                initial_cards,
-                initial_decks_cards,
+                set_users,
+                set_decks,
+                set_users_decks,
+                set_cards,
+                set_decks_cards,
 
                 // create
                 createDeck,
@@ -261,6 +291,8 @@ export const Vocabulary = ({ children }) => {
                 // get
                 getDeckFromCard,
                 getCardsFromDeck,
+                getCardsFromDeckId,
+                getDeckFromDeckId,
             }}
         >
             {children}

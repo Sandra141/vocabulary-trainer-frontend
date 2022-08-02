@@ -8,11 +8,13 @@ import { useVocabulary } from '../../contexts/Vocabulary'
 
 const Download = () => {
     const { token } = useAuthentification()
-    const { initial_users,
-        initial_decks,
-        initial_users_decks,
-        initial_cards,
-        initial_decks_cards } = useVocabulary()
+    const {
+        set_users,
+        set_decks,
+        set_users_decks,
+        set_cards,
+        set_decks_cards
+    } = useVocabulary()
 
     const [showLoading, setShowLoading] = useState(true)
     const [request, setRequest] = useState(null)
@@ -30,12 +32,12 @@ const Download = () => {
         if (!data.success) return console.log("authentification is not ok")
 
         // SUCCESS: authentification und download ok
-        const { users, decks, users_decks, cards, decks_cards } = data.data[0]        
-        initial_users(users)
-        initial_decks(decks)
-        initial_users_decks(users_decks)
-        initial_cards(cards)
-        initial_decks_cards(decks_cards)
+        const { users, decks, users_decks, cards, decks_cards } = data.data[0]
+        set_users(users)
+        set_decks(decks)
+        set_users_decks(users_decks)
+        set_cards(cards)
+        set_decks_cards(decks_cards)
 
         setShowLoading(false)
     }, [data, error, isLoading])
