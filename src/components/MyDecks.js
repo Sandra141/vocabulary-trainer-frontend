@@ -7,6 +7,7 @@ import Footer from './Footer';
 // import dummyDataArray from './dummyDataArrayDecks';
 import emptyHeart from './../images/emptyHeart.svg';
 import filledHeart from './../images/filledHeart.svg';
+import dotMenu from './../images/dotMenu.svg';
 import Decks from './../images/decks.png';
 import { useVocabulary } from '../contexts/Vocabulary.js'
 
@@ -54,7 +55,6 @@ const MyDecks = () => {
         }
     }, [popupIsShown]);
 
-    /*---- logic for closing the popup ----*/
     const closePopup = (e) => {
         // Create new Deck
         vocabulary.update_decks({"name": "English 50", "shared": false })
@@ -64,12 +64,39 @@ const MyDecks = () => {
         setPopupIsShown(false);
     }
 
+    /*---- logic for dot menu ----*/
+    const handleShowDotMenu = (e) => {
+        const dotMenuContainer = e.target.parentElement.parentElement.querySelector('.dotMenuContainer');
+        if(dotMenuContainer) {
+            dotMenuContainer.style.display  = 'block';
+        }
+    }
+
+    let dotMenuDetailsToggle = false;
+
+    const handleShowDotMenuDetails = (e) => {
+        const dotMenuDetailsElement = e.target.parentElement.parentElement.querySelector('.dotMenuDetailsContainer');
+        dotMenuDetailsToggle = !dotMenuDetailsToggle;
+        if(dotMenuDetailsToggle) {
+            dotMenuDetailsElement.style.display  = 'block';
+        } else {
+            dotMenuDetailsElement.style.display  = 'none';
+        }
+    }
+
+    const handleHideDotMenu = (e) => {
+        const dotMenuContainer = e.target.parentElement.parentElement.querySelector('.dotMenuContainer');
+        if(dotMenuContainer) {
+            dotMenuContainer.style.display  = 'none';
+        }
+    }
+
     return(
         <>
         <div className='ContainerForHeaderAndMain'>
             <Header />
 
-            <div className='mainContent'>
+            <div className='mainContent' >
                 {
                     dummyDataArray.length === 0
                     ?   <>
@@ -106,18 +133,24 @@ const MyDecks = () => {
                         }
                         /*---- user has some decks ----*/
                         return(
-                        <>
-                            <div className='deck' key={card._id}>
-                                <NavLink to={'/decks/' + card._id} className='decksNavLinkContainer' >
+
+                            <div className='deck' key={card.id} onMouseEnter={handleShowDotMenu} onMouseLeave={handleHideDotMenu} >
+                                <NavLink to={'/decks/' + card.id} className='decksNavLinkContainer' >
+
                                     <div className={colourClass} >
                                         <h2>{card.name}</h2>
                                     </div>
                                 </NavLink>
                                 <div className='heartContainer' ><img src={card.liked ? filledHeart : emptyHeart} onClick={handleHeartClick} id={'heartOfCard' + card.id} alt="" /></div>
+                                <div className='dotMenuContainer'>
+                                    <img src={dotMenu} alt="" onClick={handleShowDotMenuDetails} />
+                                </div>
+                                <div className='dotMenuDetailsContainer' >
+                                    <div className='dotMenuDetails'>
+                                        <p>Delete</p>
+                                    </div>
+                                </div>
                             </div>
-
-                            
-                        </>
                         );
                     })}
                     </>

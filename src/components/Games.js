@@ -18,7 +18,8 @@ const Games = () => {
     let counterBackground = 0;
     let colourClass;
     let gamesBackground;
-    let backgroundId;
+    let backgroundSize;
+    let backgroundPosition;
 
     return(
         <>
@@ -31,60 +32,57 @@ const Games = () => {
                     counter < 4 ? counter++ : counter = 1;
                     switch(counter) {
                         case 1:
-                            colourClass = 'lightBlue cardGames';
+                            colourClass = 'lightBlue';
                             break;
                         case 2:
-                            colourClass = 'darkBlue cardGames';
+                            colourClass = 'darkBlue';
                             break;
                         case 3:
-                            colourClass = 'gray cardGames';
+                            colourClass = 'gray';
                             break;
                         case 4:
-                            colourClass = 'pink cardGames';
+                            colourClass = 'pink';
                             break;
                         default:
-                            colourClass = 'lightBlue cardGames';
+                            colourClass = 'lightBlue';
                     }
 
                     /*---- defining background sources ----*/
                     counterBackground = counterBackground + 1;
 
                     if(card.id === 1) {
-                        console.log(1);
                         gamesBackground = FlashcardsIcon;
-                        backgroundId = '';
+                        backgroundSize = '40%';
+                        backgroundPosition = 'left 90% bottom 0%';
                     } else if (card.id === 2) {
-                        console.log(2);
                         gamesBackground = MemoryIcon;
-                        backgroundId = '';
+                        backgroundSize = '60%';
+                        backgroundPosition = 'left 90% bottom 0%';
                     } else if (card.id === 3) {
-                        console.log(3);
                         gamesBackground = MultipleChoiceIcon;
-                        backgroundId = 'backgroundCentered';
+                        backgroundSize = '';
+                        backgroundPosition = '90% 50%';
                     } else if (card.id === 4) {
-                        console.log(4);
                         gamesBackground = CharsIcon;
-                        backgroundId = 'backgroundCentered';
+                        backgroundSize = '';
+                        backgroundPosition = '90% 50%';
                     } else if (card.id === 5) {
-                        console.log(5);
                         gamesBackground = ConnectIcon;
-                        backgroundId = '';
+                        backgroundSize = '40%';
+                        backgroundPosition = '90% 50%';
                     } else {
                         console.log('error');
                     }
 
                     return(
-                        <>
-                        <div className='deck' key={card.id}>
+                        <div className={`decksForGames ${colourClass}`} key={card.id} >
                             <NavLink to={'/games/' + card.id} className='decksNavLinkContainerGames' >
-                                <div className={colourClass} >
+                                <div className='cardGames' style={{backgroundImage: `url(${gamesBackground})`,  backgroundRepeat: 'no-repeat', backgroundPosition: backgroundPosition, backgroundSize: backgroundSize}} >
                                     <h2>{card.name}</h2>
                                 </div>
                             </NavLink>
                             <div className='heartContainerGames' ><img src={card.liked ? filledHeart : emptyHeart} id={'heartOfCard' + card.id} alt="" /></div>
-                            <div className='backgroundContainerGames' id={backgroundId} ><img src={gamesBackground} alt="" /></div>
                         </div>
-                        </>
                     );
                 })
                 }

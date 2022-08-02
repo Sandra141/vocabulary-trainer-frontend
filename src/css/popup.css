@@ -47,7 +47,7 @@
 }
 
 .cardDetailsPopupBottom button:hover {
-    animation: hover 0.1s forwards;
+    animation: hover 0.2s forwards;
 }
 
 @keyframes hover {

@@ -57,8 +57,8 @@ const PublishedDecks = () => {
                     }
                     /*---- public decks were able to be fetched ----*/
                     return(
-                    <div className='publicDeckContainer'>
-                        <NavLink to={'/decks/' + card.id} key={card.id} className={colourClass} >
+                    <div className='publicDeckContainer' key={card.id}>
+                        <NavLink to={'/decks/' + card.id} className={colourClass} >
                             <div className='publicDeckTop'>
                                 <h2>{card.name}</h2>
                                 <p>{card.vocabNumber + ' words'}</p>
