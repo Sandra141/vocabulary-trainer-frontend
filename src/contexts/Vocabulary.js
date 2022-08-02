@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react'
 
-const StateContext = createContext()
+const VocabularyContext = createContext()
 
 export const Vocabulary = ({ children }) => {
     const [user_id, setUser_id] = useState([])
@@ -22,18 +22,18 @@ export const Vocabulary = ({ children }) => {
     // TODO: build synchronisation
 
     return (
-        <StateContext.Provider
+        <VocabularyContext.Provider
             value={{
                 user_id, setUser_id,
                 decks, setDecks,
                 decks_cards, setDecks_cards,
                 cards, setCards,
-                getDeck, getCards,
+                getDeck, getCards
             }}
         >
             {children}
-        </StateContext.Provider>
+        </VocabularyContext.Provider>
     )
 }
 
-export const useVocabulary = () => useContext(StateContext)
+export const useVocabulary = () => useContext(VocabularyContext)

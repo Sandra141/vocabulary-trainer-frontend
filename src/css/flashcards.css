@@ -1,0 +1,54 @@
+.flashcardCard {
+    height: 39vh;
+    width: 70%;
+    border: solid 1px black;
+    border-radius: 10px;
+    box-shadow: 1px 4px 5px rgb(131, 131, 131);
+    margin-bottom: 4vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.questionMark {
+
+}
+
+.difficultyContainer {
+    height: 25vh;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.difficultyCard {
+    height: 10vh;
+    width: 47%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.difficultyCard:hover {
+    cursor: pointer;
+}
+
+#difficultyCardVeryEasy:hover {
+    color:rgb(219, 255, 166);
+}
+
+#difficultyCardEasy:hover {
+    color:rgb(130, 213, 4);
+}
+
+#difficultyCardVeryMedium:hover {
+    color:rgb(255, 198, 43);
+}
+
+#difficultyCardVeryHard:hover {
+    color:rgb(255, 157, 157);
+}
