@@ -57,7 +57,7 @@ const MyDecks = () => {
 
     const closePopup = (e) => {
         // Create new Deck
-        vocabulary.update_decks({"name": "English 50", "shared": false })
+        vocabulary.createDeck("English 50", false)
 
 
         document.body.style.overflow = 'visible';

@@ -26,9 +26,9 @@ const url_sync_read = (token) => {
         options: {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(
-                { 'authorization': 'Bearer ' + token }
-            )
+            body: JSON.stringify({
+                'authorization': 'Bearer ' + token
+            })
         }
     }
 }
@@ -52,10 +52,10 @@ const url_decks_update = (token, decks) => {
         options: {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(
-                { 'authorization': 'Bearer ' + token },
-                { decks }
-            )
+            body: JSON.stringify({
+                'authorization': 'Bearer ' + token,
+                decks
+            })
         }
     }
 }
@@ -83,10 +83,10 @@ const url_users_decks_update = (token, users_decks) => {
         options: {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(
-                { 'authorization': 'Bearer ' + token },
-                { users_decks }
-            )
+            body: JSON.stringify({
+                'authorization': 'Bearer ' + token,
+                users_decks
+            })
         }
     }
 }
@@ -114,10 +114,10 @@ const url_cards_update = (token, cards) => {
         options: {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(
-                { 'authorization': 'Bearer ' + token },
-                { cards }
-            )
+            body: JSON.stringify({
+                'authorization': 'Bearer ' + token,
+                cards
+            })
         }
     }
 }
@@ -143,10 +143,10 @@ const url_decks_cards_update = (token, decks_cards) => {
         options: {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(
-                { 'authorization': 'Bearer ' + token },
-                { decks_cards }
-            )
+            body: JSON.stringify({
+                'authorization': 'Bearer ' + token,
+                decks_cards
+            })
         }
     }
 }
