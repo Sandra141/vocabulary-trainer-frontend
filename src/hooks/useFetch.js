@@ -29,8 +29,13 @@ const useFetch = (request) => {
                 const json = await res.json()
                 setData(json)
             } catch (err) {
-                const json = await err.json()
-                setError(json)
+                console.log("Error", err)
+                try {
+                    const json = await err.json()
+                    setError(json)
+                } catch (err2) {
+                    setError(err + err2)
+                }
             } finally {
                 setIsLoading(false)
             }
