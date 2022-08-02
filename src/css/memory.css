@@ -1,0 +1,86 @@
+.memoryContainer {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 70vw;
+    border: solid black 2px;
+    border-radius: 15px;
+}
+
+.memoryCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25vh;
+    max-width: 200px;
+    width: 20%;
+    min-height: 250px;
+    margin: 20px;
+    overflow: hidden;
+    border: solid black 2px;
+    border-radius: 15px;
+}
+
+.cardImage {
+    width: 100%;
+}
+
+/*------------"Well Done" Message------------*/
+
+.memoryCongratsHidden {
+    display: none;
+}
+
+.memoryCongratsShown {
+    display: block;
+    position: absolute;
+    font-size: 70px;
+    font-weight: bold;
+    bottom: 34%;
+    animation: fade ease 1400ms;
+}
+
+@keyframes fade {
+    0% {
+      opacity:0;
+    }
+    50% {
+        opacity:1;
+    }
+    100% {
+      opacity:0;
+    }
+}
+
+/*------------Play again Section------------*/
+
+.playAgainHidden {
+    display: none;
+}
+
+.playAgainShown {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    height: 325px;
+    width: 500px;
+    background-color: white;
+    font-size: 40px;
+    text-align: center;
+    border: solid black 2px;
+    border-radius: 20px;;
+    font-weight: bold;
+    top: 25%;
+}
+
+.playAgainShown button {
+    margin: 10px;
+    padding: 5px;
+    width: 100px;
+}
+
+.playAgainShown button:hover {
+    background-color: rgb(138, 48, 48);
+}
