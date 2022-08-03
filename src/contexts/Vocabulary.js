@@ -104,6 +104,8 @@ export const Vocabulary = ({ children }) => {
         // db
         set_cards_request(url_cards_update(token, [new_cards]))
         set_decks_cards_request(url_decks_cards_update(token, [new_decks_cards]))
+    
+        return new_cards
     }
 
     //# update
