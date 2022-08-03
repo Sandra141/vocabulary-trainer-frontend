@@ -17,89 +17,12 @@ export const Vocabulary = ({ children }) => {
     //# context
     const { token } = useAuthentification()
 
-    //# load initial from localstorage
-    const get_storage_users = () => {
-        try {
-            return JSON.parse(localStorage.getItem("users"))
-        } catch (error) {
-            return []
-        }
-    }
-
-    const get_storage_decks = () => {
-        try {
-            return JSON.parse(localStorage.getItem("decks"))
-        } catch (error) {
-            return []
-        }
-    }
-
-    const get_storage_users_decks = () => {
-        try {
-            return JSON.parse(localStorage.getItem("users_decks"))
-        } catch (error) {
-            return []
-        }
-    }
-
-    const get_storage_cards = () => {
-        try {
-            return JSON.parse(localStorage.getItem("cards"))
-        } catch (error) {
-            return []
-        }
-    }
-
-    const get_storage_decks_cards = () => {
-        try {
-            return JSON.parse(localStorage.getItem("decks_cards"))
-        } catch (error) {
-            return []
-        }
-    }
-
     //# states
-    const [users, set_users] = useState(get_storage_users())
-    const [decks, set_decks] = useState(get_storage_decks())
-    const [users_decks, set_users_decks] = useState(get_storage_users_decks())
-    const [cards, set_cards] = useState(get_storage_cards())
-    const [decks_cards, set_decks_cards] = useState(get_storage_decks_cards())
-
-    //# localstorage save
-    useEffect(() => {
-        // EXIT: empty
-        if (!users) return
-
-        localStorage.setItem("users", JSON.stringify(users))
-    }, [users])
-
-    useEffect(() => {
-        // EXIT: empty
-        if (!decks) return
-
-        localStorage.setItem("decks", JSON.stringify(decks))
-    }, [decks])
-
-    useEffect(() => {
-        // EXIT: empty
-        if (!users_decks) return
-
-        localStorage.setItem("users_decks", JSON.stringify(users_decks))
-    }, [users_decks])
-
-    useEffect(() => {
-        // EXIT: empty
-        if (!cards) return
-
-        localStorage.setItem("cards", JSON.stringify(cards))
-    }, [cards])
-
-    useEffect(() => {
-        // EXIT: empty
-        if (!decks_cards) return
-
-        localStorage.setItem("decks_cards", JSON.stringify(decks_cards))
-    }, [decks_cards])
+    const [users, set_users] = useState([])
+    const [decks, set_decks] = useState([])
+    const [users_decks, set_users_decks] = useState([])
+    const [cards, set_cards] = useState([])
+    const [decks_cards, set_decks_cards] = useState([])
 
     //# request to db
     const [users_request, set_users_request] = useState(null)
@@ -116,8 +39,6 @@ export const Vocabulary = ({ children }) => {
 
     const [decks_cards_request, set_decks_cards_request] = useState(null)
     const { } = useFetch(decks_cards_request)
-
-
 
     //# create
     //## create new deck
