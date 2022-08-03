@@ -184,6 +184,7 @@ const Cards = (props) => {
                                 disabled={false} // use true to disable edition
                                 onChange={handleChange}
                             />
+
                             <p>Side 2:</p>
                             <ContentEditable
                                 ref={refInputBack}
@@ -195,6 +196,7 @@ const Cards = (props) => {
                             <div className="cardDetailsPopupBottom">
                                 <button onClick={saveCard} >Save this Card</button>
                                 <p><a onClick={closePopup} href='https://image.emojisky.com/401/147401-middle.png' target='_blank' rel="noreferrer" >Delete</a> this Card</p>
+
                             </div>
                         </div>
                     </div>

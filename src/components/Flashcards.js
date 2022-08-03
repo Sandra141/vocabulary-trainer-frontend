@@ -20,8 +20,11 @@ const Flashcards = () => {
 
     const [deckSelection, setdeckSelection] = useState('');
     const [shownSide, setShownSide] = useState(SHOWN_SIDE_ENUM.firstSide);
+    const [hiddenSide, setHiddenSide] = useState(shownSide === SHOWN_SIDE_ENUM.firstSide ? SHOWN_SIDE_ENUM.secondSide : SHOWN_SIDE_ENUM.firstSide);
     const [sortedCards, setSortedCards] = useState(dummyDataArrayCards.cards.sort((a, b) => a.ranking - b.ranking));
     const [tmpCards, setTmpCards] = useState(sortedCards.slice(0, 7));
+
+    console.log(shownSide, hiddenSide)
 
     /*---- logic for popup ----*/
     const handleAddDecksButton = (e) => {
@@ -52,6 +55,10 @@ const Flashcards = () => {
         setSideSelectionPopupIsShown(false);
     }
 
+    useEffect(() => {
+        setHiddenSide(shownSide === SHOWN_SIDE_ENUM.firstSide ? SHOWN_SIDE_ENUM.secondSide : SHOWN_SIDE_ENUM.firstSide);
+    }, [shownSide])
+
     /*---- game logic ----*/
     const processCard = (ranking) => {
         const cardsClone = [...sortedCards];
@@ -72,9 +79,9 @@ const Flashcards = () => {
         }
     };
 
-    const handleCardTurn = () => {
+    /*const handleCardTurn = () => {
         setShownSide(shownSide === SHOWN_SIDE_ENUM.firstSide ? SHOWN_SIDE_ENUM.secondSide : SHOWN_SIDE_ENUM.firstSide);
-    }
+    }*/
 
     return(
         <>
@@ -117,9 +124,13 @@ const Flashcards = () => {
 
                 {/*--- game setup ----*/}
                 <div className="gameContainer">
-                    <div className="flashcardCard" onClick={handleCardTurn}>
-                        {tmpCards.length && tmpCards[0][shownSide]}
-                    </div>
+                    <label className="flashcardCardContainer">
+                        <input type="checkbox" id="flashcardsCheckbox" />
+                        <div className="flashcardCard" > {/* onClick={handleCardTurn} */}
+                            <div class="front">{tmpCards.length && tmpCards[0][shownSide]}</div>
+                            <div class="back">Solution:<br/><p>{tmpCards.length && tmpCards[0][hiddenSide]}</p></div>
+                        </div>
+                    </label>
                     <div className="questionMark"></div>
                     <div className="difficultyContainer">
                         <div className="difficultyCard lightBlue" id='difficultyCardVeryEasy' onClick={() => processCard(3)} >Very Easy</div>
