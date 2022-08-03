@@ -154,7 +154,7 @@ export const Vocabulary = ({ children }) => {
 
     //## create ne card
     const createCard = (decks_id, front, back, rank = 0) => {
-        // EXIT: required forgetten
+        // EXIT: required forgotten
         if (!decks_id) return
         if (!front) return
         if (!back) return
@@ -188,7 +188,7 @@ export const Vocabulary = ({ children }) => {
     //# update
     //## update existing deck
     const updateDeck = deck => {
-        // EXIT: required forgetten
+        // EXIT: required forgotten
         if (!deck) return
 
         // local
@@ -208,7 +208,7 @@ export const Vocabulary = ({ children }) => {
 
     //## update existing card
     const updateCard = card => {
-        // EXIT: required forgetten
+        // EXIT: required forgotten
         if (!card) return
 
         // local
@@ -228,7 +228,7 @@ export const Vocabulary = ({ children }) => {
 
     //# get
     const getDeckFromCard = card => {
-        // EXIT: required forgetten
+        // EXIT: required forgotten
         if (!card) return
 
         const deck = decks_cards.find(x => x.cards_id === card._id)
@@ -236,16 +236,16 @@ export const Vocabulary = ({ children }) => {
     }
 
     const getCardsFromDeck = deck => {
-        // EXIT: required forgetten
+        // EXIT: required forgotten
         if (!deck) return
 
-        const cards = decks_cards.filter(x => x.decks_id === deck._id)
-        const card_ids = cards.map(x => x.cards_id)
+        const filteredcards = decks_cards.filter(x => x.decks_id === deck._id)
+        const card_ids = filteredcards.map(x => x.cards_id)
         return cards.filter(x => card_ids.includes(x._id))
     }
 
     const getDeckFromDeckId = _id => {
-        // EXIT: required forgetten
+        // EXIT: required forgotten
         if (!_id) return
 
         const index = decks.findIndex(x => x._id === _id)
@@ -257,12 +257,22 @@ export const Vocabulary = ({ children }) => {
     }
 
     const getCardsFromDeckId = _id => {
-        // EXIT: required forgetten
+        // EXIT: required forgotten
         if (!_id) return
 
-        const cards = decks_cards.filter(x => x.decks_id === _id)
-        const card_ids = cards.map(x => x.cards_id)
+        const filteredcards = decks_cards.filter(x => x.decks_id === _id)
+        const card_ids = filteredcards.map(x => x.cards_id)
         return cards.filter(x => card_ids.includes(x._id))
+    }
+
+    const getCardsByText = (decks_id, searchCardTerm) => {
+        // EXIT: required forgotten
+        if (!decks_id) return
+        if (!searchCardTerm) return
+
+        const currentDeck = getDeckFromDeckId(decks_id)
+        const searchingCards = getCardsFromDeck(currentDeck)
+        return searchingCards.filter(x => x.front.includes(searchCardTerm) || x.back.includes(searchCardTerm))
     }
 
     return (
@@ -293,6 +303,7 @@ export const Vocabulary = ({ children }) => {
                 getCardsFromDeck,
                 getCardsFromDeckId,
                 getDeckFromDeckId,
+                getCardsByText,
             }}
         >
             {children}

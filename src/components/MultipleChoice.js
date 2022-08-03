@@ -78,10 +78,10 @@ const MultipleChoice = () => {
 
                         <div className="selectSideContainer">
                             <div className="sides" id="firstSide" onClick={handleSideSelection}>
-                                {dummyDataArrayCards.cards[0].firstSide}
+                                {dummyDataArrayCards.cards[0].front}
                             </div>
                             <div className="sides" id="secondSide" onClick={handleSideSelection}>
-                                {dummyDataArrayCards.cards[0].secondSide}
+                                {dummyDataArrayCards.cards[0].back}
                             </div>
                         </div>
 

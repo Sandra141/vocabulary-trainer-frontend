@@ -21,9 +21,6 @@ const MyDecks = () => {
 
     const dummyDataArray = vocabulary.decks
 
-    console.log("id????", dummyDataArray[0]._id)
-
-
     const cardsFromDeck = vocabulary.getCardsFromDeck(dummyDataArray[0])
     console.log("cards from deck", cardsFromDeck)
 
