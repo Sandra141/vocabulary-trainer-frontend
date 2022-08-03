@@ -54,7 +54,7 @@ p {
 }
 
 .gameContainer {
-  max-height: 69vh;
+  height: 69vh;
   width: 100%;
   display: flex;
   flex-direction: column;

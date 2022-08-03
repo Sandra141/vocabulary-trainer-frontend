@@ -10,7 +10,6 @@ const MultipleChoice = () => {
     const [sideSelectionPopupIsShown, setSideSelectionPopupIsShown] = useState(false);
     const [deckSelection, setdeckSelection] = useState('');
     const [hiddenSide, setHiddenSide] = useState('firstSide');
-    let num;
 
     /*---- logic for popup ----*/
     const handleAddDecksButton = (e) => {
@@ -26,11 +25,6 @@ const MultipleChoice = () => {
             popupBackground?.setAttribute('class', 'hidden');
         }
     }, [deckSelectionPopupIsShown, sideSelectionPopupIsShown]);
-
-    const closePopup = (e) => {
-        document.body.style.overflow = 'visible';
-        setDeckSelectionPopupIsShown(false);
-    }
 
     /*---- logic for selecting Decks ----*/
     const handleDeckSelection = (e) => {
