@@ -1,5 +1,5 @@
 /*---- Card and card turning CSS ----*/
-label {
+.flashcardCardContainer {
     perspective: 1000px;
     transform-style: preserve-3d;
     display: block;
@@ -47,7 +47,7 @@ label {
     margin-top: 1rem;
 }
 
-input {
+#flashcardsCheckbox {
     display: none;
 }
 
