@@ -1,29 +1,49 @@
 .memoryContainer {
     position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     flex-wrap: wrap;
-    width: 70vw;
-    border: solid black 2px;
-    border-radius: 15px;
+    width: 100%;
+    height: 80%;
+    margin-bottom: 1rem;
 }
 
 .memoryCard {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 25vh;
-    max-width: 200px;
-    width: 20%;
-    min-height: 250px;
-    margin: 20px;
+    text-align: center;
+    height: 19%;
+    width: 24%;
     overflow: hidden;
     border: solid black 2px;
-    border-radius: 15px;
+    border-radius: 10px;
+    font-size: 0.9rem;
 }
 
 .cardImage {
     width: 100%;
+}
+
+.memoryButtonContainer {
+    width: 50%;
+    max-height: 20%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.memoryButton {
+    border: 1px solid black;
+    padding: 0.5rem;
+    border-radius: 10px;
+}
+
+#memoryCorrect:hover {
+    color:rgb(130, 213, 4);
+}
+
+#memoryWrong:hover {
+    color:rgb(255, 157, 157);
 }
 
 /*------------"Well Done" Message------------*/

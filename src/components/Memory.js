@@ -8,7 +8,7 @@ import dummyDataArrayCards from "./dummyDataArrayCards";
 const Memory = () => {
     const refPopupBackground = useRef(null);
     const [deckSelectionPopupIsShown, setDeckSelectionPopupIsShown] = useState(true);
-    const [deckSelection, setdeckSelection] = useState(dummyDataArrayCards.cards.sort(() => Math.random() - 0.5).slice(0, 8));
+    const [deckSelection, setdeckSelection] = useState(dummyDataArrayCards.cards.sort(() => Math.random() - 0.5).slice(0, 10));
     let [cardArray, setCardArray] = useState([]);
 
     /*---- logic for popup ----*/
@@ -79,11 +79,11 @@ const Memory = () => {
                             cardArray.map((pic) => {
                                 return(
                                     <div className='memoryCard' >
-                                        Card
+                                        {pic.word}
                                     </div>
                                 );
-                            })
-                        }
+                                })
+                            }
                             {/*
                             cardArray.map((pic) => {
                                 const thisCardId = pic.id - 1;
@@ -100,6 +100,10 @@ const Memory = () => {
                                 <button onClick={handlePlayAgainClick} id='yes' >yes</button>
                                 <button onClick={handlePlayAgainClick} id='no' >no</button>
                             </div>*/}
+                        </div>
+                        <div className="memoryButtonContainer">
+                            <div className="memoryButton" id="memoryCorrect">correct</div>
+                            <div className="memoryButton" id="memoryWrong">wrong</div>
                         </div>
 
                 </div>
