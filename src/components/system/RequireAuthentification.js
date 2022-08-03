@@ -3,10 +3,19 @@ import useFetch from '../../hooks/useFetch.js';
 import Loading from '../modals/Loading.js';
 import { NavLink } from 'react-router-dom';
 import { useAuthentification } from '../../contexts/Authentification'
+import { useVocabulary } from '../../contexts/Vocabulary'
 import { url_jwt_read } from '../../services/authentification'
+import { url_sync_read } from '../../services/vocabulary'
 
 const RequireAuthentification = ({ children }) => {
     const { token } = useAuthentification()
+    const {
+        set_users,
+        set_decks,
+        set_users_decks,
+        set_cards,
+        set_decks_cards
+    } = useVocabulary()
     const [request, setRequest] = useState(null)
     const { data, error, isLoading } = useFetch(request)
     const [access, setAccess] = useState(false)
@@ -20,14 +29,21 @@ const RequireAuthentification = ({ children }) => {
         if (!data) return
 
         // EXIT: authentification is not ok
-        if (!data.success) return
+        if (!data.success) return console.log("authentification is not ok")
 
-        // SUCCESS: authentification ok
+        // SUCCESS: authentification und download ok
+        const { users, decks, users_decks, cards, decks_cards } = data.data[0]
+        set_users(users)
+        set_decks(decks)
+        set_users_decks(users_decks)
+        set_cards(cards)
+        set_decks_cards(decks_cards)
+
         setAccess(true)
     }, [data, error, isLoading])
 
     useEffect(() => {
-        setRequest(url_jwt_read(token))
+        setRequest(url_sync_read(token))
         // show 1 sek loading-modal
         // setTimeout(() => {
         setShowLoading(false)
