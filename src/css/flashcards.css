@@ -1,17 +1,61 @@
-.flashcardCard {
+/*---- Card and card turning CSS ----*/
+label {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    display: block;
     height: 39vh;
     width: 70%;
+    margin-bottom: 4vh;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.flashcardCard {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: all 600ms;
+    z-index: 2;
     border: solid 1px black;
     border-radius: 10px;
-    box-shadow: 1px 4px 5px rgb(131, 131, 131);
-    margin-bottom: 4vh;
+    box-shadow: 0 4px 5px rgb(131, 131, 131);
+}
+
+.flashcardCard div {
+    border-radius: 10px;
+    position: absolute;
+    height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.5rem;
-    cursor: pointer;
+    text-align: center;
+    backface-visibility: hidden;
 }
 
+.flashcardCard .back {
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    background: #EAEFF8;
+    transform: rotateY(180deg);
+}
+
+.flashcardCard .back p {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+}
+
+input {
+    display: none;
+}
+
+:checked + .flashcardCard {
+    transform: rotateY(180deg);
+}
+
+/*---- rest CSS ----*/
 .questionMark {
 
 }
