@@ -4,19 +4,12 @@ import './../css/cards.css';
 import './../css/popup.css';
 import Header from "./Header";
 import Footer from "./Footer";
-import dummyDataArrayCards from "./dummyDataArrayCards";
 import Decks from './../images/decks.png';
 import SearchIcon from './../images/searchIcon.svg';
 import { useLocation, useSearchParams } from "react-router-dom";
 import { useVocabulary } from '../contexts/Vocabulary'
 
 const Cards = (props) => {
-    const location = useLocation();
-    const queryParams = new URLSearchParams(location.search)
-    const term = queryParams.get("_id")
-    // console.log("read parameter from url",term)
-    const [decks_id, set_decks_id] = useState(term)
-
     const {
         getDeckFromCard,
         getCardsFromDeck,
@@ -24,22 +17,29 @@ const Cards = (props) => {
         getDeckFromDeckId,
         getCardsByText,
         createCard,
+        updateDeck,
     } = useVocabulary()
 
-    dummyDataArrayCards.cards = getCardsFromDeckId(decks_id)
+    //# read url term
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search)
+    const term = queryParams.get("_id")
 
+    //# state
+    const [decks_id, set_decks_id] = useState(term)
     const [popupIsShown, setPopupIsShown] = useState(false);
     const [front, set_front] = useState('');
     const [back, set_back] = useState('');
+    const [filtered_cards, set_filtered_cards] = useState(getCardsFromDeckId(decks_id))
+    const [decks, set_decks] = useState(getDeckFromDeckId(decks_id))
+
+    //# ref
     const refPopupBackground = useRef(null);
     const addCardsButton = useRef(null);
-
-    const [filtered_cards, set_filtered_cards] = useState(dummyDataArrayCards.cards)
-
     const refInputFront = useRef(null)
     const refInputBack = useRef(null)
-
     const refInputSearchCards = useRef(null)
+    const refInputDeckName = useRef(null)
 
     /*---- logic for popup ----*/
     const handleOpenCardDetails = (e) => {
@@ -80,27 +80,44 @@ const Cards = (props) => {
         const inputBack = refInputBack.current
 
         // EXIT: no values
-        if(!inputFront.lastHtml || !inputBack.lastHtml) return
+        if (!inputFront.lastHtml || !inputBack.lastHtml) return
 
         createCard(decks_id, inputFront.lastHtml, inputBack.lastHtml)
     }
 
-    const handleSearchOnKeyDown = e => {       
+    const handleSearchOnKeyDown = e => {
         // EXIT: not enter pressed
-        if(e.key !== 'Enter') return
+        if (e.key !== 'Enter') return
 
         e.preventDefault()
 
-
         const searchTerm = refInputSearchCards.current.value
 
-        console.log("hhhhhhhhh", searchTerm)
-
         // no searchTerm so show everything
-        if(!searchTerm) return set_filtered_cards(getCardsFromDeckId(decks_id))
+        if (!searchTerm) return set_filtered_cards(getCardsFromDeckId(decks_id))
 
         const filteredCards = getCardsByText(decks_id, searchTerm)
         set_filtered_cards(filteredCards)
+    }
+
+    const handleRenameDeck = e => {
+        // EXIT: not enter pressed
+        if (e.key !== 'Enter') return
+
+        e.preventDefault()
+
+        const inputDeckName = refInputDeckName.current
+
+        // EXIT: no values
+        if (!inputDeckName.lastHtml) return
+
+        const newDeck = {
+            ...decks,
+            name: inputDeckName.lastHtml
+        }
+
+        updateDeck(newDeck)
+        set_decks(newDeck)
     }
 
     return (
@@ -114,8 +131,10 @@ const Cards = (props) => {
                             ? <div className='noContentContainer' >
                                 <div className="cardsDeckName lightBlue">
                                     <ContentEditable
+                                        onKeyDown={handleRenameDeck}
+                                        ref={refInputDeckName}
                                         className="editableCardDetails"
-                                        html={dummyDataArrayCards.name}
+                                        html={decks.name}
                                         disabled={false} // use true to disable edition
                                         onChange={handleChange}
                                     />
@@ -129,14 +148,16 @@ const Cards = (props) => {
                                 <div className="addButton" ref={addCardsButton} onClick={handleOpenCardDetails} id='cardAddButton' >+</div>
                                 <div className="cardsDeckName lightBlue">
                                     <ContentEditable
+                                        onKeyDown={handleRenameDeck}
+                                        ref={refInputDeckName}
                                         className="editableCardDetails"
-                                        html={dummyDataArrayCards.name}
+                                        html={decks.name}
                                         disabled={false} // use true to disable edition
                                         onChange={handleChange}
                                     />
                                 </div>
                                 <div className="cardSearchField">
-                                    <input ref={refInputSearchCards} type='text' onKeyDown={handleSearchOnKeyDown}/>
+                                    <input ref={refInputSearchCards} type='text' onKeyDown={handleSearchOnKeyDown} />
                                     <img src={SearchIcon} alt='search icon' />
                                 </div>
                                 {
@@ -173,7 +194,7 @@ const Cards = (props) => {
                             />
                             <div className="cardDetailsPopupBottom">
                                 <button onClick={saveCard} >Save this Card</button>
-                                <p><a onClick={closePopup} href='https://tenor.com/view/jeff-goldblum-crazy-son-of-a-bitch-you-did-it-jurrasic-park-gif-19484615' target='_blank' rel="noreferrer" >Delete</a> this Card</p>
+                                <p><a onClick={closePopup} href='https://image.emojisky.com/401/147401-middle.png' target='_blank' rel="noreferrer" >Delete</a> this Card</p>
                             </div>
                         </div>
                     </div>
