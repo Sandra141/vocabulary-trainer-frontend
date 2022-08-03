@@ -67,78 +67,79 @@ const Cards = (props) => {
 
     return (
         <>
-            <div className='ContainerForHeaderAndMain'>
-                <Header />
-                <div className='mainContent' id='vocabContent'>
-                    {
-                        dummyDataArrayCards.cards.length === 0
-                            /*---- there were no cards to be fetched ----*/
-                            ? <div className='noContentContainer' >
-                                <div className="cardsDeckName lightBlue">
-                                    <ContentEditable
-                                        className="editableCardDetails"
-                                        html={dummyDataArrayCards.name}
-                                        disabled={false} // use true to disable edition
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                                <h2>You don't have any cards yet</h2>
-                                <div className='noContentImgContainer' ><img src={Decks} alt='no cards icon' /></div>
-                                <div className="addButton" ref={addCardsButton} onClick={handleOpenCardDetails} >+</div>
-                            </div>
-                            /*---- cards were fetched ----*/
-                            : <>
-                                <div className="cardsDeckName lightBlue">
-                                    <ContentEditable
-                                        className="editableCardDetails"
-                                        html={dummyDataArrayCards.name}
-                                        disabled={false} // use true to disable edition
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                                <div className="cardSearchField">
-                                    <input type='text' />
-                                    <img src={SearchIcon} alt='search icon' />
-                                </div>
-                                {
-                                    dummyDataArrayCards.cards.map((card) => {
-                                        return (
-                                            <div className='cards' key={card.id} onClick={handleOpenCardDetails} id={card.id} >
-                                                <p>{card.firstSide}</p>
-                                                <p>{card.secondSide}</p>
-                                            </div>
-                                        );
-                                    })
-                                }
-                            </>
-                    }
-                    {/*---- popup ----*/}
-                    <div className="hidden" ref={refPopupBackground} onClick={closePopup} ></div>
-                    <div className="popup" style={{ display: popupIsShown ? 'block' : 'none' }} >
-                        <div className="popupDecksContent">
-                            <p>Side 1:</p>
+        <div className='ContainerForHeaderAndMain'>
+            <Header />
+            <div className='mainContent' id='vocabContent'>
+            {
+                dummyDataArrayCards.cards.length === 0
+                /*---- there were no cards to be fetched ----*/
+                ?       <div className='noContentContainer' >
+                        <div className="cardsDeckName lightBlue">
                             <ContentEditable
                                 className="editableCardDetails"
-                                html={firstSide ? firstSide : ''}
+                                html={dummyDataArrayCards.name}
                                 disabled={false} // use true to disable edition
                                 onChange={handleChange}
                             />
-                            <p>Side 2:</p>
-                            <ContentEditable
-                                className="editableCardDetails"
-                                html={secondSide ? secondSide : ''}
-                                disabled={false}
-                                onChange={handleChange}
-                            />
-                            <div className="cardDetailsPopupBottom">
-                                <button onClick={closePopup} >Save this Card</button>
-                                <p><a onClick={closePopup} href='https://tenor.com/view/jeff-goldblum-crazy-son-of-a-bitch-you-did-it-jurrasic-park-gif-19484615' target='_blank' rel="noreferrer" >Delete</a> this Card</p>
+                        </div>
+                        <h2>You don't have any cards yet</h2>
+                        <div className='noContentImgContainer' ><img src={Decks} alt='no cards icon' /></div>
+                        <div className="addButton" ref={addCardsButton} onClick={handleOpenCardDetails} >+</div>
+                    </div>
+                /*---- cards were fetched ----*/
+                :   <>
+                <div className="addButton" ref={addCardsButton} onClick={handleOpenCardDetails} id='cardAddButton' >+</div>
+                    <div className="cardsDeckName lightBlue">
+                        <ContentEditable
+                            className="editableCardDetails"
+                            html={dummyDataArrayCards.name}
+                            disabled={false} // use true to disable edition
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="cardSearchField">
+                        <input type='text' />
+                        <img src={SearchIcon} alt='search icon' />
+                    </div>
+                    {
+                    dummyDataArrayCards.cards.map((card) => {
+                        return(
+                            <div className='cards' key={card.id} onClick={handleOpenCardDetails} id={card.id} >
+                                <p>{card.firstSide}</p>
+                                <p>{card.secondSide}</p>
                             </div>
+                        );
+                    })
+                    }
+                    </>
+            }
+                {/*---- popup ----*/}
+                <div className="hidden" ref={refPopupBackground} onClick={closePopup} ></div>
+                <div className="popup" style={{display: popupIsShown ? 'block' : 'none'}} >
+                    <div className="popupDecksContent">
+                        <p>Side 1:</p>
+                        <ContentEditable
+                            className="editableCardDetails"
+                            html={firstSide ? firstSide : ''}
+                            disabled={false} // use true to disable edition
+                            onChange={handleChange}
+                        />
+                        <p>Side 2:</p>
+                        <ContentEditable
+                            className="editableCardDetails"
+                            html={secondSide ? secondSide : ''}
+                            disabled={false}
+                            onChange={handleChange}
+                        />
+                        <div className="cardDetailsPopupBottom">
+                            <button onClick={closePopup} >Save this Card</button>
+                            <p><a onClick={closePopup} href='https://tenor.com/view/jeff-goldblum-crazy-son-of-a-bitch-you-did-it-jurrasic-park-gif-19484615' target='_blank' rel="noreferrer" >Delete</a> this Card</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <Footer />
+        </div>
+        <Footer />
         </>
     );
 }

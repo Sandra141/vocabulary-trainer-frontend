@@ -11,7 +11,7 @@ import {
 
 import { useAuthentification } from './Authentification.js'
 
-const StateContext = createContext()
+const VocabularyContext = createContext()
 
 export const Vocabulary = ({ children }) => {
     //# context
@@ -266,7 +266,7 @@ export const Vocabulary = ({ children }) => {
     }
 
     return (
-        <StateContext.Provider
+        <VocabularyContext.Provider
             value={{
                 // states
                 users,
@@ -296,8 +296,8 @@ export const Vocabulary = ({ children }) => {
             }}
         >
             {children}
-        </StateContext.Provider>
+        </VocabularyContext.Provider>
     )
 }
 
-export const useVocabulary = () => useContext(StateContext)
+export const useVocabulary = () => useContext(VocabularyContext)

@@ -88,7 +88,6 @@
     display: none;
 }
 
-/*---- popup for creating a new deck; shares some css with cards.css ----*/
 #nameNewDeck {
     height: 2.5rem;
     width: 100%;
@@ -126,4 +125,45 @@
         background-color: #557CF3;
         color: white;
     }
+}
+
+/*---- popup classes for the popup in games*/
+.popupContentGames {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.gamesPopupDeckSelectionH2 {
+    margin-bottom: 1.5rem;
+}
+
+.gamesPopupDeckSelectionP:hover {
+    color: #557CF3;
+    cursor: pointer;
+}
+
+.selectSideContainer {
+    height: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sides {
+    height: 100%;
+    width: 48%;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sides:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
 }
