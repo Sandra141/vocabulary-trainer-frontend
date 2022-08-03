@@ -124,8 +124,8 @@ const Flashcards = () => {
 
                 {/*--- game setup ----*/}
                 <div className="gameContainer">
-                    <label>
-                        <input type="checkbox" />
+                    <label className="flashcardCardContainer">
+                        <input type="checkbox" id="flashcardsCheckbox" />
                         <div className="flashcardCard" > {/* onClick={handleCardTurn} */}
                             <div class="front">{tmpCards.length && tmpCards[0][shownSide]}</div>
                             <div class="back">Solution:<br/><p>{tmpCards.length && tmpCards[0][hiddenSide]}</p></div>
