@@ -15,7 +15,11 @@
 }
 
 
-/*---- if there are decks ----*/
+/*---- if there are cards ----*/
+#cardAddButton {
+    margin-bottom: 1rem;
+}
+
 .cardSearchField {
     width: 70%;
     display: flex;

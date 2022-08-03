@@ -70,6 +70,7 @@ const Cards = () => {
                     </div>
                 /*---- cards were fetched ----*/
                 :   <>
+                <div className="addButton" ref={addCardsButton} onClick={handleOpenCardDetails} id='cardAddButton' >+</div>
                     <div className="cardsDeckName lightBlue">
                         <ContentEditable
                             className="editableCardDetails"
