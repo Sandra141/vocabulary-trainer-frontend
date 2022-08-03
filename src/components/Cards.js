@@ -82,7 +82,8 @@ const Cards = (props) => {
         // EXIT: no values
         if (!inputFront.lastHtml || !inputBack.lastHtml) return
 
-        createCard(decks_id, inputFront.lastHtml, inputBack.lastHtml)
+        const newCard = createCard(decks_id, inputFront.lastHtml, inputBack.lastHtml)
+        set_filtered_cards(prev => [...prev, newCard])
     }
 
     const handleSearchOnKeyDown = e => {
