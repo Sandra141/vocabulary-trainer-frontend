@@ -4,9 +4,10 @@ import Header from './Header';
 import Footer from './Footer2';
 import dummyDataArrayDecks from "./dummyDataArrayDecks";
 import dummyDataArrayCards from "./dummyDataArrayCards";
+import wrong from './../images/wrong.svg';
+import right from './../images/right.svg';
 
 let moveCounter = 0;
-let cardCounter = 0;
 const allTurnedCardsArray = [];
 
 const Memory = () => {
@@ -51,12 +52,11 @@ const Memory = () => {
             counter = counter + 2;
         })
         let num = deckSelection.length * 2;
-        array = array.slice(0, num).sort(() => Math.random() - 0.5);
+        array = array.slice(0, num); //.sort(() => Math.random() - 0.5)
         setCardArray(array);
     }, [])
 
     useEffect(() => {
-        console.log(cardArray)
         for(let i = 0; i < cardArray.length; i++) {
             allTurnedCardsArray.push(false);
         }
@@ -97,19 +97,50 @@ const Memory = () => {
         }
     }, [turnedCards]);*/
 
-    const handleClick = (wordId, wordWord, wordKey) => {
+    const handleCardClick = (wordId, wordWord, wordKey) => {
         /*---- add card to turnedCards ----*/
         if(moveCounter === 0 || moveCounter === 1) {
-            //console.log(wordId, wordWord, wordKey);
             allTurnedCardsArray[wordKey] = true;
-            const targetCard = document.querySelector(`#${wordId}`);
-            console.log(targetCard);
-
             let card = {'id': wordId, 'word': wordWord, 'key': wordKey};
             setTurnedCards((oldArray) => [...oldArray, card]);
             moveCounter += 1;            
         }
     }
+
+    const handleButtonClick = (buttonWrong, buttonRight) => {
+        console.log(buttonRight);
+        if(moveCounter === 2) {
+            //---------compare cards-----------
+            const idCard1 = turnedCards[0].id;
+            const idCard2 = turnedCards[1].id;
+            const keyCard1 = turnedCards[0].key;
+            const keyCard2 = turnedCards[1].key;
+            console.log(keyCard1, keyCard2)
+            //--------same cards-------------
+            if(idCard1 === idCard2) {        
+                setAllOpenedCards((oldArray) => [...oldArray, turnedCards[0], turnedCards[1]]);
+                //const congrats = document.querySelector('#memoryCongrats');
+                //congrats.setAttribute('class', 'memoryCongratsShown');
+                moveCounter = 0;
+                setTurnedCards([]);
+                /*setTimeout(() => {
+                    congrats.setAttribute('class', 'memoryCongratsHidden');
+                }, 1000);*/
+            } else {
+                //--------turn back after 1.3sec if no match------------
+                setTimeout(() => {
+                    allTurnedCardsArray[keyCard1] = false;
+                    allTurnedCardsArray[keyCard2] = false;
+                    setTurnedCards([]);
+                    moveCounter = 0;
+                }, 1300);
+            }
+        }
+    }
+
+    useEffect(() => {
+        console.log('turnedCards', turnedCards)
+    }, [turnedCards])
 
     return(
         <>
@@ -142,7 +173,7 @@ const Memory = () => {
                             {
                             cardArray.map((word) => {
                                 return(
-                                    <div className='memoryCard lightBlue' id={word.key} key={word.key} onClick={ !allTurnedCardsArray[word.key] ? () => handleClick(word.id, word.word, word.key) : () => {} } >
+                                    <div className={`${allTurnedCardsArray[word.key] ? 'memoryCard memoryCardWordShown' : 'memoryCard lightBlue'} ${turnedCards[0]?.key === word.key ? 'blueBorder' : ''} ${turnedCards[1]?.key === word.key ? 'blueBorder' : ''}`} id={word.key} key={word.key} onClick={ !allTurnedCardsArray[word.key] ? () => handleCardClick(word.id, word.word, word.key) : () => {} } >
                                         {allTurnedCardsArray[word.key] ? word.word : ''}
                                     </div>
                                 );
@@ -152,7 +183,7 @@ const Memory = () => {
                             cardArray.map((pic) => {
                                 const thisCardId = pic.id - 1;
                                 return(
-                                    <div key={pic.id} className='memoryCard' onClick={ !allTurnedCardsArray[thisCardId] ? handleClick : () => {} } >
+                                    <div key={pic.id} className='memoryCard' onClick={ !allTurnedCardsArray[thisCardId] ? handleCardClick : () => {} } >
                                         <Card props={pic} />
                                     </div>
                                 );
@@ -166,8 +197,8 @@ const Memory = () => {
                             </div>*/}
                         </div>
                         <div className="memoryButtonContainer">
-                            <div className="memoryButton lightBlue" id="memoryWrong">wrong</div>
-                            <div className="memoryButton lightBlue" id="memoryCorrect">correct</div>
+                            <div className="memoryButton lightBlue" id="memoryWrong" onClick={() => handleButtonClick('wrong')}><img src={wrong} /></div>
+                            <div className="memoryButton lightBlue" id="memoryCorrect" onClick={() => handleButtonClick('right')}><img src={right} /></div>
                         </div>
 
                 </div>

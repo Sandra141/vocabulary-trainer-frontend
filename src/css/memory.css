@@ -23,17 +23,11 @@
 }
 
 .memoryCardWordShown {
-    display: flex;
-    align-items: center;
-    height: 19%;
-    width: 24%;
-    overflow: hidden;
     border: solid black 2px;
-    border-radius: 10px;
-    font-size: 0.8rem;
-    cursor: pointer;
-    overflow: scroll;
-    padding: 0.5rem;
+}
+
+.blueBorder {
+    border: solid rgb(91, 13, 226) 2px;
 }
 
 .cardImage {
@@ -42,24 +36,22 @@
 
 /*---- rest ----*/
 .memoryButtonContainer {
-    width: 50%;
+    width: 40%;
     max-height: 20%;
     display: flex;
     justify-content: space-between;
 }
 
 .memoryButton {
-    padding: 0.5rem;
     border-radius: 10px;
     cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
 }
 
-#memoryCorrect:hover {
-    color:rgb(130, 213, 4);
-}
-
-#memoryWrong:hover {
-    color:rgb(255, 157, 157);
+.memoryButton img {
+    height: 2rem;
+    width: 2rem;
 }
 
 /*------------"Well Done" Message------------*/
