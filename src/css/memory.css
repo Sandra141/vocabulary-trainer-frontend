@@ -47,9 +47,25 @@
     cursor: pointer;
     padding: 0.5rem;
     display: flex;
+    transition: transform 250ms;
+}
+
+.memoryButton:hover {
+    transform: translateY(-0.5rem);
 }
 
 .memoryButton img {
+    height: 2rem;
+    width: 2rem;
+}
+
+.memoryButtonGray {
+    border-radius: 10px;
+    padding: 0.5rem;
+    display: flex;
+}
+
+.memoryButtonGray img {
     height: 2rem;
     width: 2rem;
 }

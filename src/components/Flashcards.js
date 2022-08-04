@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from "react";
 import './../css/flashcards.css';
 import Header from './Header';
 import Footer from './Footer2';
-import dummyDataArrayDecks from "./dummyDataArrayDecks";
 import dummyDataArrayCards from "./dummyDataArrayCards";
 import { useVocabulary } from "../contexts/Vocabulary";
 
@@ -15,7 +14,6 @@ const SHOWN_SIDE_ENUM = {
 const Flashcards = () => {
     const vocabulary = useVocabulary();
     const decks = vocabulary.decks;
-    //console.log(decks);
     const refPopupBackground = useRef(null);
     const [deckSelectionPopupIsShown, setDeckSelectionPopupIsShown] = useState(true);
     const [sideSelectionPopupIsShown, setSideSelectionPopupIsShown] = useState(false);

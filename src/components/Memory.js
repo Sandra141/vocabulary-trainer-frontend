@@ -6,11 +6,15 @@ import dummyDataArrayDecks from "./dummyDataArrayDecks";
 import dummyDataArrayCards from "./dummyDataArrayCards";
 import wrong from './../images/wrong.svg';
 import right from './../images/right.svg';
+import { useVocabulary } from "../contexts/Vocabulary";
 
 let moveCounter = 0;
 const allTurnedCardsArray = [];
 
 const Memory = () => {
+    const vocabulary = useVocabulary();
+    const decks = vocabulary.decks;
+    console.log('decks', decks);
     const refPopupBackground = useRef(null);
     const [deckSelectionPopupIsShown, setDeckSelectionPopupIsShown] = useState(true);
     const [deckSelection, setdeckSelection] = useState(dummyDataArrayCards.cards.sort(() => Math.random() - 0.5).slice(0, 8));
@@ -52,7 +56,7 @@ const Memory = () => {
             counter = counter + 2;
         })
         let num = deckSelection.length * 2;
-        array = array.slice(0, num); //.sort(() => Math.random() - 0.5)
+        array = array.slice(0, num).sort(() => Math.random() - 0.5);
         setCardArray(array);
     }, [])
 
@@ -61,41 +65,6 @@ const Memory = () => {
             allTurnedCardsArray.push(false);
         }
     }, [cardArray]);
-
-    /*---- compare cards ----*/
-    /*useEffect(() => {
-        if(moveCounter === 2) {
-            //---------compare cards-----------
-            const idCard1 = turnedCards[0].getAttribute('id'); //.id ?
-            const idCard2 = turnedCards[1].getAttribute('id');
-            //--------same cards-------------
-            if(idCard1 === idCard2) {
-                const idCard1 = turnedCards[0].id - 1;
-                const idCard2 = turnedCards[1].id - 1;
-                allTurnedCardsArray[idCard1] = true;
-                allTurnedCardsArray[idCard2] = true;
-                
-                setAllOpenedCards((oldArray) => [...oldArray, turnedCards[0], turnedCards[1]]);
-                const congrats = document.querySelector('#memoryCongrats');
-                congrats.setAttribute('class', 'memoryCongratsShown');
-                moveCounter = 0;
-                cardCounter += 1;
-                setTurnedCards([]);
-                setTimeout(() => {
-                    congrats.setAttribute('class', 'memoryCongratsHidden');
-                }, 1000);
-            } else {
-                //--------turn back if no match------------
-                setTimeout(() => {
-                    turnedCards.forEach((turnedCard) => {
-                        turnedCard.setAttribute('src', flipSide);
-                        setTurnedCards([]);
-                    });
-                    moveCounter = 0;
-                }, 1300);
-            }
-        }
-    }, [turnedCards]);*/
 
     const handleCardClick = (wordId, wordWord, wordKey) => {
         /*---- add card to turnedCards ----*/
@@ -127,13 +96,11 @@ const Memory = () => {
                     congrats.setAttribute('class', 'memoryCongratsHidden');
                 }, 1000);*/
             } else {
-                //--------turn back after 1.3sec if no match------------
-                setTimeout(() => {
-                    allTurnedCardsArray[keyCard1] = false;
-                    allTurnedCardsArray[keyCard2] = false;
-                    setTurnedCards([]);
-                    moveCounter = 0;
-                }, 1300);
+                //--------turn back if no match------------
+                allTurnedCardsArray[keyCard1] = false;
+                allTurnedCardsArray[keyCard2] = false;
+                setTurnedCards([]);
+                moveCounter = 0;
             }
         }
     }
@@ -156,9 +123,9 @@ const Memory = () => {
                         <h2 className='gamesPopupDeckSelectionH2'>Which Deck would you like to learn?</h2>
 
                         {
-                            dummyDataArrayDecks.map((deck) => {
+                            decks.map((deck) => {
                                 return(
-                                    <p onClick={handleDeckSelection} className="gamesPopupDeckSelectionP" id={deck.id} key={deck.id}>{deck.name}</p>
+                                    <p onClick={handleDeckSelection} className="gamesPopupDeckSelectionP" id={deck._id} key={deck._id}>{deck.name}</p>
                                 );
                             })
                         }
@@ -197,8 +164,8 @@ const Memory = () => {
                             </div>*/}
                         </div>
                         <div className="memoryButtonContainer">
-                            <div className="memoryButton lightBlue" id="memoryWrong" onClick={() => handleButtonClick('wrong')}><img src={wrong} /></div>
-                            <div className="memoryButton lightBlue" id="memoryCorrect" onClick={() => handleButtonClick('right')}><img src={right} /></div>
+                            <div className={`${moveCounter === 2 ? 'memoryButton lightBlue' : 'memoryButtonGray lightBlue'}`} id="memoryWrong" onClick={() => handleButtonClick('wrong')}><img src={wrong} /></div>
+                            <div className={`${moveCounter === 2 ? 'memoryButton lightBlue' : 'memoryButtonGray lightBlue'}`} id="memoryCorrect" onClick={() => handleButtonClick('right')}><img src={right} /></div>
                         </div>
 
                 </div>
