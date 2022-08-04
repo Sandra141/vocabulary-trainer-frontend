@@ -4,7 +4,6 @@ import './../css/myDecks.css';
 import './../css/popup.css';
 import Header from './Header';
 import Footer from './Footer';
-// import dummyDataArray from './dummyDataArrayDecks';
 import emptyHeart from './../images/emptyHeart.svg';
 import filledHeart from './../images/filledHeart.svg';
 import dotMenu from './../images/dotMenu.svg';
@@ -19,22 +18,22 @@ const MyDecks = () => {
     const refPopupBackground = useRef(null);
     const refNewDeckName = useRef(null)
 
-    const dummyDataArray = vocabulary.decks
+    const decks = vocabulary.decks
 
-    const cardsFromDeck = vocabulary.getCardsFromDeck(dummyDataArray[0])
+    const cardsFromDeck = vocabulary.getCardsFromDeck(decks[0])
 
     /*---- add a deck to favourites ----*/
     const handleHeartClick = (e) => {
         /*---- needs to be reworked ----*/
         const cardId = e.target.id.replace('heartOfCard', '');
-        const positionInArray = dummyDataArray.findIndex(dummyDataArray => dummyDataArray._id === cardId);
+        const positionInArray = decks.findIndex(decks => decks._id === cardId);
 
-        if (dummyDataArray[positionInArray].liked) {
+        if (decks[positionInArray].liked) {
             /*---- change: send to database ----*/
-            dummyDataArray[positionInArray].liked = false;
-        } else if (!dummyDataArray[positionInArray].liked) {
+            decks[positionInArray].liked = false;
+        } else if (!decks[positionInArray].liked) {
             /*---- change: send to database ----*/
-            dummyDataArray[positionInArray].liked = true;
+            decks[positionInArray].liked = true;
         } else {
             console.log('error when trying to like/unlike a deck');
         }
@@ -101,7 +100,7 @@ const MyDecks = () => {
 
                 <div className='mainContent' >
                     {
-                        dummyDataArray.length === 0
+                        decks.length === 0
                             ? <>
                                 {/*---- if the user doesn't have decks ----*/}
                                 <div className='noContentContainer' >
@@ -115,7 +114,7 @@ const MyDecks = () => {
                                 <div className='addButtonContainer'>
                                     <div className="addButton" id='addButtonDecks' onClick={handleAddDecksButton} >+</div>
                                 </div>
-                                {dummyDataArray.map((card) => {
+                                {decks.map((card) => {
                                     /*---- defining colour classNames ----*/
                                     counter < 4 ? counter++ : counter = 1;
                                     switch (counter) {

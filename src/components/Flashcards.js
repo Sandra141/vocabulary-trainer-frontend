@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from "react";
 import './../css/flashcards.css';
 import Header from './Header';
 import Footer from './Footer2';
-import dummyDataArrayDecks from "./dummyDataArrayDecks";
 import dummyDataArrayCards from "./dummyDataArrayCards";
 import { useVocabulary } from "../contexts/Vocabulary";
 
@@ -13,7 +12,8 @@ const SHOWN_SIDE_ENUM = {
 }
 
 const Flashcards = () => {
-    //const {getDeck} = useVocabulary()
+    const vocabulary = useVocabulary();
+    const decks = vocabulary.decks;
     const refPopupBackground = useRef(null);
     const [deckSelectionPopupIsShown, setDeckSelectionPopupIsShown] = useState(true);
     const [sideSelectionPopupIsShown, setSideSelectionPopupIsShown] = useState(false);
@@ -96,9 +96,9 @@ const Flashcards = () => {
                     <div className='popupContentGames'>
                         <h2 className='gamesPopupDeckSelectionH2'>Which Deck would you like to learn?</h2>
                         {
-                            dummyDataArrayDecks.map((deck) => {
+                            decks.map((deck) => {
                                 return(
-                                    <p onClick={()=>handleDeckSelection(deck.id)} className="gamesPopupDeckSelectionP" id={deck.id} key={deck.id}>{deck.name}</p>
+                                    <p onClick={()=>handleDeckSelection(deck._id)} className="gamesPopupDeckSelectionP" id={deck._id} key={deck._id}>{deck.name}</p>
                                 );
                             })
                         }
@@ -112,10 +112,10 @@ const Flashcards = () => {
 
                         <div className="selectSideContainer">
                             <div className="sides" id="firstSide" onClick={handleSideSelection}>
-                                {dummyDataArrayCards.cards[0].front}
+                                {dummyDataArrayCards.cards[0].firstSide}
                             </div>
                             <div className="sides" id="secondSide" onClick={handleSideSelection}>
-                                {dummyDataArrayCards.cards[0].back}
+                                {dummyDataArrayCards.cards[0].secondSide}
                             </div>
                         </div>
 
