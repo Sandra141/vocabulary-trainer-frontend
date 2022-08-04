@@ -21,7 +21,7 @@ const PublishedDecks = () => {
 
     //# state
     const [decks, set_decks] = useState([])
-    const [scroll_limit, set_scroll_limit] = useState(false)
+    // const [scroll_limit, set_scroll_limit] = useState(false)
     const [has_more, set_has_more] = useState(true)
 
     //# request
@@ -34,15 +34,27 @@ const PublishedDecks = () => {
 
     const [visible, set_visible] = useState(false)
 
-    useEffect(() => {
-        console.log("-------------------------------new page", page)
-
-        const newRequest = url_search_public_decks(token, page)
-        setRequest(newRequest)
-    }, [page])
-
 
     useEffect(() => {
+        if (refScroll.current) {
+            console.log("1111")
+            const callback = entries => {
+                console.log(66666666666666666666666666)
+                const [entry] = entries
+                set_visible(entry.isIntersecting)
+            }
+
+            refObserver.current = new IntersectionObserver(callback)
+            refObserver.current.observe(refScroll.current)
+        }
+
+        return () => {
+            if (refScroll.current) refObserver.current.unobserve(refScroll.current)
+        }
+    }, [])
+
+    useEffect(() => {
+        console.log(2222)
         // set_has_more(false)
 
 
@@ -54,27 +66,26 @@ const PublishedDecks = () => {
     }, [visible])
 
     useEffect(() => {
-        console.log("ddddddddddddd")
-        const callback = entries => {
-            const [entry] = entries
-            set_visible(entry.isIntersecting)
-        }
+        console.log(333)
+        console.log("-------------------------------new page", page)
 
-        refObserver.current = new IntersectionObserver(callback)
-
-        if (refObserver.current) refObserver.current.observe(refScroll.current)
-    }, [])
+        const newRequest = url_search_public_decks(token, page)
+        console.log("bannanne", newRequest)
+        setRequest(newRequest)
+    }, [page])
 
     //# handle result from db
     useEffect(() => {
-        console.log("SETZE HAS NEINNNNNNNNNNN")
+        console.log(444441, data)
+        console.log(444442, error)
+        console.log(444443, isLoading)
         set_has_more(false)
 
         // EXIT: error
         if (error) return console.log(error)
 
         // EXIT: no data
-        if (!data) return
+        if (!data) return console.log("no data")
 
         // EXIT: authentification is not ok
         if (!data.success) return console.log("authentification is not ok")
@@ -84,7 +95,32 @@ const PublishedDecks = () => {
 
         console.log("NEUE DATE", data.data)
 
-        set_decks(prev => [...prev, ...data.data])
+        //TODO: irgendwie ist alles immer doppelt. prüfe ob daten schon im array sind
+        set_decks(prev => {
+            console.log("----------------isdou", data.data)
+            if (!data.data.length) return prev
+            console.log(1)
+
+
+            if (!prev.length) return data.data
+            console.log(2, data.data)
+
+            const check = data.data.map(x => x._id)
+            console.log(3, check)
+
+            const res = prev.find(x => check.includes(x._id))
+
+            console.log("res", res)
+            if (res) return prev
+
+            console.log(4)
+            return [...prev, ...data.data]
+
+        })
+
+
+
+        // set_decks(prev => [...prev, ...data.data])
         console.log("SETZE HAS MOREEEEEEEEEEEEEEEEEE")
         set_has_more(true)
     }, [data, error, isLoading])
@@ -93,20 +129,16 @@ const PublishedDecks = () => {
 
     return (
         <>
-
             <div className='ContainerForHeaderAndMain'>
-
 
                 <Header />
 
-
-
+                <button onClick={() => set_page(prev => ++prev)}>sss</button>
                 <div className='mainContent' style={{ background: "red" }}>
-                    {decks.map(x => <div><br /><br /><br /><br /><button onClick={() => set_page(prev => prev + 20)}>{page} ddd {JSON.stringify(visible)}</button><br /><br /><br /><br />{x.name}</div>)}
+                    {decks.map(x => <div><button onClick={() => set_page(prev => ++prev)}>{page} ddd {JSON.stringify(visible)}</button>{x.name}</div>)}
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                     {renderScrollObserver()}
                 </div>
-
-
 
                 <Footer />
             </div>
