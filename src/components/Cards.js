@@ -121,11 +121,36 @@ const Cards = (props) => {
         set_decks(newDeck)
     }
 
+    const handleToggleShared = e => {
+        const newSharedStatus = !decks.shared
+
+        const newDeck = {
+            ...decks,
+            shared: newSharedStatus
+        }
+
+        updateDeck(newDeck)
+        set_decks(newDeck)
+    }
+
+    const renderSharedButton = status => (
+        <button
+            onClick={handleToggleShared}
+            style={{ backgroundColor: status ? "gold" : "white" }}
+        >
+            {status
+                ? "Deck is shared! Press here to deactivate"
+                : "Deck is private. Press here if you want to share it with others!"}
+        </button>
+    )
+
     return (
         <>
             <div className='ContainerForHeaderAndMain'>
                 <Header />
                 <div className='mainContent' id='vocabContent'>
+                    {renderSharedButton(decks.shared)}
+
                     {
                         filtered_cards.length === 0
                             /*---- there were no cards to be fetched ----*/

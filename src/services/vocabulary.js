@@ -4,6 +4,7 @@ const PATH_DECKS_CARDS = "/decks_cards"
 const PATH_DECKS = "/decks"
 const PATH_SYNC = "/sync"
 const PATH_USERS_DECKS = "/users_decks"
+const PATH_SEARCH = "/search"
 
 //////////
 ////////// HINT:
@@ -151,6 +152,32 @@ const url_decks_cards_update = (token, decks_cards) => {
     }
 }
 
+// ### search
+// POST http://localhost:9000/vocabulary/search
+// Content-Type: application/json
+
+// {
+//     "authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmU3YWVkZmY0ZWZhMmJjOGEwNzNmMmQiLCJlbWFpbCI6ImVuZ2xpc2giLCJpc0xvZ2dlZEluIjp0cnVlLCJpYXQiOjE2NTkzNTY1NTMsImV4cCI6MTY2Mjk1NjU1M30.SvWRO5TQBhGQR40NaaOAXTmAK8Pr1AqG4UjY0bfgYEI",
+//     "skip": 0,
+//     "limit": 10
+// }
+const url_search_public_decks = (token, skip, limit) => {
+    const url = API_URL + PATH_SEARCH
+
+    return {
+        url: url,
+        options: {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                'authorization': 'Bearer ' + token,
+                skip,
+                limit
+            })
+        }
+    }
+}
+
 export {
     url_sync_read,
     url_decks_update,
@@ -158,25 +185,3 @@ export {
     url_cards_update,
     url_decks_cards_update,
 }
-
-// TODO: SEARCH
-// db['students'].find().skip(skips).limit(page_size)
-// const createURL_download_public = (token, page_size, page_num) => {
-//     const url = API_URL + PATH_DOWNLOAD_PUBLIC
-//     const skips = page_size * page_num
-
-//     return {
-//         url: url,
-//         options: {
-//             method: 'POST',
-//             headers: { 'Authorization': 'Bearer ' + token },
-//             body: JSON.stringify({
-//                 skip: skips,
-//                 limit: page_num
-//             })
-//         }
-//     }
-// }
-
-
-// TODO: upload data from context.Vocabulary to mongoDB

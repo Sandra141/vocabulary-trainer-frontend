@@ -22,7 +22,6 @@ const MyDecks = () => {
     const dummyDataArray = vocabulary.decks
 
     const cardsFromDeck = vocabulary.getCardsFromDeck(dummyDataArray[0])
-    console.log("cards from deck", cardsFromDeck)
 
     /*---- add a deck to favourites ----*/
     const handleHeartClick = (e) => {
@@ -139,6 +138,7 @@ const MyDecks = () => {
                                     return (
 
                                         <div className='deck' key={card._id} onMouseEnter={handleShowDotMenu} onMouseLeave={handleHideDotMenu} >
+                                            
                                             <NavLink to={'/decks/search?_id=' + card._id} className='decksNavLinkContainer' >
 
                                                 <div className={colourClass} >
@@ -154,6 +154,7 @@ const MyDecks = () => {
                                                     <p>Delete</p>
                                                 </div>
                                             </div>
+                                            (shared:{JSON.stringify(card.shared)})
                                         </div>
                                     );
                                 })}
