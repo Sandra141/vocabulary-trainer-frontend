@@ -61,6 +61,7 @@
 
 .memoryButtonGray {
     border-radius: 10px;
+    cursor: pointer;
     padding: 0.5rem;
     display: flex;
 }
@@ -72,16 +73,19 @@
 
 /*------------"Well Done" Message------------*/
 
-.memoryCongratsHidden {
+.memorywrongMessageHidden {
     display: none;
 }
 
-.memoryCongratsShown {
+.memorywrongMessageShown {
     display: block;
     position: absolute;
-    font-size: 70px;
+    text-align: center;
+    font-size: 3rem;
     font-weight: bold;
-    bottom: 34%;
+    width: 50%;
+    bottom: calc(50% - 1.5rem);
+    right: 25%;
     animation: fade ease 1400ms;
 }
 
@@ -99,32 +103,17 @@
 
 /*------------Play again Section------------*/
 
-.playAgainHidden {
-    display: none;
-}
-
-.playAgainShown {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: absolute;
-    height: 325px;
-    width: 500px;
+.playAgainContainerMemory > div, .playAgainContainerMemory a {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    width: 30%;
+    border-radius: 10px;
     background-color: white;
-    font-size: 40px;
-    text-align: center;
-    border: solid black 2px;
-    border-radius: 20px;;
-    font-weight: bold;
-    top: 25%;
+    color: #1D1E44;
+    text-decoration: none;
+    cursor: pointer;
 }
 
-.playAgainShown button {
-    margin: 10px;
-    padding: 5px;
-    width: 100px;
-}
-
-.playAgainShown button:hover {
-    background-color: rgb(138, 48, 48);
+.playAgainContainerMemory > div:hover, .playAgainContainerMemory a:hover {
+    background-color: rgb(229, 229, 229);
 }

@@ -4,7 +4,6 @@ import './../css/myDecks.css';
 import './../css/popup.css';
 import Header from './Header';
 import Footer from './Footer';
-// import decks from './decksDecks';
 import emptyHeart from './../images/emptyHeart.svg';
 import filledHeart from './../images/filledHeart.svg';
 import dotMenu from './../images/dotMenu.svg';
