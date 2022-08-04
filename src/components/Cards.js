@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import ContentEditable from 'react-contenteditable';
 import './../css/cards.css';
 import './../css/popup.css';
 import Header from "./Header";
@@ -44,8 +43,8 @@ const Cards = (props) => {
     /*---- logic for popup ----*/
     const handleOpenCardDetails = (e) => {
         if (e.target !== addCardsButton.current) {
-            const idInArray = parseInt(e.target.parentElement.id);
-            const clickedObject = filtered_cards.find(obj => obj.id === idInArray);
+            const idInArray = e.target.parentElement.id;
+            const clickedObject = filtered_cards.find(obj => obj._id === idInArray);
             set_front(clickedObject.front);
             set_back(clickedObject.back);
         }
@@ -61,11 +60,6 @@ const Cards = (props) => {
             popupBackground?.setAttribute('class', 'hidden');
         }
     }, [popupIsShown]);
-
-    /*---- logic for editing the popup ----*/
-    const handleChange = e => {
-        // this.setState({ html: e.target.value });
-    };
 
     /*---- logic for closing the popup ----*/
     const closePopup = (e) => {
@@ -110,11 +104,11 @@ const Cards = (props) => {
         const inputDeckName = refInputDeckName.current
 
         // EXIT: no values
-        if (!inputDeckName.lastHtml) return
+        if (!inputDeckName.value) return
 
         const newDeck = {
             ...decks,
-            name: inputDeckName.lastHtml
+            name: inputDeckName.value
         }
 
         updateDeck(newDeck)
@@ -156,14 +150,7 @@ const Cards = (props) => {
                             /*---- there were no cards to be fetched ----*/
                             ? <div className='noContentContainer' >
                                 <div className="cardsDeckName lightBlue">
-                                    <ContentEditable
-                                        onKeyDown={handleRenameDeck}
-                                        ref={refInputDeckName}
-                                        className="editableCardDetails"
-                                        html={decks.name}
-                                        disabled={false} // use true to disable edition
-                                        onChange={handleChange}
-                                    />
+                                    <input type="text" placeholder={decks.name} onKeyDown={handleRenameDeck} ref={refInputDeckName} className="editableCardDetails" />
                                 </div>
                                 <h2>You don't have any cards yet</h2>
                                 <div className='noContentImgContainer' ><img src={Decks} alt='no cards icon' /></div>
@@ -173,14 +160,7 @@ const Cards = (props) => {
                             : <>
                                 <div className="addButton" ref={addCardsButton} onClick={handleOpenCardDetails} id='cardAddButton' >+</div>
                                 <div className="cardsDeckName lightBlue">
-                                    <ContentEditable
-                                        onKeyDown={handleRenameDeck}
-                                        ref={refInputDeckName}
-                                        className="editableCardDetails"
-                                        html={decks.name}
-                                        disabled={false} // use true to disable edition
-                                        onChange={handleChange}
-                                    />
+                                    <input type="text" placeholder={decks.name} onKeyDown={handleRenameDeck} ref={refInputDeckName} className="editableCardDetails" />
                                 </div>
                                 <div className="cardSearchField">
                                     <input ref={refInputSearchCards} type='text' onKeyDown={handleSearchOnKeyDown} />
@@ -189,7 +169,7 @@ const Cards = (props) => {
                                 {
                                     filtered_cards.map((card) => {
                                         return (
-                                            <div className='cards' key={card.id} onClick={handleOpenCardDetails} id={card.id} >
+                                            <div className='cards' key={card._id} onClick={handleOpenCardDetails} id={card._id} >
                                                 <p>{card.front}</p>
                                                 <p>{card.back}</p>
                                             </div>
@@ -203,22 +183,22 @@ const Cards = (props) => {
                     <div className="popup" style={{ display: popupIsShown ? 'block' : 'none' }} >
                         <div className="popupDecksContent">
                             <p>Side 1:</p>
-                            <ContentEditable
+                            <input type="text" placeholder={front ? front : ''} ref={refInputFront} className="editableCardDetails" />
+                            {/*<ContentEditable
                                 ref={refInputFront}
                                 className="editableCardDetails"
                                 html={front ? front : ''}
                                 disabled={false} // use true to disable edition
-                                onChange={handleChange}
-                            />
+                            />*/}
 
                             <p>Side 2:</p>
-                            <ContentEditable
+                            <input type="text" placeholder={back ? back : ''} ref={refInputBack} className="editableCardDetails" />
+                            {/*<ContentEditable
                                 ref={refInputBack}
                                 className="editableCardDetails"
                                 html={back ? back : ''}
                                 disabled={false}
-                                onChange={handleChange}
-                            />
+                            />*/}
                             <div className="cardDetailsPopupBottom">
                                 <button onClick={saveCard} >Save this Card</button>
                                 <p><a onClick={closePopup} href='https://image.emojisky.com/401/147401-middle.png' target='_blank' rel="noreferrer" >Delete</a> this Card</p>
