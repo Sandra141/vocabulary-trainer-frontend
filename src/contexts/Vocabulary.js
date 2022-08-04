@@ -7,6 +7,7 @@ import {
     url_users_decks_update,
     url_cards_update,
     url_decks_cards_update,
+    url_search_public_decks,
 } from '../services/vocabulary.js'
 
 import { useAuthentification } from './Authentification.js'
@@ -23,6 +24,7 @@ export const Vocabulary = ({ children }) => {
     const [users_decks, set_users_decks] = useState([])
     const [cards, set_cards] = useState([])
     const [decks_cards, set_decks_cards] = useState([])
+    const [shared_decks, set_shared_decks] = useState([])
 
     //# request to db
     const [users_request, set_users_request] = useState(null)
@@ -104,7 +106,7 @@ export const Vocabulary = ({ children }) => {
         // db
         set_cards_request(url_cards_update(token, [new_cards]))
         set_decks_cards_request(url_decks_cards_update(token, [new_decks_cards]))
-    
+
         return new_cards
     }
 
@@ -174,7 +176,7 @@ export const Vocabulary = ({ children }) => {
         const index = decks.findIndex(x => x._id === _id)
 
         // EXIT: no deck found
-        if(index === -1) return
+        if (index === -1) return
 
         return decks[index]
     }
@@ -197,6 +199,8 @@ export const Vocabulary = ({ children }) => {
         const searchingCards = getCardsFromDeck(currentDeck)
         return searchingCards.filter(x => x.front.includes(searchCardTerm) || x.back.includes(searchCardTerm))
     }
+
+    const copySharedDecks = () => { }
 
     return (
         <VocabularyContext.Provider

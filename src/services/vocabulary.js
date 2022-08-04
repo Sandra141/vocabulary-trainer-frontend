@@ -158,10 +158,12 @@ const url_decks_cards_update = (token, decks_cards) => {
 
 // {
 //     "authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmU3YWVkZmY0ZWZhMmJjOGEwNzNmMmQiLCJlbWFpbCI6ImVuZ2xpc2giLCJpc0xvZ2dlZEluIjp0cnVlLCJpYXQiOjE2NTkzNTY1NTMsImV4cCI6MTY2Mjk1NjU1M30.SvWRO5TQBhGQR40NaaOAXTmAK8Pr1AqG4UjY0bfgYEI",
-//     "skip": 0,
-//     "limit": 10
+//     "page": 1
 // }
-const url_search_public_decks = (token, skip, limit) => {
+const url_search_public_decks = (token, page = 1) => {
+    // EXIT: page not ok
+    if(page < 1) return
+
     const url = API_URL + PATH_SEARCH
 
     return {
@@ -171,8 +173,7 @@ const url_search_public_decks = (token, skip, limit) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 'authorization': 'Bearer ' + token,
-                skip,
-                limit
+                page
             })
         }
     }
@@ -184,4 +185,5 @@ export {
     url_users_decks_update,
     url_cards_update,
     url_decks_cards_update,
+    url_search_public_decks,
 }

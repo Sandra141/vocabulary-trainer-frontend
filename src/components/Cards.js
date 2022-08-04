@@ -44,8 +44,8 @@ const Cards = (props) => {
     /*---- logic for popup ----*/
     const handleOpenCardDetails = (e) => {
         if (e.target !== addCardsButton.current) {
-            const idInArray = parseInt(e.target.parentElement.id);
-            const clickedObject = filtered_cards.find(obj => obj.id === idInArray);
+            const idInArray = e.target.parentElement.id;
+            const clickedObject = filtered_cards.find(obj => obj._id === idInArray);
             set_front(clickedObject.front);
             set_back(clickedObject.back);
         }
@@ -189,7 +189,7 @@ const Cards = (props) => {
                                 {
                                     filtered_cards.map((card) => {
                                         return (
-                                            <div className='cards' key={card.id} onClick={handleOpenCardDetails} id={card.id} >
+                                            <div className='cards' key={card._id} onClick={handleOpenCardDetails} id={card._id} >
                                                 <p>{card.front}</p>
                                                 <p>{card.back}</p>
                                             </div>
