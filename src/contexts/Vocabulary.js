@@ -122,6 +122,7 @@ export const Vocabulary = ({ children }) => {
         const decks_id = new ObjectID().toString()
         const new_decks = {
             ...decks,
+            shared: false,
             _id: decks_id
         }
 
