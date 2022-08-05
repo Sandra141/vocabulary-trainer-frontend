@@ -122,33 +122,44 @@ export const Vocabulary = ({ children }) => {
         const decks_id = new ObjectID().toString()
         const new_decks = {
             ...decks,
-            id: decks_id
+            _id: decks_id
         }
 
         // decks_cards
         const decks_cards_id = new ObjectID().toString()
         const new_decks_cards = {
             ...decks_cards,
-            id: decks_cards_id
+            _id: decks_cards_id
         }
 
         // cards
         const cards_id = new ObjectID().toString()
         const new_cards = {
             ...cards,
-            id: cards_id            
+            _id: cards_id
+        }
+
+        // users_decks
+        const users_decks_id = new ObjectID().toString()
+        const new_users_decks = {
+            _id: users_decks_id,
+            users_id: users._id,
+            author: users._id,
+            decks_id,
+            liked: 0
         }
 
         // local
         set_cards(prev => [...prev, new_cards])
         set_decks_cards(prev => [...prev, new_decks_cards])
         set_decks(prev => [...prev, new_decks])
+        set_users_decks(prev => [...prev, new_users_decks])
 
         // db
         set_cards_request(url_cards_update(token, [new_cards]))
         set_decks_cards_request(url_decks_cards_update(token, [new_decks_cards]))
         set_decks_request(url_decks_update(token, [new_decks]))
-
+        set_users_decks_request(url_users_decks_update(token, [new_users_decks]))
     }
 
     //# update
