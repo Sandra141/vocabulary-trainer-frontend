@@ -7,6 +7,7 @@ import {
     url_users_decks_update,
     url_cards_update,
     url_decks_cards_update,
+    url_search_public_decks,
 } from '../services/vocabulary.js'
 
 import { useAuthentification } from './Authentification.js'
@@ -23,6 +24,7 @@ export const Vocabulary = ({ children }) => {
     const [users_decks, set_users_decks] = useState([])
     const [cards, set_cards] = useState([])
     const [decks_cards, set_decks_cards] = useState([])
+    const [shared_decks, set_shared_decks] = useState([])
 
     //# request to db
     const [users_request, set_users_request] = useState(null)
@@ -104,8 +106,61 @@ export const Vocabulary = ({ children }) => {
         // db
         set_cards_request(url_cards_update(token, [new_cards]))
         set_decks_cards_request(url_decks_cards_update(token, [new_decks_cards]))
-    
+
         return new_cards
+    }
+
+    //# copy
+    //## copy shared deck
+    const copyDeck = (decks, decks_cards, cards) => {
+        // EXIT: required forgotten
+        if (!decks) return
+        if (!decks_cards) return
+        if (!cards) return
+
+        // decks
+        const decks_id = new ObjectID().toString()
+        const new_decks = {
+            ...decks,
+            shared: false,
+            _id: decks_id
+        }
+
+        // decks_cards
+        const decks_cards_id = new ObjectID().toString()
+        const new_decks_cards = {
+            ...decks_cards,
+            _id: decks_cards_id
+        }
+
+        // cards
+        const cards_id = new ObjectID().toString()
+        const new_cards = {
+            ...cards,
+            _id: cards_id
+        }
+
+        // users_decks
+        const users_decks_id = new ObjectID().toString()
+        const new_users_decks = {
+            _id: users_decks_id,
+            users_id: users._id,
+            author: users._id,
+            decks_id,
+            liked: 0
+        }
+
+        // local
+        set_cards(prev => [...prev, new_cards])
+        set_decks_cards(prev => [...prev, new_decks_cards])
+        set_decks(prev => [...prev, new_decks])
+        set_users_decks(prev => [...prev, new_users_decks])
+
+        // db
+        set_cards_request(url_cards_update(token, [new_cards]))
+        set_decks_cards_request(url_decks_cards_update(token, [new_decks_cards]))
+        set_decks_request(url_decks_update(token, [new_decks]))
+        set_users_decks_request(url_users_decks_update(token, [new_users_decks]))
     }
 
     //# update
@@ -174,7 +229,7 @@ export const Vocabulary = ({ children }) => {
         const index = decks.findIndex(x => x._id === _id)
 
         // EXIT: no deck found
-        if(index === -1) return
+        if (index === -1) return
 
         return decks[index]
     }
@@ -198,6 +253,8 @@ export const Vocabulary = ({ children }) => {
         return searchingCards.filter(x => x.front.includes(searchCardTerm) || x.back.includes(searchCardTerm))
     }
 
+    const copySharedDecks = () => { }
+
     return (
         <VocabularyContext.Provider
             value={{
@@ -216,6 +273,9 @@ export const Vocabulary = ({ children }) => {
                 // create
                 createDeck,
                 createCard,
+
+                // copy
+                copyDeck,
 
                 // update
                 updateDeck,

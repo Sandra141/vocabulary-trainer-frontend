@@ -1,90 +1,98 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import './../css/publishedDecks.css';
-import Header from './Header';
-import Footer from './Footer2';
-import dummyDataArray from './dummyDataArrayDecks';
+import React, { useState, useRef, useEffect } from "react";
+import ContentEditable from 'react-contenteditable';
+import './../css/cards.css';
+import './../css/popup.css';
+import Header from "./Header";
+import Footer from "./Footer";
 import Decks from './../images/decks.png';
-import thumbsUp from './../images/thumbsUp.svg';
-import thumbsDown from './../images/thumbsDown.svg';
 import SearchIcon from './../images/searchIcon.svg';
+import { useLocation, useSearchParams } from "react-router-dom";
+import { useAuthentification } from '../contexts/Authentification.js'
+import { useVocabulary } from '../contexts/Vocabulary'
+import { url_shared } from '../services/vocabulary'
+import useFetch from "../hooks/useFetch";
 
-const PublishedDecks = () => {
-    let counter = 0;
-    let colourClass;
+const PublishedDecks = (props) => {
+    const { token } = useAuthentification()
 
-    return(
-        <>
-        <div className='ContainerForHeaderAndMain'>
-            <Header />
+    const {
+        copyDeck
+    } = useVocabulary()
 
-            <div className='mainContent'>
-            
-            {
-                dummyDataArray.length === 0
-                /*---- if the user doesn't have decks ----*/
-                ?  <div className='noContentContainer' >
-                        <h2>There are currently no public decks</h2>
-                        <div className='noContentImgContainer' ><img src={Decks} alt='no decks icon' /></div>
-                    </div>
+    //# read url term
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search)
+    const term = queryParams.get("_id")
 
-                : 
-                <>
-                <div className='searchFieldContainer'>
-                    <div className="cardSearchField">
-                        <input type='text' />
-                        <img src={SearchIcon} alt='search icon' />
-                    </div>
+    //# state
+    const [decks_id, set_decks_id] = useState(term)
+    const [decks, set_decks] = useState([])
+    const [decks_cards, set_decks_cards] = useState([])
+    const [cards, set_cards] = useState([])
+
+    //# request
+    const [request, setRequest] = useState(null)
+    const { data, error, isLoading } = useFetch(request)
+
+    //# initial
+    useEffect(() => {
+        const newRequest = url_shared(token, decks_id)
+        setRequest(newRequest)
+    }, [])
+
+    //# handle result from db
+    useEffect(() => {
+        // EXIT: error
+        if (error) return console.log(error)
+
+        // EXIT: no data
+        if (!data) return console.log("no data", data)
+
+        // EXIT: authentification is not ok
+        if (!data.success) return console.log("authentification is not ok")
+
+
+        // SUCCESS: authentification und download ok
+        const { decks, cards, decks_cards } = data.data[0]
+        set_decks(decks)
+        set_cards(cards)
+        set_decks_cards(decks_cards)
+
+    }, [data, error, isLoading])
+
+    const renderCards = () => !cards
+        ? null
+        : (cards.map(x => {
+            return (
+                <div className='cards' key={x._id} id={x._id} >
+                    <p>{x.front}</p>
+                    <p>{x.back}</p>
                 </div>
-                {dummyDataArray.map((card) => {
-                    /*---- defining colour classNames ----*/
-                    counter < 4 ? counter++ : counter = 1;
-                    switch(counter) {
-                        case 1:
-                            colourClass = 'lightBlue publicDeck';
-                            break;
-                        case 2:
-                            colourClass = 'darkBlue publicDeck';
-                            break;
-                        case 3:
-                            colourClass = 'gray publicDeck';
-                            break;
-                        case 4:
-                            colourClass = 'pink publicDeck';
-                            break;
-                        default:
-                            colourClass = 'lightBlue publicDeck';
-                    }
-                    /*---- public decks were able to be fetched ----*/
-                    return(
-                    <div className='publicDeckContainer' key={card.id}>
-                        <NavLink to={'/decks/' + card.id} className={colourClass} >
-                            <div className='publicDeckTop'>
-                                <h2>{card.name}</h2>
-                                <p>{card.vocabNumber + ' words'}</p>
-                            </div>
-                            <div className='publicDeckBottom'>
-                                
-                            </div>
-                        </NavLink>
-                        <div className='thumbsContainer'>
-                            <div className='publicDeckThumbs'>
-                                <img src={thumbsUp} alt='thumbs up icon' />
-                                <p>{card.thumbsUp}</p>
-                            </div>
-                            <div className='publicDeckThumbs'>
-                                <img src={thumbsDown} alt='thumbs down icon' />
-                                <p>{card.thumbsDown}</p>
-                            </div>
-                        </div>
-                    </div>
-                    );
-                })}</>
-            }
-            </div>
+            );
+        }))
 
-        </div>
-        <Footer />
+    const handleCopyDeck = e => {
+        console.log(99999999999)
+        // copy
+        copyDeck(decks, decks_cards, cards)
+
+
+    }
+
+    const renderCopyButton = () => <button onClick={handleCopyDeck}>COPY ME</button>
+
+    return (
+        <>
+            <div className='ContainerForHeaderAndMain'>
+                <Header />
+
+                {renderCopyButton()}
+
+                <div className='mainContent' id='vocabContent'>
+                    {renderCards()}
+                </div>
+            </div>
+            <Footer />
         </>
     );
 }

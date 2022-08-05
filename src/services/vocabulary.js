@@ -5,6 +5,7 @@ const PATH_DECKS = "/decks"
 const PATH_SYNC = "/sync"
 const PATH_USERS_DECKS = "/users_decks"
 const PATH_SEARCH = "/search"
+const PATH_SHARED = "/shared"
 
 //////////
 ////////// HINT:
@@ -158,10 +159,12 @@ const url_decks_cards_update = (token, decks_cards) => {
 
 // {
 //     "authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmU3YWVkZmY0ZWZhMmJjOGEwNzNmMmQiLCJlbWFpbCI6ImVuZ2xpc2giLCJpc0xvZ2dlZEluIjp0cnVlLCJpYXQiOjE2NTkzNTY1NTMsImV4cCI6MTY2Mjk1NjU1M30.SvWRO5TQBhGQR40NaaOAXTmAK8Pr1AqG4UjY0bfgYEI",
-//     "skip": 0,
-//     "limit": 10
+//     "page": 1
 // }
-const url_search_public_decks = (token, skip, limit) => {
+const url_search_public_decks = (token, search_term = "", page = 1) => {
+    // EXIT: page not ok
+    if (page < 1) return
+
     const url = API_URL + PATH_SEARCH
 
     return {
@@ -171,8 +174,35 @@ const url_search_public_decks = (token, skip, limit) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 'authorization': 'Bearer ' + token,
-                skip,
-                limit
+                search_term,
+                page
+            })
+        }
+    }
+}
+
+// ### shared
+// POST http://localhost:9000/vocabulary/shared
+// Content-Type: application/json
+
+// {
+//     "authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmU3YWVkZmY0ZWZhMmJjOGEwNzNmMmQiLCJlbWFpbCI6ImVuZ2xpc2giLCJpc0xvZ2dlZEluIjp0cnVlLCJpYXQiOjE2NTkzNTY1NTMsImV4cCI6MTY2Mjk1NjU1M30.SvWRO5TQBhGQR40NaaOAXTmAK8Pr1AqG4UjY0bfgYEI",
+//     "decks_id": "62e969b107eef0725a503c2c"
+// }
+const url_shared = (token, decks_id) => {
+    // EXIT: page not ok
+    if (!decks_id) return
+
+    const url = API_URL + PATH_SHARED
+
+    return {
+        url: url,
+        options: {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                'authorization': 'Bearer ' + token,
+                decks_id
             })
         }
     }
@@ -184,4 +214,6 @@ export {
     url_users_decks_update,
     url_cards_update,
     url_decks_cards_update,
+    url_search_public_decks,
+    url_shared,
 }
