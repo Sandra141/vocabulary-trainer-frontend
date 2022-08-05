@@ -114,7 +114,7 @@ const MyDecks = () => {
                                 <div className='addButtonContainer'>
                                     <div className="addButton" id='addButtonDecks' onClick={handleAddDecksButton} >+</div>
                                 </div>
-                                {decks.map((card) => {
+                                {decks.sort().map((card) => {
                                     /*---- defining colour classNames ----*/
                                     counter < 4 ? counter++ : counter = 1;
                                     switch (counter) {

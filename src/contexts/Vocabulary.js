@@ -126,19 +126,27 @@ export const Vocabulary = ({ children }) => {
             _id: decks_id
         }
 
-        // decks_cards
-        const decks_cards_id = new ObjectID().toString()
-        const new_decks_cards = {
-            ...decks_cards,
-            _id: decks_cards_id
-        }
-
         // cards
-        const cards_id = new ObjectID().toString()
-        const new_cards = {
-            ...cards,
-            _id: cards_id
-        }
+        const new_cards = cards.map(x => {
+            const cards_id = new ObjectID().toString()
+
+            return {
+                ...x,
+                _id: cards_id
+            }
+        })
+
+        // decks_cards
+        const new_decks_cards = new_cards.map(x => {
+            const decks_cards_id = new ObjectID().toString()
+
+            return {
+                _id: decks_cards_id,
+                decks_id: decks_id,
+                cards_id: x._id
+            }
+
+        })
 
         // users_decks
         const users_decks_id = new ObjectID().toString()
@@ -150,15 +158,24 @@ export const Vocabulary = ({ children }) => {
             liked: 0
         }
 
+        console.log("+++++++++++++++++++++++")
+        console.log(new_decks)
+        console.log(new_cards)
+        console.log(new_decks_cards)
+
+
+
+        console.log("--------------------")
+
         // local
-        set_cards(prev => [...prev, new_cards])
-        set_decks_cards(prev => [...prev, new_decks_cards])
+        set_cards(prev => [...prev, ...new_cards])
+        set_decks_cards(prev => [...prev, ...new_decks_cards])
         set_decks(prev => [...prev, new_decks])
         set_users_decks(prev => [...prev, new_users_decks])
 
         // db
-        set_cards_request(url_cards_update(token, [new_cards]))
-        set_decks_cards_request(url_decks_cards_update(token, [new_decks_cards]))
+        set_cards_request(url_cards_update(token, new_cards))
+        set_decks_cards_request(url_decks_cards_update(token, new_decks_cards))
         set_decks_request(url_decks_update(token, [new_decks]))
         set_users_decks_request(url_users_decks_update(token, [new_users_decks]))
     }

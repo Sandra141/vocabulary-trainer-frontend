@@ -72,19 +72,22 @@ const PublishedDecks = (props) => {
         }))
 
     const handleCopyDeck = e => {
-        console.log(99999999999)
         // copy
         copyDeck(decks, decks_cards, cards)
-
-
     }
 
     const renderCopyButton = () => <button onClick={handleCopyDeck}>COPY ME</button>
+
+    const renderDeckName = () => !decks
+        ? null
+        : <h1>{decks.name}</h1>
 
     return (
         <>
             <div className='ContainerForHeaderAndMain'>
                 <Header />
+
+                {renderDeckName()}
 
                 {renderCopyButton()}
 
