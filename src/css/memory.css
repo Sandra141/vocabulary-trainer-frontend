@@ -8,6 +8,28 @@
     margin-bottom: 1rem;
 }
 
+/*---- question Mark ----*/
+.questionMarkMemory {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: absolute;
+    right: 0.5rem;
+    top: 0.5rem;
+    height: 2rem;
+    width: 2rem;
+    border: 2px solid #06062F;
+    border-radius: 50%;
+    color: #06062F;
+    transition: all 0.2s ease-in-out; 
+}
+
+.questionMarkMemory:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
 /*---- Card and card turning CSS ----*/
 .memoryCard {
     display: flex;

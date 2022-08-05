@@ -18,6 +18,7 @@ const Memory = () => {
     const refMemoryWrongMessage = useRef(null);
     const [deckSelectionPopupIsShown, setDeckSelectionPopupIsShown] = useState(true);
     const [playAgainPupupIsShown, setPlayAgainPupupIsShown] = useState(false);
+    const [questionMarkPopupIsShown, setQuestionMarkPopupIsShown] = useState(false);
     const [deckSelection, setdeckSelection] = useState(dummyDataArrayCards.cards.sort(() => Math.random() - 0.5).slice(0, 8));
 
     let [cardArray, setCardArray] = useState([]);
@@ -137,6 +138,17 @@ const Memory = () => {
         } else return;
     }, [gameRestart]);
 
+    /*---- question Mark logic ----*/
+    const handleQuestionMarkClick = () => {
+        setQuestionMarkPopupIsShown(true);
+    }
+
+    /*---- logic for closing the popup ----*/
+    const closePopup = (e) => {
+        document.body.style.overflow = 'visible';
+        setQuestionMarkPopupIsShown(false);
+    }
+
     return(
         <>
         <div className='ContainerForHeaderAndMain'>
@@ -174,9 +186,8 @@ const Memory = () => {
                                 );
                                 })
                             }
-                            
-                            
                         </div>
+                        <div className="questionMarkMemory">?</div>
                         <p className='memorywrongMessageHidden' ref={refMemoryWrongMessage} >No match</p>
                         <div className="memoryButtonContainer">
                             <div className={moveCounter === 2 ? 'memoryButton lightBlue' : 'memoryButtonGray lightBlue'} onClick={() => handleButtonClick('wrong')}><img src={wrong} /></div>
@@ -193,6 +204,17 @@ const Memory = () => {
                         <NavLink to="/games">
                             <div>no</div>
                         </NavLink>
+                    </div>
+                </div>
+
+                {/*--- popup container for game description ----*/}
+                <div className="popup" style={{display: questionMarkPopupIsShown ? 'block' : 'none'}} >
+                    <div className='popupQuestionMark'>
+                        <h2 className='gamesPopupDeckSelectionH2'>How do flashcards work?</h2>
+                        <p className="gamesQuestionMarkP">Flashcards allow you to learn at your own pace. To start, you choose a deck and then you can choose the visible side.</p>
+                        <p className="gamesQuestionMarkP">As soon as the game starts, you will see the visible side of the card at the top. Your task is to find the solution. You can check your solution by clicking on the card.</p>
+                        <p className="gamesQuestionMarkP">Now you can assess how easy or difficult it was for you to find the solution and click on the corresponding button.</p>
+                        <p>Have fun!</p>
                     </div>
                 </div>
                 

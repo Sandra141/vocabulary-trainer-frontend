@@ -51,6 +51,7 @@ p {
   padding: 6% 6% 10vh;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .gameContainer {
