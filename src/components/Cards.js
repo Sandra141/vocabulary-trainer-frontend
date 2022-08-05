@@ -133,71 +133,75 @@ const Cards = (props) => {
         set_decks(newDeck)
     }
 
-    const renderSharedButton = status => (
-        <button
-            onClick={handleToggleShared}
-            style={{ backgroundColor: status ? "gold" : "white" }}
-        >
-            {status
-                ? "Deck is shared! Press here to deactivate"
-                : "Deck is private. Press here if you want to share it with others!"}
-        </button>
-    )
+    const renderSharedButton = () => !decks
+        ? null
+        : (
+            <button
+                onClick={handleToggleShared}
+                style={{ backgroundColor: decks.shared ? "gold" : "white" }}
+            >
+                {decks.shared
+                    ? "Deck is shared! Press here to deactivate"
+                    : "Deck is private. Press here if you want to share it with others!"}
+            </button>
+        )
+
+    const renderCards = () => !filtered_cards || !decks
+        ? <div>Du hast kein Deck</div>
+        : (filtered_cards.length === 0
+            /*---- there were no cards to be fetched ----*/
+            ? <div className='noContentContainer' >
+                <div className="cardsDeckName lightBlue">
+                    <ContentEditable
+                        onKeyDown={handleRenameDeck}
+                        ref={refInputDeckName}
+                        className="editableCardDetails"
+                        html={decks.name}
+                        disabled={false} // use true to disable edition
+                        onChange={handleChange}
+                    />
+                </div>
+                <h2>You don't have any cards yet</h2>
+                <div className='noContentImgContainer' ><img src={Decks} alt='no cards icon' /></div>
+                <div className="addButton" ref={addCardsButton} onClick={handleOpenCardDetails} >+</div>
+            </div>
+            /*---- cards were fetched ----*/
+            : <>
+                <div className="addButton" ref={addCardsButton} onClick={handleOpenCardDetails} id='cardAddButton' >+</div>
+                <div className="cardsDeckName lightBlue">
+                    <ContentEditable
+                        onKeyDown={handleRenameDeck}
+                        ref={refInputDeckName}
+                        className="editableCardDetails"
+                        html={decks.name}
+                        disabled={false} // use true to disable edition
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="cardSearchField">
+                    <input ref={refInputSearchCards} type='text' onKeyDown={handleSearchOnKeyDown} />
+                    <img src={SearchIcon} alt='search icon' />
+                </div>
+                {
+                    filtered_cards.map((card) => {
+                        return (
+                            <div className='cards' key={card._id} onClick={handleOpenCardDetails} id={card._id} >
+                                <p>{card.front}</p>
+                                <p>{card.back}</p>
+                            </div>
+                        );
+                    })
+                }
+            </>)
 
     return (
         <>
             <div className='ContainerForHeaderAndMain'>
                 <Header />
                 <div className='mainContent' id='vocabContent'>
-                    {renderSharedButton(decks.shared)}
+                    {renderSharedButton()}
 
-                    {
-                        filtered_cards.length === 0
-                            /*---- there were no cards to be fetched ----*/
-                            ? <div className='noContentContainer' >
-                                <div className="cardsDeckName lightBlue">
-                                    <ContentEditable
-                                        onKeyDown={handleRenameDeck}
-                                        ref={refInputDeckName}
-                                        className="editableCardDetails"
-                                        html={decks.name}
-                                        disabled={false} // use true to disable edition
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                                <h2>You don't have any cards yet</h2>
-                                <div className='noContentImgContainer' ><img src={Decks} alt='no cards icon' /></div>
-                                <div className="addButton" ref={addCardsButton} onClick={handleOpenCardDetails} >+</div>
-                            </div>
-                            /*---- cards were fetched ----*/
-                            : <>
-                                <div className="addButton" ref={addCardsButton} onClick={handleOpenCardDetails} id='cardAddButton' >+</div>
-                                <div className="cardsDeckName lightBlue">
-                                    <ContentEditable
-                                        onKeyDown={handleRenameDeck}
-                                        ref={refInputDeckName}
-                                        className="editableCardDetails"
-                                        html={decks.name}
-                                        disabled={false} // use true to disable edition
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                                <div className="cardSearchField">
-                                    <input ref={refInputSearchCards} type='text' onKeyDown={handleSearchOnKeyDown} />
-                                    <img src={SearchIcon} alt='search icon' />
-                                </div>
-                                {
-                                    filtered_cards.map((card) => {
-                                        return (
-                                            <div className='cards' key={card._id} onClick={handleOpenCardDetails} id={card._id} >
-                                                <p>{card.front}</p>
-                                                <p>{card.back}</p>
-                                            </div>
-                                        );
-                                    })
-                                }
-                            </>
-                    }
+                    {renderCards()}
                     {/*---- popup ----*/}
                     <div className="hidden" ref={refPopupBackground} onClick={closePopup} ></div>
                     <div className="popup" style={{ display: popupIsShown ? 'block' : 'none' }} >

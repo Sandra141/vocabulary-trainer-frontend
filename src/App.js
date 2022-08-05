@@ -16,6 +16,7 @@ import Login from './components/Login';
 import Registration from './components/Registration';
 import RequireAuthentification from './components/system/RequireAuthentification';
 import Download from './components/system/Download';
+import FindSharedDecks from './components/FindSharedDecks';
 
 function App() {
   return (
@@ -30,7 +31,8 @@ function App() {
 
 
           <Route path="/download" element={<RequireAuthentification><Download /></RequireAuthentification>} />
-          <Route path="/find-Decks" element={<RequireAuthentification><PublishedDecks /></RequireAuthentification>} />
+          <Route path="/find-Decks" element={<RequireAuthentification><FindSharedDecks /></RequireAuthentification>} />
+          <Route path="/find-Decks/:id" element={<RequireAuthentification><PublishedDecks /></RequireAuthentification>} />
 
           <Route path="/games" element={<RequireAuthentification><Games /></RequireAuthentification>} />
           <Route path="/games/Flascards" element={<RequireAuthentification><Flashcards /></RequireAuthentification>} />
