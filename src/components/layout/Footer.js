@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
-import './../css/footer.css';
-import footerProfileGray from './../images/footerProfileGray.svg';
-import footerProfileWhite from './../images/footerProfileWhite.svg';
-import footerSettingsGray from './../images/footerSettingsGray.svg';
-import footerSettingsWhite from './../images/footerSettingsWhite.svg';
-import footerHomeGray from './../images/footerHomeGray.svg';
-import footerHomeWhite from './../images/footerHomeWhite.svg';
+import '../../css/footer.css';
+import footerProfileGray from '../../images/footerProfileGray.svg';
+import footerProfileWhite from '../../images/footerProfileWhite.svg';
+import footerSettingsGray from '../../images/footerSettingsGray.svg';
+import footerSettingsWhite from '../../images/footerSettingsWhite.svg';
+import footerHomeGray from '../../images/footerHomeGray.svg';
+import footerHomeWhite from '../../images/footerHomeWhite.svg';
 
 const Footer = () => {
     const refHomeImage = useRef(null)

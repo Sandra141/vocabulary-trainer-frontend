@@ -1,7 +1,7 @@
-import './../css/header.css';
+import '../../css/header.css';
 
 const HeaderBlank = () => {
-    return(
+    return (
         <header className="appHeader">
             <h1>Heading</h1>
         </header>

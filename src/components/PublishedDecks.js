@@ -2,8 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import ContentEditable from 'react-contenteditable';
 import './../css/cards.css';
 import './../css/popup.css';
-import Header from "./Header";
-import Footer from "./Footer";
 import Decks from './../images/decks.png';
 import SearchIcon from './../images/searchIcon.svg';
 import { useLocation, useSearchParams } from "react-router-dom";
@@ -11,6 +9,8 @@ import { useAuthentification } from '../contexts/Authentification.js'
 import { useVocabulary } from '../contexts/Vocabulary'
 import { url_shared } from '../services/vocabulary'
 import useFetch from "../hooks/useFetch";
+import Header from "./layout/Header";
+import Footer from "./layout/Footer";
 
 const PublishedDecks = (props) => {
     const { token } = useAuthentification()
@@ -82,10 +82,20 @@ const PublishedDecks = (props) => {
         ? null
         : <h1>{decks.name}</h1>
 
+    const renderDeckId = () => !decks
+        ? null
+        : <div>
+            share your deck with others :)
+            <br />
+            id: {decks._id}
+        </div>
+
     return (
         <>
             <div className='ContainerForHeaderAndMain'>
                 <Header />
+
+                {renderDeckId()}
 
                 {renderDeckName()}
 
@@ -95,6 +105,7 @@ const PublishedDecks = (props) => {
                     {renderCards()}
                 </div>
             </div>
+
             <Footer />
         </>
     );

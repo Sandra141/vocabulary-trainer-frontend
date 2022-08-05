@@ -2,13 +2,13 @@ import React, { useRef, useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import './../css/myDecks.css';
 import './../css/popup.css';
-import Header from './Header';
-import Footer from './Footer';
 import emptyHeart from './../images/emptyHeart.svg';
 import filledHeart from './../images/filledHeart.svg';
 import dotMenu from './../images/dotMenu.svg';
 import Decks from './../images/decks.png';
 import { useVocabulary } from '../contexts/Vocabulary.js'
+import Header from './layout/Header';
+import Footer from './layout/Footer';
 
 const MyDecks = () => {
     const vocabulary = useVocabulary()

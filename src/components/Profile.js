@@ -1,5 +1,5 @@
-import HeaderBlank from './HeaderBlank';
-import Footer from './Footer';
+import HeaderBlank from './layout/HeaderBlank';
+import Footer from './layout/Footer';
 
 const Profile = () => {
     return(

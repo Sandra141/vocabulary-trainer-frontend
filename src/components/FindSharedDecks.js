@@ -1,9 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './../css/findSharedDecks.css';
-import Header from './Header';
-import Footer from './Footer2';
-import dummyDataArray from './dummyDataArrayDecks';
 import Decks from './../images/decks.png';
 import thumbsUp from './../images/thumbsUp.svg';
 import thumbsDown from './../images/thumbsDown.svg';
@@ -12,6 +9,8 @@ import useFetch from '../hooks/useFetch';
 import { useAuthentification } from '../contexts/Authentification'
 import { url_search_public_decks } from '../services/vocabulary'
 import Loading from './modals/Loading';
+import Header from './layout/Header';
+import Footer from './layout/Footer';
 
 const FindSharedDecks = () => {
     //# context
