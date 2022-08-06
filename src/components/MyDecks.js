@@ -94,32 +94,59 @@ const MyDecks = () => {
     }
 
     const renderDecks = () => decks.sort().map((deck, i) =>
-        <div className='deck' key={deck._id} onMouseEnter={handleShowDotMenu} onMouseLeave={handleHideDotMenu} >
+        <div className='deck' key={deck._id}>
 
-            <NavLink to={'/decks/search?_id=' + deck._id} className='decksNavLinkContainer' >
-                <div className={getColorClassName(i) + " card"} >
-                    <h2>{deck.name}</h2>
+
+
+            <div className={getColorClassName(i) + " card"}>
+
+                <div className='top'>
+                    {/* <div className='heartContainer' ><img src={deck.liked ? filledHeart : emptyHeart} onClick={handleHeartClick} id={'heartOfCard' + deck._id} alt="" /></div> */}
+
+                    <NavLink to={'/decks/search?_id=' + deck._id} className='decksNavLinkContainer' >
+                        <h2>{deck.name}</h2>
+                    </NavLink>
                 </div>
-            </NavLink>
 
-            <div className='heartContainer' ><img src={deck.liked ? filledHeart : emptyHeart} onClick={handleHeartClick} id={'heartOfCard' + deck._id} alt="" /></div>
+                <div className='top'>
 
-            <div className='dotMenuContainer'>
-                <img src={dotMenu} alt="" onClick={handleShowDotMenuDetails} />
-            </div>
+                    {/* <div className='heartContainer' ><img src={deck.liked ? filledHeart : emptyHeart} onClick={handleHeartClick} id={'heartOfCard' + deck._id} alt="" /></div> */}
 
-            <div className='dotMenuDetailsContainer' >
-                <div className='dotMenuDetails'>
-                    <p>Delete</p>
+                    <ProgressBar {...vocabulary.getProgressFromDeck(deck._id)} msg_empty={"Deck is empty"} />
                 </div>
+
             </div>
-
-            (shared:{JSON.stringify(deck.shared)})
-
-
-            <ProgressBar {...vocabulary.getProgressFromDeck(deck._id)} />
 
         </div>
+
+
+
+        // <div className='deck' key={deck._id} onMouseEnter={handleShowDotMenu} onMouseLeave={handleHideDotMenu} >
+
+        //     <NavLink to={'/decks/search?_id=' + deck._id} className='decksNavLinkContainer' >
+        //         <div className={getColorClassName(i) + " card"} >
+        //             <h2>{deck.name}</h2>
+        //         </div>
+        //     </NavLink>
+
+        //     <div className='heartContainer' ><img src={deck.liked ? filledHeart : emptyHeart} onClick={handleHeartClick} id={'heartOfCard' + deck._id} alt="" /></div>
+
+        //     <div className='dotMenuContainer'>
+        //         <img src={dotMenu} alt="" onClick={handleShowDotMenuDetails} />
+        //     </div>
+
+        //     <div className='dotMenuDetailsContainer' >
+        //         <div className='dotMenuDetails'>
+        //             <p>Delete</p>
+        //         </div>
+        //     </div>
+
+        //     (shared:{JSON.stringify(deck.shared)})
+
+
+        //     <ProgressBar {...vocabulary.getProgressFromDeck(deck._id)} />
+
+        // </div>
     )
 
     const renderEmpty = () =>
