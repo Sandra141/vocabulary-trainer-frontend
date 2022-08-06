@@ -9,7 +9,7 @@ import Decks from './../images/decks.png';
 import { useVocabulary } from '../contexts/Vocabulary.js'
 import Header from './layout/Header';
 import Footer from './layout/Footer';
-import {getColorClassName} from '../utils/className.js'
+import { getColorClassName } from '../utils/className.js'
 
 const MyDecks = () => {
     const vocabulary = useVocabulary()
@@ -92,69 +92,77 @@ const MyDecks = () => {
         }
     }
 
-    return (
-        <>
-            <div className='ContainerForHeaderAndMain'>
-                <Header />
+    const renderDecks = () => decks.sort().map((card, i) =>
+        <div className='deck' key={card._id} onMouseEnter={handleShowDotMenu} onMouseLeave={handleHideDotMenu} >
 
-                <div className='mainContent' >
-                    {
-                        decks.length === 0
-                            ? <>
-                                {/*---- if the user doesn't have decks ----*/}
-                                <div className='noContentContainer' >
-                                    <h2>You don't have any decks yet</h2>
-                                    <div className='noContentImgContainer' ><img src={Decks} alt='no decks icon' /></div>
-                                    <div className="addButton" onClick={handleAddDecksButton} >+</div>
-                                </div>
-                            </>
-                            :
-                            <>
-                                <div className='addButtonContainer'>
-                                    <div className="addButton" id='addButtonDecks' onClick={handleAddDecksButton} >+</div>
-                                </div>
-                                {decks.sort().map((card, i) => {
-                                    
-                                    /*---- user has some decks ----*/
-                                    return (
-
-                                        <div className='deck' key={card._id} onMouseEnter={handleShowDotMenu} onMouseLeave={handleHideDotMenu} >
-
-                                            <NavLink to={'/decks/search?_id=' + card._id} className='decksNavLinkContainer' >
-
-                                                <div className={getColorClassName(i) + " card"} >
-                                                    <h2>{card.name}</h2>
-                                                </div>
-                                            </NavLink>
-                                            <div className='heartContainer' ><img src={card.liked ? filledHeart : emptyHeart} onClick={handleHeartClick} id={'heartOfCard' + card._id} alt="" /></div>
-                                            <div className='dotMenuContainer'>
-                                                <img src={dotMenu} alt="" onClick={handleShowDotMenuDetails} />
-                                            </div>
-                                            <div className='dotMenuDetailsContainer' >
-                                                <div className='dotMenuDetails'>
-                                                    <p>Delete</p>
-                                                </div>
-                                            </div>
-                                            (shared:{JSON.stringify(card.shared)})
-                                        </div>
-                                    );
-                                })}
-                            </>
-                    }
-                    {/*--- popup container ----*/}
-                    <div ref={refPopupBackground} onClick={closePopup} ></div>
-                    <div className="popup" style={{ display: popupIsShown ? 'block' : 'none' }} >
-                        <div className='popupContent'>
-                            <h2>Create a new Deck</h2>
-                            <input ref={refNewDeckName} type='text' placeholder='name your deck' id='nameNewDeck' />
-                            <input type='submit' value='create' id='submitDeck' onClick={closePopup} />
-                        </div>
-                    </div>
+            <NavLink to={'/decks/search?_id=' + card._id} className='decksNavLinkContainer' >
+                <div className={getColorClassName(i) + " card"} >
+                    <h2>{card.name}</h2>
                 </div>
+            </NavLink>
+
+            <div className='heartContainer' ><img src={card.liked ? filledHeart : emptyHeart} onClick={handleHeartClick} id={'heartOfCard' + card._id} alt="" /></div>
+
+            <div className='dotMenuContainer'>
+                <img src={dotMenu} alt="" onClick={handleShowDotMenuDetails} />
+            </div>
+
+            <div className='dotMenuDetailsContainer' >
+                <div className='dotMenuDetails'>
+                    <p>Delete</p>
+                </div>
+            </div>
+
+            (shared:{JSON.stringify(card.shared)})
+
+        </div>
+    )
+
+    const renderEmpty = () =>
+        <div className='noContentContainer' >
+            <h2>You don't have any decks yet</h2>
+            <div className='noContentImgContainer' ><img src={Decks} alt='no decks icon' /></div>
+            <div className="addButton" onClick={handleAddDecksButton} >+</div>
+        </div>
+
+    const renderCreateNewDeck = () => <>
+        <div ref={refPopupBackground} onClick={closePopup} ></div>
+        <div className="popup" style={{ display: popupIsShown ? 'block' : 'none' }} >
+            <div className='popupContent'>
+                <h2>Create a new Deck</h2>
+                <input ref={refNewDeckName} type='text' placeholder='name your deck' id='nameNewDeck' />
+                <input type='submit' value='create' id='submitDeck' onClick={closePopup} />
+            </div>
+        </div>
+    </>
+
+    return (
+        <div className='ContainerForHeaderAndMain'>
+
+            <Header />
+
+            <div className='mainContent' >
+
+                {
+                    !decks.length
+                        ? renderEmpty()
+                        : <>
+                            <div className='addButtonContainer'>
+                                <div className="addButton" id='addButtonDecks' onClick={handleAddDecksButton} >+</div>
+                            </div>
+
+                            {renderDecks()}
+
+                        </>
+                }
+
+                {renderCreateNewDeck()}
 
             </div>
+
             <Footer />
-        </>
+
+        </div>
     );
 }
 
