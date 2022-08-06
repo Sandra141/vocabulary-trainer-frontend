@@ -62,19 +62,26 @@
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    padding: 4% 10%;
+    padding: 2% 10%;
     gap: 1rem;
 }
 
 .top {
-    /* background: orange; */
     display: flex;
     border: 0;
     padding: 0;
     margin: 0;
     height: 2rem;
     overflow: hidden;
-    /* align-items: flex-start; */
+}
+
+.bottom {
+    display: flex;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    height: 2.4rem;
+    overflow: hidden;
 }
 
 .card h2 {

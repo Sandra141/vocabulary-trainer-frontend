@@ -108,7 +108,7 @@ const MyDecks = () => {
                     </NavLink>
                 </div>
 
-                <div className='top'>
+                <div className='bottom'>
 
                     {/* <div className='heartContainer' ><img src={deck.liked ? filledHeart : emptyHeart} onClick={handleHeartClick} id={'heartOfCard' + deck._id} alt="" /></div> */}
 

@@ -4,18 +4,27 @@
     width: 100%;
     flex-direction: column;
     overflow: hidden;
-    gap: 0.2rem;
+    gap: 0.3rem;
 }
 
 .progressBar .total {
-    background: white;
-    border-radius: 20px;
+    background: #eee;
+    border-radius: 1rem;
 }
 
 .progressBar .progress {
-    /* background: red; */
-    background: lightblue;
     height: .5rem;
-    background-image: linear-gradient(45deg,hsla(0,0%,100%,.15) 25%,transparent 0,transparent 50%,hsla(0,0%,100%,.15) 0,hsla(0,0%,100%,.15) 75%,transparent 0,transparent);
-    border-radius: 20px;
+    background: #37b554a8;
+    --color-progressbar: #0091466a;
+    background-image: linear-gradient(45deg,
+            var(--color-progressbar) 25%,
+            transparent 0,
+            transparent 50%,
+            var(--color-progressbar) 0,
+            var(--color-progressbar) 75%,
+            transparent 0,
+            transparent);
+    background-size: 2rem 2rem;
+    border-radius: 1rem;
+    /* border: 2px solid white; */
 }
