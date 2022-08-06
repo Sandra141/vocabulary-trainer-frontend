@@ -9,11 +9,10 @@ import Decks from './../images/decks.png';
 import { useVocabulary } from '../contexts/Vocabulary.js'
 import Header from './layout/Header';
 import Footer from './layout/Footer';
+import {getColorClassName} from '../utils/className.js'
 
 const MyDecks = () => {
     const vocabulary = useVocabulary()
-    let counter = 0;
-    let colourClass;
     const [popupIsShown, setPopupIsShown] = useState(false);
     const refPopupBackground = useRef(null);
     const refNewDeckName = useRef(null)
@@ -114,33 +113,16 @@ const MyDecks = () => {
                                 <div className='addButtonContainer'>
                                     <div className="addButton" id='addButtonDecks' onClick={handleAddDecksButton} >+</div>
                                 </div>
-                                {decks.sort().map((card) => {
-                                    /*---- defining colour classNames ----*/
-                                    counter < 4 ? counter++ : counter = 1;
-                                    switch (counter) {
-                                        case 1:
-                                            colourClass = 'lightBlue card';
-                                            break;
-                                        case 2:
-                                            colourClass = 'darkBlue card';
-                                            break;
-                                        case 3:
-                                            colourClass = 'gray card';
-                                            break;
-                                        case 4:
-                                            colourClass = 'pink card';
-                                            break;
-                                        default:
-                                            colourClass = 'lightBlue card';
-                                    }
+                                {decks.sort().map((card, i) => {
+                                    
                                     /*---- user has some decks ----*/
                                     return (
 
                                         <div className='deck' key={card._id} onMouseEnter={handleShowDotMenu} onMouseLeave={handleHideDotMenu} >
-                                            
+
                                             <NavLink to={'/decks/search?_id=' + card._id} className='decksNavLinkContainer' >
 
-                                                <div className={colourClass} >
+                                                <div className={getColorClassName(i) + " card"} >
                                                     <h2>{card.name}</h2>
                                                 </div>
                                             </NavLink>

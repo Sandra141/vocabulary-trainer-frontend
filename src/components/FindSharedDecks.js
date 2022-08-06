@@ -11,6 +11,7 @@ import { url_search_public_decks } from '../services/vocabulary'
 import Loading from './modals/Loading';
 import Header from './layout/Header';
 import Footer from './layout/Footer';
+import { getColorClassName } from '../utils/className.js'
 
 const FindSharedDecks = () => {
     //# context
@@ -49,7 +50,7 @@ const FindSharedDecks = () => {
         const new_search_term = refInputSearchDecks.current.value
 
         // EXIT: alte suche gleich neue suche
-        if(new_search_term === search_term) return 
+        if (new_search_term === search_term) return
 
         e.preventDefault()
 
@@ -128,30 +129,12 @@ const FindSharedDecks = () => {
         set_has_more(true)
     }, [data, error, isLoading])
 
-    //# 
-    let counter = 0
-    const getColorClassName = () => {
-        counter <= 0 || counter >= 5
-            ? counter = 1
-            : counter++
-
-        switch (counter) {
-            case 1: return 'lightBlue'
-            case 2: return 'darkBlue'
-            case 3: return 'gray'
-            case 4: return 'pink'
-            default: return 'lightBlue'
-        }
-    }
-
     const renderCards = () => {
-        counter = 0
 
-        return decks.map(card => {
-            const className = getColorClassName()
+        return decks.map((card, i) => {
 
             return (<div className='findSharedDecks' key={card._id}>
-                <NavLink to={'/find-Decks/search?_id=' + card._id} className={className + " publicDeck"} >
+                <NavLink to={'/find-Decks/search?_id=' + card._id} className={getColorClassName(i) + " publicDeck"} >
                     <div className='publicDeckTop'>
                         <h2>{card.name}</h2>
                         <p>{card.vocabNumber + ' words'}</p>
