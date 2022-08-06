@@ -129,34 +129,30 @@ const FindSharedDecks = () => {
         set_has_more(true)
     }, [data, error, isLoading])
 
-    const renderCards = () => {
+    const renderCards = () => decks.map((card, i) =>
+    (
+        <div className='findSharedDecks' key={card._id}>
+            <NavLink to={'/find-Decks/search?_id=' + card._id} className={getColorClassName(i) + " publicDeck"} >
+                <div className='publicDeckTop'>
+                    <h2>{card.name}</h2>
+                    <p>{card.vocabNumber + ' words'}</p>
+                </div>
+                <div className='publicDeckBottom'>
 
-        return decks.map((card, i) => {
-
-            return (<div className='findSharedDecks' key={card._id}>
-                <NavLink to={'/find-Decks/search?_id=' + card._id} className={getColorClassName(i) + " publicDeck"} >
-                    <div className='publicDeckTop'>
-                        <h2>{card.name}</h2>
-                        <p>{card.vocabNumber + ' words'}</p>
-                    </div>
-                    <div className='publicDeckBottom'>
-
-                    </div>
-                </NavLink>
-                <div className='thumbsContainer'>
-                    <div className='publicDeckThumbs'>
-                        <img src={thumbsUp} alt='thumbs up icon' />
-                        <p>{card.thumbsUp}</p>
-                    </div>
-                    <div className='publicDeckThumbs'>
-                        <img src={thumbsDown} alt='thumbs down icon' />
-                        <p>{card.thumbsDown}</p>
-                    </div>
+                </div>
+            </NavLink>
+            <div className='thumbsContainer'>
+                <div className='publicDeckThumbs'>
+                    <img src={thumbsUp} alt='thumbs up icon' />
+                    <p>{card.thumbsUp}</p>
+                </div>
+                <div className='publicDeckThumbs'>
+                    <img src={thumbsDown} alt='thumbs down icon' />
+                    <p>{card.thumbsDown}</p>
                 </div>
             </div>
-            )
-        })
-    }
+        </div>
+    ))
 
     const renderScrollObserver = () => <div ref={refScroll}>
         {!isLoading ? null : "Loading..."}
