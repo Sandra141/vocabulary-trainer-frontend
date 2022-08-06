@@ -1,21 +1,21 @@
 .progressBar {
-    
+    font-size: .8rem;
     display: flex;
+    width: 100%;
     flex-direction: column;
     overflow: hidden;
+    gap: 0.2rem;
 }
 
 .progressBar .total {
-    /* background: red; */
-    background: gray;
-    min-height: 20px;
+    background: white;
     border-radius: 20px;
 }
 
 .progressBar .progress {
     /* background: red; */
     background: lightblue;
-    min-height: 20px;
+    height: .5rem;
     background-image: linear-gradient(45deg,hsla(0,0%,100%,.15) 25%,transparent 0,transparent 50%,hsla(0,0%,100%,.15) 0,hsla(0,0%,100%,.15) 75%,transparent 0,transparent);
     border-radius: 20px;
 }
