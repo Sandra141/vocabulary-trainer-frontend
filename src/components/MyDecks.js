@@ -10,6 +10,7 @@ import { useVocabulary } from '../contexts/Vocabulary.js'
 import Header from './layout/Header';
 import Footer from './layout/Footer';
 import { getColorClassName } from '../utils/className.js'
+import ProgressBar from './ProgressBar';
 
 const MyDecks = () => {
     const vocabulary = useVocabulary()
@@ -92,16 +93,16 @@ const MyDecks = () => {
         }
     }
 
-    const renderDecks = () => decks.sort().map((card, i) =>
-        <div className='deck' key={card._id} onMouseEnter={handleShowDotMenu} onMouseLeave={handleHideDotMenu} >
+    const renderDecks = () => decks.sort().map((deck, i) =>
+        <div className='deck' key={deck._id} onMouseEnter={handleShowDotMenu} onMouseLeave={handleHideDotMenu} >
 
-            <NavLink to={'/decks/search?_id=' + card._id} className='decksNavLinkContainer' >
+            <NavLink to={'/decks/search?_id=' + deck._id} className='decksNavLinkContainer' >
                 <div className={getColorClassName(i) + " card"} >
-                    <h2>{card.name}</h2>
+                    <h2>{deck.name}</h2>
                 </div>
             </NavLink>
 
-            <div className='heartContainer' ><img src={card.liked ? filledHeart : emptyHeart} onClick={handleHeartClick} id={'heartOfCard' + card._id} alt="" /></div>
+            <div className='heartContainer' ><img src={deck.liked ? filledHeart : emptyHeart} onClick={handleHeartClick} id={'heartOfCard' + deck._id} alt="" /></div>
 
             <div className='dotMenuContainer'>
                 <img src={dotMenu} alt="" onClick={handleShowDotMenuDetails} />
@@ -113,7 +114,10 @@ const MyDecks = () => {
                 </div>
             </div>
 
-            (shared:{JSON.stringify(card.shared)})
+            (shared:{JSON.stringify(deck.shared)})
+
+
+            <ProgressBar {...vocabulary.getProgressFromDeck(deck._id)} />
 
         </div>
     )
