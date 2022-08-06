@@ -15,11 +15,6 @@ import Footer from '../layout/Footer';
 import { getColorClassName } from '../../utils/className.js'
 
 const Games = () => {
-    let counterBackground = 0;
-    let gamesBackground;
-    let backgroundSize;
-    let backgroundPosition;
-    let gameName;
 
     const games_data = [
         {
@@ -64,8 +59,7 @@ const Games = () => {
                 backgroundPosition: '90% 50%',
                 backgroundSize: '40%'
             }
-        },
-
+        }
     ]
 
     const renderGames = () => !games_data.length
@@ -73,9 +67,7 @@ const Games = () => {
         : (games_data.map((x, i) =>
             <div className={`decksForGames ${getColorClassName(i)}`} key={i} >
                 <NavLink to={'/games/' + x.name} className='decksNavLinkContainerGames' >
-                    <div
-                        className='cardGames'
-                        style={x.style} >
+                    <div className='cardGames' style={x.style} >
                         <h2>{x.name}</h2>
                     </div>
                 </NavLink>
