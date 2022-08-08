@@ -35,12 +35,12 @@ const Memory = () => {
 
     useEffect(() => {
         const popupBackground = refPopupBackground.current;
-        if(deckSelectionPopupIsShown || playAgainPupupIsShown) {
+        if(deckSelectionPopupIsShown || playAgainPupupIsShown || questionMarkPopupIsShown) {
             popupBackground?.setAttribute('class', 'darkBackground');
         } else {
             popupBackground?.setAttribute('class', 'hidden');
         }
-    }, [deckSelectionPopupIsShown, playAgainPupupIsShown]);
+    }, [deckSelectionPopupIsShown, playAgainPupupIsShown, questionMarkPopupIsShown]);
 
     /*---- logic for selecting Decks ----*/
     const handleDeckSelection = (e) => {
@@ -155,7 +155,7 @@ const Memory = () => {
             <Header />
             <div className='mainContent'>
                 
-                <div ref={refPopupBackground} ></div>
+                <div ref={refPopupBackground} onClick={closePopup} ></div>
 
                 {/*--- popup container for deck selection ----*/}
                 <div className="popup" style={{display: deckSelectionPopupIsShown ? 'block' : 'none'}} >
@@ -187,14 +187,13 @@ const Memory = () => {
                                 })
                             }
                         </div>
-                        <div className="questionMarkMemory">?</div>
                         <p className='memorywrongMessageHidden' ref={refMemoryWrongMessage} >No match</p>
                         <div className="memoryButtonContainer">
                             <div className={moveCounter === 2 ? 'memoryButton lightBlue' : 'memoryButtonGray lightBlue'} onClick={() => handleButtonClick('wrong')}><img src={wrong} /></div>
                             <div className={moveCounter === 2 ? 'memoryButton lightBlue' : 'memoryButtonGray lightBlue'} onClick={() => handleButtonClick('right')}><img src={right} /></div>
                         </div>
-
                 </div>
+                <div className="questionMarkMemory" onClick={handleQuestionMarkClick}>?</div>
 
                 {/*--- popup container for playing again ----*/}
                 <div className="popup" style={{display: playAgainPupupIsShown ? 'block' : 'none'}} >
@@ -210,10 +209,9 @@ const Memory = () => {
                 {/*--- popup container for game description ----*/}
                 <div className="popup" style={{display: questionMarkPopupIsShown ? 'block' : 'none'}} >
                     <div className='popupQuestionMark'>
-                        <h2 className='gamesPopupDeckSelectionH2'>How do flashcards work?</h2>
-                        <p className="gamesQuestionMarkP">Flashcards allow you to learn at your own pace. To start, you choose a deck and then you can choose the visible side.</p>
-                        <p className="gamesQuestionMarkP">As soon as the game starts, you will see the visible side of the card at the top. Your task is to find the solution. You can check your solution by clicking on the card.</p>
-                        <p className="gamesQuestionMarkP">Now you can assess how easy or difficult it was for you to find the solution and click on the corresponding button.</p>
+                        <h2 className='gamesPopupDeckSelectionH2'>How does memory work?</h2>
+                        <p className="gamesQuestionMarkP">It is a very simple game. First you choose a deck to play with. Then you turn over two cards and decide whether the contents of the cards match.</p>
+                        <p className="gamesQuestionMarkP">If the cards match, click on the button with the tick and choose two new cards, if not, click on the cross so that the cards turn over again. The whole thing repeats until all the cards are turned over.</p>
                         <p>Have fun!</p>
                     </div>
                 </div>

@@ -141,7 +141,7 @@ const Flashcards = () => {
                             <div class="back">Solution:<br/><p>{tmpCards.length && tmpCards[0][hiddenSide]}</p></div>
                         </div>
                     </label>
-                    <div className="questionMark">?</div>
+                    <div className="questionMark" onClick={handleQuestionMarkClick}>?</div>
                     <div className="difficultyContainer">
                         <div className="difficultyCard lightBlue" id='difficultyCardVeryEasy' onClick={() => processCard(3)} >Very Easy</div>
                         <div className="difficultyCard lightBlue" id='difficultyCardEasy' onClick={() => processCard(1)}>Easy</div>

@@ -10,7 +10,7 @@
     top: calc(50vh - 25vh); /* 50vh: half of screen height, 25vh: half of own height */
     left: calc(50% - 40vw); /* 50%: half of next relative parent element (#vocabContent), 40vw: half of own width */
     text-align: left;
-    z-index: 3;
+    z-index: 20;
 }
 
 .popupDecksContent {
@@ -34,7 +34,7 @@
     align-items: center;
     background-color: white;
     border-radius: 10px;
-    margin: 1rem 0;
+    margin: 0 0 1rem;
 }
 
 .popupDecksContent .editableCardDetails::placeholder {
@@ -88,6 +88,7 @@
     height: calc(100% + 40px); /* 100% of next relative parent element (#appContent), 40% for the 40px in top-property */
     width: calc(100vw - 2vh);
     animation: darkBackground 0.2s forwards;
+    z-index: 10;
 }
 
 @keyframes darkBackground {
