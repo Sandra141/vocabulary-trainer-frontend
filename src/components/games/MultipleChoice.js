@@ -69,14 +69,14 @@ const MultipleChoice = () => {
 
     //## set one correct and one wrong solution to choose
     const setSolutions = () => {
-        const right_solution_side = SHOWN_SIDE_ENUM.front ? tmpCards[0].back : tmpCards[0].front
+        const right_solution_side = show_card_question_side === SHOWN_SIDE_ENUM.front ? tmpCards[0].back : tmpCards[0].front
 
         const random_cards = cards.sort(() => Math.random() - 0.5)
 
         // search for wrong solution
         const wrong_solution_index = random_cards
             .findIndex(x => {
-                const nase = SHOWN_SIDE_ENUM.front ? x.back : x.front
+                const nase = show_card_question_side === SHOWN_SIDE_ENUM.front ? x.back : x.front
 
                 return nase !== right_solution_side
             })
@@ -90,7 +90,7 @@ const MultipleChoice = () => {
                 match: false
             }
         } else {
-            const new_name = SHOWN_SIDE_ENUM.front ? random_cards[wrong_solution_index].back : random_cards[wrong_solution_index].front
+            const new_name = show_card_question_side === SHOWN_SIDE_ENUM.front ? random_cards[wrong_solution_index].back : random_cards[wrong_solution_index].front
 
             wrong_solution = {
                 _id: tmpCards[0]._id,
