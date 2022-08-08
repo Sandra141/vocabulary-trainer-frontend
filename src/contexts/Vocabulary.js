@@ -132,7 +132,8 @@ export const Vocabulary = ({ children }) => {
 
             return {
                 ...x,
-                _id: cards_id
+                _id: cards_id,
+                rank: 0
             }
         })
 
