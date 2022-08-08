@@ -1,7 +1,7 @@
 
 
 const getColorClassName = number => {
-    const classNames = ["lightBlue", "darkBlue", "gray", "pink", "lightBlue"]
+    const classNames = ["lightBlue", "darkBlue", "gray", "pink"]
 
     const calculateIndex = number % classNames.length
 

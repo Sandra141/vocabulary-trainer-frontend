@@ -96,26 +96,27 @@ const MyDecks = () => {
     const renderDecks = () => decks.sort().map((deck, i) =>
         <div className='deck' key={deck._id}>
 
+            <NavLink to={'/decks/search?_id=' + deck._id} className='decksNavLinkContainer' >
 
+                <div className={getColorClassName(i) + " card"}>
 
-            <div className={getColorClassName(i) + " card"}>
+                    <div className='top'>
+                        {/* <div className='heartContainer' ><img src={deck.liked ? filledHeart : emptyHeart} onClick={handleHeartClick} id={'heartOfCard' + deck._id} alt="" /></div> */}
 
-                <div className='top'>
-                    {/* <div className='heartContainer' ><img src={deck.liked ? filledHeart : emptyHeart} onClick={handleHeartClick} id={'heartOfCard' + deck._id} alt="" /></div> */}
-
-                    <NavLink to={'/decks/search?_id=' + deck._id} className='decksNavLinkContainer' >
                         <h2>{deck.name}</h2>
-                    </NavLink>
+                    </div>
+
+                    <div className='bottom'>
+
+                        {/* <div className='heartContainer' ><img src={deck.liked ? filledHeart : emptyHeart} onClick={handleHeartClick} id={'heartOfCard' + deck._id} alt="" /></div> */}
+
+                        <ProgressBar {...vocabulary.getProgressFromDeck(deck._id)} msg_empty={"Deck is empty"} />
+                    </div>
+
                 </div>
 
-                <div className='bottom'>
+            </NavLink>
 
-                    {/* <div className='heartContainer' ><img src={deck.liked ? filledHeart : emptyHeart} onClick={handleHeartClick} id={'heartOfCard' + deck._id} alt="" /></div> */}
-
-                    <ProgressBar {...vocabulary.getProgressFromDeck(deck._id)} msg_empty={"Deck is empty"} />
-                </div>
-
-            </div>
 
         </div>
 

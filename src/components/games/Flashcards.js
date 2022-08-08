@@ -3,26 +3,29 @@ import './../../css/flashcards.css';
 import { useVocabulary } from "../../contexts/Vocabulary";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
-import dummyDataArrayCards from "../../mockups/dummyDataArrayCards";
+// import dummyDataArrayCards from "../../mockups/dummyDataArrayCards";
 import dummyDataArrayDecks from "../../mockups/dummyDataArrayDecks";
 
 const SHOWN_SIDE_ENUM = {
-    firstSide: "firstSide",
-    secondSide: "secondSide"
+    front: "front",
+    back: "back"
 }
 
 const Flashcards = () => {
     const vocabulary = useVocabulary();
     const decks = vocabulary.decks;
+
+    const [possibleDecks, setPossibleDeck] = useState([])
+
     const refPopupBackground = useRef(null);
     const [deckSelectionPopupIsShown, setDeckSelectionPopupIsShown] = useState(true);
     const [sideSelectionPopupIsShown, setSideSelectionPopupIsShown] = useState(false);
 
-    const [deckSelection, setdeckSelection] = useState('');
-    const [shownSide, setShownSide] = useState(SHOWN_SIDE_ENUM.firstSide);
-    const [hiddenSide, setHiddenSide] = useState(shownSide === SHOWN_SIDE_ENUM.firstSide ? SHOWN_SIDE_ENUM.secondSide : SHOWN_SIDE_ENUM.firstSide);
-    const [sortedCards, setSortedCards] = useState(dummyDataArrayCards.cards.sort((a, b) => a.ranking - b.ranking));
-    const [tmpCards, setTmpCards] = useState(sortedCards.slice(0, 7));
+    const [deckSelection, setdeckSelection] = useState([]);
+    const [shownSide, setShownSide] = useState(SHOWN_SIDE_ENUM.front);
+    const [hiddenSide, setHiddenSide] = useState(shownSide === SHOWN_SIDE_ENUM.front ? SHOWN_SIDE_ENUM.back : SHOWN_SIDE_ENUM.front);
+    const [sortedCards, setSortedCards] = useState([]);
+    const [tmpCards, setTmpCards] = useState([]);
 
     console.log(shownSide, hiddenSide)
 
@@ -31,6 +34,24 @@ const Flashcards = () => {
         document.body.style.overflow = 'hidden';
         setDeckSelectionPopupIsShown(current => !current);
     }
+
+    useEffect(() => {
+        renderDecks()
+    }, [])
+
+    useEffect(() => {
+        if (!deckSelection.length) return
+
+        setSortedCards(deckSelection.sort((a, b) => a.ranking - b.ranking))
+    }, [deckSelection])
+
+    useEffect(() => {
+        if (!deckSelection.length) return
+
+        if(!tmpCards.length) {
+            setTmpCards(sortedCards.slice(0, 7))
+        }
+    }, [sortedCards])
 
     useEffect(() => {
         const popupBackground = refPopupBackground.current;
@@ -43,7 +64,10 @@ const Flashcards = () => {
 
     /*---- logic for selecting Decks ----*/
     const handleDeckSelection = (deckId) => {
-        setdeckSelection(deckId);
+
+        const cardFromDeck = vocabulary.getCardsFromDeckId(deckId)
+        setdeckSelection(cardFromDeck);
+
         setDeckSelectionPopupIsShown(false);
         setSideSelectionPopupIsShown(true);
     }
@@ -56,24 +80,33 @@ const Flashcards = () => {
     }
 
     useEffect(() => {
-        setHiddenSide(shownSide === SHOWN_SIDE_ENUM.firstSide ? SHOWN_SIDE_ENUM.secondSide : SHOWN_SIDE_ENUM.firstSide);
+        setHiddenSide(shownSide === SHOWN_SIDE_ENUM.front ? SHOWN_SIDE_ENUM.back : SHOWN_SIDE_ENUM.front);
     }, [shownSide])
 
     /*---- game logic ----*/
     const processCard = (ranking) => {
-        const cardsClone = [...sortedCards];
+        const cardsClone = [...tmpCards];
+
         const cardToUpdateIndex = cardsClone.findIndex(
-            (c) => c.id === tmpCards[0].id
+            (c) => c._id === tmpCards[0]._id
         );
-        cardsClone[cardToUpdateIndex].ranking += ranking;
-        cardsClone.sort((a, b) => a.ranking - b.ranking);
-        console.log(cardsClone.map((e) => e.ranking));
-        setSortedCards(cardsClone);
+
+        cardsClone[cardToUpdateIndex].rank += ranking;
+
+        cardsClone.sort((a, b) => a.rank - b.rank);
+
+        // setSortedCards(cardsClone);
+
         const tmpCardsClone = [...tmpCards];
         tmpCardsClone.shift();
+
+        console.log(6666666, tmpCardsClone)
+
         if (tmpCardsClone.length === 0) {
-            console.log("repopulating buffer");
-            setTmpCards(cardsClone.slice(0, 7));
+            console.log("repopulating buffer", cardsClone);
+            // update
+            vocabulary.updateCard(cardsClone)
+            setTmpCards(sortedCards.slice(0, 7));
         } else {
             setTmpCards(tmpCardsClone);
         }
@@ -82,6 +115,16 @@ const Flashcards = () => {
     /*const handleCardTurn = () => {
         setShownSide(shownSide === SHOWN_SIDE_ENUM.firstSide ? SHOWN_SIDE_ENUM.secondSide : SHOWN_SIDE_ENUM.firstSide);
     }*/
+
+
+    const renderDecks = () => {
+        const minNumberCards = 7
+        const possibleDeck = decks
+            .filter(x => vocabulary.getCardsFromDeckId(x._id).length >= 7)
+
+        setPossibleDeck(possibleDeck)
+
+    }
 
     return (
         <>
@@ -97,7 +140,7 @@ const Flashcards = () => {
                         <div className='popupContentGames'>
                             <h2 className='gamesPopupDeckSelectionH2'>Which Deck would you like to learn?</h2>
                             {
-                                decks.map((deck) => {
+                                possibleDecks.map((deck) => {
                                     return (
                                         <p onClick={() => handleDeckSelection(deck._id)} className="gamesPopupDeckSelectionP" id={deck._id} key={deck._id}>{deck.name}</p>
                                     );
@@ -112,11 +155,11 @@ const Flashcards = () => {
                             <h2 className='gamesPopupDeckSelectionH2'>Which side should be shown?</h2>
 
                             <div className="selectSideContainer">
-                                <div className="sides" id="firstSide" onClick={handleSideSelection}>
-                                    {dummyDataArrayCards.cards[0].firstSide}
+                                <div className="sides" id="front" onClick={handleSideSelection}>
+                                    {deckSelection[0]?.front}
                                 </div>
-                                <div className="sides" id="secondSide" onClick={handleSideSelection}>
-                                    {dummyDataArrayCards.cards[0].secondSide}
+                                <div className="sides" id="back" onClick={handleSideSelection}>
+                                    {deckSelection[0]?.back}
                                 </div>
                             </div>
 

@@ -203,11 +203,15 @@ export const Vocabulary = ({ children }) => {
 
     //## update existing card
     const updateCard = card => {
+        console.log(111111111)
         // EXIT: required forgotten
         if (!card) return
 
+        console.log(222222222222)
         // local
         const index = decks.findIndex(x => x._id === card._id)
+
+        console.log(33333333333333333, index)
         // EXIT: No card found
         if (index === -1) return
         // set
@@ -217,9 +221,14 @@ export const Vocabulary = ({ children }) => {
             return copy
         })
 
+        console.log(444444444444444, card)
+
         // db
         set_cards_request(url_cards_update(token, [card]))
     }
+
+    //# u
+    // const
 
     //# get
     const getDeckFromCard = card => {
@@ -276,7 +285,7 @@ export const Vocabulary = ({ children }) => {
         const cards_from_deck = getCardsFromDeckId(decks_id)
 
         const all_positiv_cards = cards_from_deck
-            .filter(x => x.rank > 0)
+            .filter(x => x.rank >= 3)
             .length
 
         return {
