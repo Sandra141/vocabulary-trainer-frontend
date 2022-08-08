@@ -87,3 +87,7 @@ p {
   box-shadow: 1px 4px 5px rgb(131, 131, 131);
   color: white;
 }
+
+.white {
+  background: white;
+}

@@ -165,10 +165,10 @@ const MultipleChoice = () => {
     }, [show_feedback])
 
     //# render
-    const renderFront = () => !tmpCards.length
+    const renderQuestion = () => !tmpCards.length
         ? null
         : (
-            <div className="cards">
+            <div className="cards white">
                 <h2>{show_card_question_side === SHOWN_SIDE_ENUM.front ? tmpCards[0].front : tmpCards[0].back}</h2>
             </div>
         )
@@ -246,7 +246,7 @@ const MultipleChoice = () => {
 
                 <div className="layout">
 
-                    {renderFront()}
+                    {renderQuestion()}
 
                     <br />
 
