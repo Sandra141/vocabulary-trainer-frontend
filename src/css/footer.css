@@ -26,11 +26,11 @@
     left: 3rem;
 }
 
-#profile {
+#games {
     left: calc(50vw - 1vh - 20px - 1rem); /*50vw: middle of footer width, 1vh: left white border , 20px: half of image height, 1rem: padding and border on one side*/
 }
 
-#settings {
+#profile {
     right: 3rem;
 }
 

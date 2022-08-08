@@ -10,7 +10,7 @@ import { useAuthentification } from '../contexts/Authentification'
 import { url_search_public_decks } from '../services/vocabulary'
 import Loading from './modals/Loading';
 import Header from './layout/Header';
-import Footer from './layout/Footer';
+import Footer from './layout/Footer2';
 import { getColorClassName } from '../utils/className.js'
 
 const FindSharedDecks = () => {
