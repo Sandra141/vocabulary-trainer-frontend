@@ -1,44 +1,33 @@
 .multipleChoice {
-
+    /* display: flex; */
+    /* flex: 1; */
+    /* height: 80vh; */
+    overflow: hidden;
+    flex: 1;
 }
 
 .multipleChoice .layout {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-}
-
-.multipleChoice .question {
-    display: flex;
-    background: white;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;
-    box-shadow: 1px 4px 5px rgb(131, 131, 131);
-    border-radius: 20px;
+    height: 100%;
     width: 100%;
-}
-
-.multipleChoice .solution {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    background: white;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;
+    flex: 1;
     gap: 20px;
 }
 
-.multipleChoice button {
+.multipleChoice .cards {
     /* background: white; */
+    display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2rem;
+    text-align: center;
+    /* font-size: 1rem; */
     box-shadow: 1px 4px 5px rgb(131, 131, 131);
     border-radius: 20px;
     width: 100%;
     border: none;
+    overflow: scroll;
+    flex: 1;
 }
 
 .multipleChoice .feedback {

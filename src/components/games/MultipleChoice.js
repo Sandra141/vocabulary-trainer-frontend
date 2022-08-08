@@ -168,17 +168,17 @@ const MultipleChoice = () => {
     const renderFront = () => !tmpCards.length
         ? null
         : (
-            <div className="question">
-                {show_card_question_side === SHOWN_SIDE_ENUM.front ? tmpCards[0].front : tmpCards[0].back}
+            <div className="cards">
+                <h2>{show_card_question_side === SHOWN_SIDE_ENUM.front ? tmpCards[0].front : tmpCards[0].back}</h2>
             </div>
         )
 
     const renderPossibleSolutions = () => !tmpCards.length
         ? null
         : (
-            <div className="solution">
-                {possible_answers.map(x => <button className="lightBlue" onClick={handleUserChooseSolution(x)}>{x.name}</button>)}
-            </div>
+            <>
+                {possible_answers.map(x => <button className="lightBlue cards" onClick={handleUserChooseSolution(x)}><h2>{x.name}</h2></button>)}
+            </>
         )
 
     const renderPossibleDecks = () => (
@@ -245,11 +245,13 @@ const MultipleChoice = () => {
                 {renderFeedback()}
 
                 <div className="layout">
+
                     {renderFront()}
 
-                    <br/>
+                    <br />
 
                     {renderPossibleSolutions()}
+
                 </div>
 
             </div>
