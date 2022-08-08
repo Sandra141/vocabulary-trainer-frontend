@@ -100,12 +100,10 @@ const Flashcards = () => {
         const tmpCardsClone = [...tmpCards];
         tmpCardsClone.shift();
 
-        console.log(6666666, tmpCardsClone)
-
         if (tmpCardsClone.length === 0) {
-            console.log("repopulating buffer", cardsClone);
+            console.log("repopulating buffer", sortedCards);
             // update
-            vocabulary.updateCard(cardsClone)
+            vocabulary.updateCards(sortedCards)
             setTmpCards(sortedCards.slice(0, 7));
         } else {
             setTmpCards(tmpCardsClone);
