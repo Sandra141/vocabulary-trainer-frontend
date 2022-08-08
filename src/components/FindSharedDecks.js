@@ -3,15 +3,12 @@ import { NavLink } from 'react-router-dom';
 import './../css/findSharedDecks.css';
 import Header from './Header';
 import Footer from './Footer2';
-import dummyDataArray from './dummyDataArrayDecks';
-import Decks from './../images/decks.png';
 import thumbsUp from './../images/thumbsUp.svg';
 import thumbsDown from './../images/thumbsDown.svg';
 import SearchIcon from './../images/searchIcon.svg';
 import useFetch from '../hooks/useFetch';
 import { useAuthentification } from '../contexts/Authentification'
 import { url_search_public_decks } from '../services/vocabulary'
-import Loading from './modals/Loading';
 
 const FindSharedDecks = () => {
     //# context
@@ -132,7 +129,7 @@ const FindSharedDecks = () => {
     //# 
     let counter = 0
     const getColorClassName = () => {
-        counter <= 0 || counter >= 5
+        counter <= 0 || counter >= 4
             ? counter = 1
             : counter++
 
@@ -151,7 +148,8 @@ const FindSharedDecks = () => {
         return decks.map(card => {
             const className = getColorClassName()
 
-            return (<div className='findSharedDecks' key={card._id}>
+            return (
+            <div className='findSharedDecks publicDeckContainer' key={card._id}>
                 <NavLink to={'/find-Decks/search?_id=' + card._id} className={className + " publicDeck"} >
                     <div className='publicDeckTop'>
                         <h2>{card.name}</h2>
@@ -164,11 +162,11 @@ const FindSharedDecks = () => {
                 <div className='thumbsContainer'>
                     <div className='publicDeckThumbs'>
                         <img src={thumbsUp} alt='thumbs up icon' />
-                        <p>{card.thumbsUp}</p>
+                        <p>102</p>
                     </div>
                     <div className='publicDeckThumbs'>
                         <img src={thumbsDown} alt='thumbs down icon' />
-                        <p>{card.thumbsDown}</p>
+                        <p>21</p>
                     </div>
                 </div>
             </div>

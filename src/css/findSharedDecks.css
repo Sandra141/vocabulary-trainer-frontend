@@ -27,8 +27,8 @@
     align-items: center;
 }
 
+/*---- thumbs ----*/
 .publicDeckBottom {
-    /*padding: 1.5rem 10%;*/
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -37,16 +37,15 @@
     height: 3rem;
     border-radius: 0 0 20px 20px;
 }
-
 .thumbsContainer {
     width: 100%;
     height: 2rem;
-    position: absolute;
     display: flex;
     align-items: center;
     justify-content: space-around;
     padding: 0 10%;
     z-index: 1;
+    position: absolute;
     left: 0;
     bottom: calc(2rem + 1.5rem - 1rem); /* 2rem: margin, 1.5rem: half of height of .publicDeckBottom, 1 rem: half of own hight*/
 }
@@ -61,7 +60,7 @@
 }
 
 .publicDeckThumbs img {
-    height: 30px;
-    width: 30px;
+    height: 25px;
+    width: 25px;
     margin-right: 0.5rem;
 }

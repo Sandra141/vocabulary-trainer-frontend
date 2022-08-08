@@ -18,6 +18,7 @@ const Memory = () => {
     const refMemoryWrongMessage = useRef(null);
     const [deckSelectionPopupIsShown, setDeckSelectionPopupIsShown] = useState(true);
     const [playAgainPupupIsShown, setPlayAgainPupupIsShown] = useState(false);
+    const [questionMarkPopupIsShown, setQuestionMarkPopupIsShown] = useState(false);
     const [deckSelection, setdeckSelection] = useState(dummyDataArrayCards.cards.sort(() => Math.random() - 0.5).slice(0, 8));
 
     let [cardArray, setCardArray] = useState([]);
@@ -34,12 +35,12 @@ const Memory = () => {
 
     useEffect(() => {
         const popupBackground = refPopupBackground.current;
-        if(deckSelectionPopupIsShown || playAgainPupupIsShown) {
+        if(deckSelectionPopupIsShown || playAgainPupupIsShown || questionMarkPopupIsShown) {
             popupBackground?.setAttribute('class', 'darkBackground');
         } else {
             popupBackground?.setAttribute('class', 'hidden');
         }
-    }, [deckSelectionPopupIsShown, playAgainPupupIsShown]);
+    }, [deckSelectionPopupIsShown, playAgainPupupIsShown, questionMarkPopupIsShown]);
 
     /*---- logic for selecting Decks ----*/
     const handleDeckSelection = (e) => {
@@ -137,13 +138,24 @@ const Memory = () => {
         } else return;
     }, [gameRestart]);
 
+    /*---- question Mark logic ----*/
+    const handleQuestionMarkClick = () => {
+        setQuestionMarkPopupIsShown(true);
+    }
+
+    /*---- logic for closing the popup ----*/
+    const closePopup = (e) => {
+        document.body.style.overflow = 'visible';
+        setQuestionMarkPopupIsShown(false);
+    }
+
     return(
         <>
         <div className='ContainerForHeaderAndMain'>
             <Header />
             <div className='mainContent'>
                 
-                <div ref={refPopupBackground} ></div>
+                <div ref={refPopupBackground} onClick={closePopup} ></div>
 
                 {/*--- popup container for deck selection ----*/}
                 <div className="popup" style={{display: deckSelectionPopupIsShown ? 'block' : 'none'}} >
@@ -174,16 +186,14 @@ const Memory = () => {
                                 );
                                 })
                             }
-                            
-                            
                         </div>
                         <p className='memorywrongMessageHidden' ref={refMemoryWrongMessage} >No match</p>
                         <div className="memoryButtonContainer">
                             <div className={moveCounter === 2 ? 'memoryButton lightBlue' : 'memoryButtonGray lightBlue'} onClick={() => handleButtonClick('wrong')}><img src={wrong} /></div>
                             <div className={moveCounter === 2 ? 'memoryButton lightBlue' : 'memoryButtonGray lightBlue'} onClick={() => handleButtonClick('right')}><img src={right} /></div>
                         </div>
-
                 </div>
+                <div className="questionMarkMemory" onClick={handleQuestionMarkClick}>?</div>
 
                 {/*--- popup container for playing again ----*/}
                 <div className="popup" style={{display: playAgainPupupIsShown ? 'block' : 'none'}} >
@@ -193,6 +203,16 @@ const Memory = () => {
                         <NavLink to="/games">
                             <div>no</div>
                         </NavLink>
+                    </div>
+                </div>
+
+                {/*--- popup container for game description ----*/}
+                <div className="popup" style={{display: questionMarkPopupIsShown ? 'block' : 'none'}} >
+                    <div className='popupQuestionMark'>
+                        <h2 className='gamesPopupDeckSelectionH2'>How does memory work?</h2>
+                        <p className="gamesQuestionMarkP">It is a very simple game. First you choose a deck to play with. Then you turn over two cards and decide whether the contents of the cards match.</p>
+                        <p className="gamesQuestionMarkP">If the cards match, click on the button with the tick and choose two new cards, if not, click on the cross so that the cards turn over again. The whole thing repeats until all the cards are turned over.</p>
+                        <p>Have fun!</p>
                     </div>
                 </div>
                 
