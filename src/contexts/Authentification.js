@@ -10,10 +10,16 @@ export const Authentification = ({ children }) => {
         setToken(token)
     }
 
+    const clear_localstorage = () => {
+        localStorage.clear();
+    }
+
     return (
         <StateContext.Provider
             value={{
-                token, handleSetToken
+                token, 
+                handleSetToken,
+                clear_localstorage
             }}
         >
             {children}

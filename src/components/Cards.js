@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import './../css/cards.css';
 import './../css/popup.css';
-import Header from "./Header";
-import Footer from "./Footer";
 import Decks from './../images/decks.png';
 import SearchIcon from './../images/searchIcon.svg';
 import { useLocation, useSearchParams } from "react-router-dom";
 import { useVocabulary } from '../contexts/Vocabulary'
+import Header from "./layout/Header";
+import Footer from "./layout/Footer";
 
 const Cards = (props) => {
     const {

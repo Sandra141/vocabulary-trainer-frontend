@@ -58,25 +58,39 @@
 
 .card {
     width: 100%;
-    height: 4rem;
     align-self: center;
     border-radius: 20px;
     display: flex;
-    align-items: center;
-    padding: 0 10%;
+    flex-direction: column;
+    padding: 2% 10%;
+    gap: 1rem;
+}
+
+.top {
+    display: flex;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    height: 2rem;
+    overflow: hidden;
+}
+
+.bottom {
+    display: flex;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    height: 2.4rem;
+    overflow: hidden;
 }
 
 .card h2 {
-    margin-left: 15%;
+    color: white
 }
 
+
 .heartContainer {
-    position: absolute;
-    display: flex;
-    height: 30px;
     z-index: 1;
-    top: calc(2rem - 15px); /* 2rem: half of deck height, 15px: half of own height*/
-    left: 30px;
 }
 
 .heartContainer:hover {
@@ -84,8 +98,9 @@
 }
 
 .heartContainer img {
-    height: 30px;
-    width: 30px;
+    height: 2.2rem;
+    width: 2.2rem;
+    margin-right: 8px;
 }
 
 /*---- dot menu ----*/

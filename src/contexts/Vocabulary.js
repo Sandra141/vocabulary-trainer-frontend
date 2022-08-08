@@ -270,7 +270,20 @@ export const Vocabulary = ({ children }) => {
         return searchingCards.filter(x => x.front.includes(searchCardTerm) || x.back.includes(searchCardTerm))
     }
 
-    const copySharedDecks = () => { }
+    const getProgressFromDeck = (decks_id) => {
+        // EXIT: required forgotten
+        if (!decks_id) return
+        const cards_from_deck = getCardsFromDeckId(decks_id)
+
+        const all_positiv_cards = cards_from_deck
+            .filter(x => x.rank > 0)
+            .length
+
+        return {
+            amount: all_positiv_cards,
+            total: cards_from_deck.length
+        }
+    }
 
     return (
         <VocabularyContext.Provider
@@ -304,6 +317,7 @@ export const Vocabulary = ({ children }) => {
                 getCardsFromDeckId,
                 getDeckFromDeckId,
                 getCardsByText,
+                getProgressFromDeck,
             }}
         >
             {children}

@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom';
-import './../css/header.css';
+import '../../css/header.css';
 
 const Header = () => {
-    return(
+    return (
         <header className="appHeader">
             <h1>Heading</h1>
             <nav>
@@ -13,7 +13,7 @@ const Header = () => {
                 <NavLink to="/find-Decks" className='headerActive' style={({ isActive }) => ({
                     color: isActive ? '#06062F' : '#9FACC7'
                 })}>Find Decks</NavLink>
-                
+
                 <NavLink to="/games" className='headerActive' style={({ isActive }) => ({
                     color: isActive ? '#06062F' : '#9FACC7'
                 })}>Games</NavLink>

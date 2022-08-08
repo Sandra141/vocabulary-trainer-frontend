@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Navigate, NavLink, useLocation } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
 import './../css/registration.css';
-import HeaderBlank from "./HeaderBlank";
+import HeaderBlank from "./layout/HeaderBlank";
 import { url_credentials_update } from '../services/authentification'
 import { useAuthentification } from '../contexts/Authentification.js'
 

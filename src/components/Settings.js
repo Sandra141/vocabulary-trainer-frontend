@@ -1,13 +1,13 @@
 import { NavLink } from 'react-router-dom';
-import HeaderBlank from './HeaderBlank';
-import Footer from './Footer';
+import HeaderBlank from './layout/HeaderBlank';
+import Footer from './layout/Footer';
 
 const Settings = () => {
     return(
         <>
         <HeaderBlank />
         <h2>Settings</h2>
-        <NavLink to="/login">Logout</NavLink>
+        <NavLink to="/logout">Logout</NavLink>
         <Footer />
         </>
     );

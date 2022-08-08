@@ -1,35 +1,40 @@
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
-import Homepage from './components/Homepage';
-import MyDecks from './components/MyDecks';
 import Cards from './components/Cards';
-import PublishedDecks from './components/PublishedDecks';
-import Games from './components/Games';
-import Flashcards from './components/Flashcards';
-import Memory from './components/Memory';
-import MultipleChoice from './components/MultipleChoice';
-import Chars from './components/Chars';
-import Connect from './components/Connect';
-import Profile from './components/Profile';
-import Settings from './components/Settings';
-import Login from './components/Login';
-import Registration from './components/Registration';
-import RequireAuthentification from './components/system/RequireAuthentification';
-import Download from './components/system/Download';
 import FindSharedDecks from './components/FindSharedDecks';
+import Chars from './components/games/Chars';
+import Connect from './components/games/Connect';
+import Flashcards from './components/games/Flashcards';
+import Games from './components/games/Games';
+import Memory from './components/games/Memory';
+import MultipleChoice from './components/games/MultipleChoice';
+import Homepage from './components/Homepage';
+import Login from './components/Login';
+import Logout from './components/Logout';
+import MyDecks from './components/MyDecks';
+import Profile from './components/Profile';
+import PublishedDecks from './components/PublishedDecks';
+import Registration from './components/Registration';
+import Settings from './components/Settings';
+import Download from './components/system/Download';
+import RequireAuthentification from './components/system/RequireAuthentification';
 
 function App() {
   return (
     <div className="app">
       <div className='appContent'>
         <Routes>
+          {/* WITHOUT SECURITY */}
           <Route path="/" element={<Homepage />} /> {/*---- change when ready ----*/}
           <Route path="/login" element={<Login />} />
           <Route path="/registration" element={<Registration />} />
+          <Route path="/logout" element={<Logout />} />
+
+
+          {/* 404 */}
           <Route path="*" element={<h1>Warning! <br />Page not available</h1>} />
 
-
-
+          {/* WITH SECURITY */}
           <Route path="/download" element={<RequireAuthentification><Download /></RequireAuthentification>} />
           <Route path="/find-Decks" element={<RequireAuthentification><FindSharedDecks /></RequireAuthentification>} />
           <Route path="/find-Decks/:id" element={<RequireAuthentification><PublishedDecks /></RequireAuthentification>} />
