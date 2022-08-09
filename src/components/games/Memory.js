@@ -14,28 +14,25 @@ let allTurnedCardsArray = [];
 const Memory = () => {
     const vocabulary = useVocabulary();
     const decks = vocabulary.decks;
+    const [possibleDecks, setPossibleDeck] = useState([])
+
     const refPopupBackground = useRef(null);
     const refMemoryWrongMessage = useRef(null);
     const [deckSelectionPopupIsShown, setDeckSelectionPopupIsShown] = useState(true);
     const [playAgainPupupIsShown, setPlayAgainPupupIsShown] = useState(false);
     const [questionMarkPopupIsShown, setQuestionMarkPopupIsShown] = useState(false);
-    const [deckSelection, setdeckSelection] = useState(dummyDataArrayCards.cards.sort(() => Math.random() - 0.5).slice(0, 8));
+    const [deckSelection, setdeckSelection] = useState([]);
+    const [cardsInDeckSelection, setCardsInDeckSelection] = useState([]);
 
     let [cardArray, setCardArray] = useState([]);
     const [cardCounter, setCardCounter] = useState(0);
     const [twoTurnedCards, setTwoTurnedCards] = useState([]);
-    const [allOpenedCards, setAllOpenedCards] = useState([]);
     const [gameRestart, setGameRestart] = useState(false);
 
     /*---- logic for popup ----*/
-    const handleAddDecksButton = (e) => {
-        document.body.style.overflow = 'hidden';
-        setDeckSelectionPopupIsShown(current => !current);
-    }
-
     useEffect(() => {
         const popupBackground = refPopupBackground.current;
-        if(deckSelectionPopupIsShown || playAgainPupupIsShown) {
+        if(deckSelectionPopupIsShown || playAgainPupupIsShown || questionMarkPopupIsShown) {
             popupBackground?.setAttribute('class', 'darkBackground');
         } else {
             popupBackground?.setAttribute('class', 'hidden');
@@ -43,25 +40,38 @@ const Memory = () => {
     }, [deckSelectionPopupIsShown, playAgainPupupIsShown, questionMarkPopupIsShown]);
 
     /*---- logic for selecting Decks ----*/
-    const handleDeckSelection = (e) => {
-        const deckId = e.target.id;
-        //setdeckSelection(deckId);
+    const renderDecks = () => {
+        const possibleDeck = decks.filter(x => vocabulary.getCardsFromDeckId(x._id).length >= 8)
+        setPossibleDeck(possibleDeck)
+    }
+
+    useEffect(() => {
+        renderDecks()
+    }, [])
+
+    const handleDeckSelection = (deckId) => {
+        const cardFromDeck = vocabulary.getCardsFromDeckId(deckId)
+        setdeckSelection(cardFromDeck);
         setDeckSelectionPopupIsShown(false);
     }
+
+    useEffect(() => {
+        setCardsInDeckSelection(deckSelection.sort(() => Math.random() - 0.5).slice(0, 8))
+    }, [deckSelection])
 
     /*---- game logic ----*/
     /*---- prepare Array: double the cards and mix them up ----*/
     useEffect(() => {
         let array = [];
         let counter = 0;
-        deckSelection.map((word) => {
-            array.push({ 'id': word.id, 'word': word.firstSide, 'key': counter }, { 'id': word.id, 'word': word.secondSide, 'key': counter + 1 })
+        cardsInDeckSelection.map((word) => {
+            array.push({ 'id': word._id, 'word': word.front, 'key': counter }, { 'id': word._id, 'word': word.back, 'key': counter + 1 })
             counter = counter + 2;
         })
-        let num = deckSelection.length * 2;
+        let num = cardsInDeckSelection.length * 2;
         array = array.slice(0, num).sort(() => Math.random() - 0.5);
         setCardArray(array);
-    }, [deckSelection])
+    }, [cardsInDeckSelection])
 
     useEffect(() => {
         for (let i = 0; i < cardArray.length; i++) {
@@ -82,13 +92,12 @@ const Memory = () => {
     const handleButtonClick = (clickedButton) => {
         if (moveCounter === 2) {
             //---------compare cards-----------
-            const idCard1 = twoTurnedCards[0].id;
-            const idCard2 = twoTurnedCards[1].id;
+            const idCard1 = twoTurnedCards[0]._id;
+            const idCard2 = twoTurnedCards[1]._id;
             const keyCard1 = twoTurnedCards[0].key;
             const keyCard2 = twoTurnedCards[1].key;
             //--------same cards and user clicked "right button"-------------
             if (idCard1 === idCard2 && clickedButton === 'right') {
-                setAllOpenedCards((oldArray) => [...oldArray, twoTurnedCards[0], twoTurnedCards[1]]);
                 moveCounter = 0;
                 setTwoTurnedCards([]);
                 setCardCounter((prev) => prev + 1);
@@ -127,16 +136,27 @@ const Memory = () => {
         setCardCounter(0);
         setTwoTurnedCards([]);
         setGameRestart(true);
-        setAllOpenedCards([]);
     }
 
     //------------rearrange Cards after restart------------
     useEffect(() => {
         if (gameRestart) {
-            setdeckSelection(dummyDataArrayCards.cards.sort(() => Math.random() - 0.5).slice(0, 8));
+            const cardFromDeck = deckSelection.sort(() => Math.random() - 0.5).slice(0, 8)
+            setCardsInDeckSelection(cardFromDeck);
             setGameRestart(false);
         } else return;
     }, [gameRestart]);
+
+    /*---- question Mark logic ----*/
+    const handleQuestionMarkClick = () => {
+        setQuestionMarkPopupIsShown(true);
+    }
+
+    /*---- logic for closing the popup ----*/
+    const closePopup = (e) => {
+        document.body.style.overflow = 'visible';
+        setQuestionMarkPopupIsShown(false);
+    }
 
     return(
         <>
@@ -144,7 +164,7 @@ const Memory = () => {
             <Header />
             <div className='mainContent'>
                 
-                <div ref={refPopupBackground} ></div>
+                <div ref={refPopupBackground} onClick={closePopup} ></div>
 
                     {/*--- popup container for deck selection ----*/}
                     <div className="popup" style={{ display: deckSelectionPopupIsShown ? 'block' : 'none' }} >
@@ -152,9 +172,9 @@ const Memory = () => {
                             <h2 className='gamesPopupDeckSelectionH2'>Which Deck would you like to learn?</h2>
 
                             {
-                                decks.map((deck) => {
+                                possibleDecks.map((deck) => {
                                     return (
-                                        <p onClick={handleDeckSelection} className="gamesPopupDeckSelectionP" id={deck._id} key={deck._id}>{deck.name}</p>
+                                        <p onClick={() => handleDeckSelection(deck._id)} className="gamesPopupDeckSelectionP" id={deck._id} key={deck._id}>{deck.name}</p>
                                     );
                                 })
                             }
@@ -169,33 +189,41 @@ const Memory = () => {
                             {
                                 cardArray.map((word) => {
                                     return (
-                                        <div className={`${allTurnedCardsArray[word.key] ? 'memoryCard memoryCardWordShown' : 'memoryCard lightBlue'} ${twoTurnedCards[0]?.key === word.key ? 'blueBorder' : ''} ${twoTurnedCards[1]?.key === word.key ? 'blueBorder' : ''}`} id={word.key} key={word.key} onClick={!allTurnedCardsArray[word.key] ? () => handleCardClick(word.id, word.word, word.key) : () => { }} >
+                                        <div className={`${allTurnedCardsArray[word.key] ? 'memoryCard memoryCardWordShown' : 'memoryCard lightBlue'} ${twoTurnedCards[0]?.key === word.key ? 'blueBorder' : ''} ${twoTurnedCards[1]?.key === word.key ? 'blueBorder' : ''}`} id={word.key} key={word.key} onClick={!allTurnedCardsArray[word.key] ? () => handleCardClick(word._id, word.word, word.key) : () => { }} >
                                             {allTurnedCardsArray[word.key] ? word.word : ''}
                                         </div>
                                     );
                                 })
                             }
-                            
-                            
                         </div>
                         <p className='memorywrongMessageHidden' ref={refMemoryWrongMessage} >No match</p>
                         <div className="memoryButtonContainer">
                             <div className={moveCounter === 2 ? 'memoryButton lightBlue' : 'memoryButtonGray lightBlue'} onClick={() => handleButtonClick('wrong')}><img src={wrong} /></div>
                             <div className={moveCounter === 2 ? 'memoryButton lightBlue' : 'memoryButtonGray lightBlue'} onClick={() => handleButtonClick('right')}><img src={right} /></div>
                         </div>
-
-                </div>
-
-                {/*--- popup container for playing again ----*/}
-                <div className="popup" style={{display: playAgainPupupIsShown ? 'block' : 'none'}} >
-                    <div className='popupContentGames playAgainContainerMemory'>
-                        <h2 className='gamesPopupDeckSelectionH2'>Would you like to play again?</h2>
-                        <div onClick={handleMemoryPlayAgainClick} >yes</div>
-                        <NavLink to="/games">
-                            <div>no</div>
-                        </NavLink>
+                        <div className="questionMarkMemory" onClick={handleQuestionMarkClick}>?</div>
                     </div>
-                </div>
+
+                    {/*--- popup container for game description ----*/}
+                    <div className="popup" style={{display: questionMarkPopupIsShown ? 'block' : 'none'}} >
+                        <div className='popupQuestionMark'>
+                            <h2 className='gamesPopupDeckSelectionH2'>How does memory work?</h2>
+                            <p className="gamesQuestionMarkP">It is a very simple game. First you choose a deck to play with. Then you turn over two cards and decide whether the contents of the cards match.</p>
+                            <p className="gamesQuestionMarkP">If the cards match, click on the button with the tick and choose two new cards, if not, click on the cross so that the cards turn over again. The whole thing repeats until all the cards are turned over.</p>
+                            <p>Have fun!</p>
+                        </div>
+                    </div>
+
+                    {/*--- popup container for playing again ----*/}
+                    <div className="popup" style={{display: playAgainPupupIsShown ? 'block' : 'none'}} >
+                        <div className='popupContentGames playAgainContainerMemory'>
+                            <h2 className='gamesPopupDeckSelectionH2'>Would you like to play again?</h2>
+                            <div onClick={handleMemoryPlayAgainClick} >yes</div>
+                            <NavLink to="/games">
+                                <div>no</div>
+                            </NavLink>
+                        </div>
+                    </div>
                 
             </div>
         </div>

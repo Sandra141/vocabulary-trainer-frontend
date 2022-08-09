@@ -11,6 +11,7 @@ import MultipleChoice from './components/games/MultipleChoice';
 import Homepage from './components/Homepage';
 import Login from './components/Login';
 import Logout from './components/Logout';
+import PageNotFound from './components/PageNotFound';
 import MyDecks from './components/MyDecks';
 import Profile from './components/Profile';
 import PublishedDecks from './components/PublishedDecks';
@@ -25,14 +26,14 @@ function App() {
       <div className='appContent'>
         <Routes>
           {/* WITHOUT SECURITY */}
-          <Route path="/" element={<Homepage />} /> {/*---- change when ready ----*/}
+          <Route path="/" element={<Homepage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/logout" element={<Logout />} />
 
 
           {/* 404 */}
-          <Route path="*" element={<h1>Warning! <br />Page not available</h1>} />
+          <Route path="*" element={<PageNotFound />} />
 
           {/* WITH SECURITY */}
           <Route path="/download" element={<RequireAuthentification><Download /></RequireAuthentification>} />
