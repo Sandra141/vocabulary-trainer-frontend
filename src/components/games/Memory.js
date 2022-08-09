@@ -4,9 +4,8 @@ import '../../css/memory.css';
 import wrong from '../../images/wrong.svg';
 import right from '../../images/right.svg';
 import { useVocabulary } from "../../contexts/Vocabulary";
-import Header from "../layout/Header";
+import Header from "../layout/HeaderBlank";
 import Footer from "../layout/Footer";
-import dummyDataArrayCards from "../../mockups/dummyDataArrayCards";
 
 let moveCounter = 0;
 let allTurnedCardsArray = [];
@@ -46,7 +45,7 @@ const Memory = () => {
     }
 
     useEffect(() => {
-        renderDecks()
+        renderDecks();
     }, [])
 
     const handleDeckSelection = (deckId) => {
@@ -66,7 +65,7 @@ const Memory = () => {
         let counter = 0;
         cardsInDeckSelection.map((word) => {
             array.push({ 'id': word._id, 'word': word.front, 'key': counter }, { 'id': word._id, 'word': word.back, 'key': counter + 1 })
-            counter = counter + 2;
+            return counter = counter + 2;
         })
         let num = cardsInDeckSelection.length * 2;
         array = array.slice(0, num).sort(() => Math.random() - 0.5);
@@ -90,12 +89,15 @@ const Memory = () => {
     }
 
     const handleButtonClick = (clickedButton) => {
+        console.log('twoTurnedCards', twoTurnedCards)
         if (moveCounter === 2) {
             //---------compare cards-----------
-            const idCard1 = twoTurnedCards[0]._id;
-            const idCard2 = twoTurnedCards[1]._id;
+            const idCard1 = twoTurnedCards[0].id;
+            const idCard2 = twoTurnedCards[1].id;
             const keyCard1 = twoTurnedCards[0].key;
             const keyCard2 = twoTurnedCards[1].key;
+            console.log(twoTurnedCards)
+            console.log('idCard1', idCard1, 'idCard2', idCard2)
             //--------same cards and user clicked "right button"-------------
             if (idCard1 === idCard2 && clickedButton === 'right') {
                 moveCounter = 0;
@@ -189,7 +191,7 @@ const Memory = () => {
                             {
                                 cardArray.map((word) => {
                                     return (
-                                        <div className={`${allTurnedCardsArray[word.key] ? 'memoryCard memoryCardWordShown' : 'memoryCard lightBlue'} ${twoTurnedCards[0]?.key === word.key ? 'blueBorder' : ''} ${twoTurnedCards[1]?.key === word.key ? 'blueBorder' : ''}`} id={word.key} key={word.key} onClick={!allTurnedCardsArray[word.key] ? () => handleCardClick(word._id, word.word, word.key) : () => { }} >
+                                        <div className={`${allTurnedCardsArray[word.key] ? 'memoryCard memoryCardWordShown' : 'memoryCard lightBlue'} ${twoTurnedCards[0]?.key === word.key ? 'blueBorder' : ''} ${twoTurnedCards[1]?.key === word.key ? 'blueBorder' : ''}`} id={word.key} key={word.key} onClick={!allTurnedCardsArray[word.key] ? () => handleCardClick(word.id, word.word, word.key) : () => { }} >
                                             {allTurnedCardsArray[word.key] ? word.word : ''}
                                         </div>
                                     );
@@ -198,8 +200,8 @@ const Memory = () => {
                         </div>
                         <p className='memorywrongMessageHidden' ref={refMemoryWrongMessage} >No match</p>
                         <div className="memoryButtonContainer">
-                            <div className={moveCounter === 2 ? 'memoryButton lightBlue' : 'memoryButtonGray lightBlue'} onClick={() => handleButtonClick('wrong')}><img src={wrong} /></div>
-                            <div className={moveCounter === 2 ? 'memoryButton lightBlue' : 'memoryButtonGray lightBlue'} onClick={() => handleButtonClick('right')}><img src={right} /></div>
+                            <div className={moveCounter === 2 ? 'memoryButton lightBlue' : 'memoryButtonGray lightBlue'} onClick={() => handleButtonClick('wrong')}><img src={wrong} alt="wrong icon" /></div>
+                            <div className={moveCounter === 2 ? 'memoryButton lightBlue' : 'memoryButtonGray lightBlue'} onClick={() => handleButtonClick('right')}><img src={right} alt="right icon" /></div>
                         </div>
                         <div className="questionMarkMemory" onClick={handleQuestionMarkClick}>?</div>
                     </div>

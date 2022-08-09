@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './../css/findSharedDecks.css';
-import Decks from './../images/decks.png';
+//import Decks from './../images/decks.png';
 import thumbsUp from './../images/thumbsUp.svg';
 import thumbsDown from './../images/thumbsDown.svg';
 import SearchIcon from './../images/searchIcon.svg';
 import useFetch from '../hooks/useFetch';
 import { useAuthentification } from '../contexts/Authentification'
 import { url_search_public_decks } from '../services/vocabulary'
-import Loading from './modals/Loading';
+//import Loading from './modals/Loading';
 import Header from './layout/Header';
 import Footer from './layout/Footer2';
 import { getColorClassName } from '../utils/className.js'

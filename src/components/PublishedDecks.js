@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import './../css/cards.css';
 import './../css/popup.css';
-import Decks from './../images/decks.png';
-import SearchIcon from './../images/searchIcon.svg';
-import { useLocation, useSearchParams } from "react-router-dom";
+//import Decks from './../images/decks.png';
+//import SearchIcon from './../images/searchIcon.svg';
+import { useLocation } from "react-router-dom";
 import { useAuthentification } from '../contexts/Authentification.js'
 import { useVocabulary } from '../contexts/Vocabulary'
 import { url_shared } from '../services/vocabulary'
@@ -84,13 +84,13 @@ const PublishedDecks = (props) => {
             <input type="text" value={decks.name} className="editableCardDetails" />
         </div>
 
-    const renderDeckId = () => !decks
+    /*const renderDeckId = () => !decks
         ? null
         : <div>
             share your deck with others :)
             <br />
             id: {decks._id}
-        </div>
+        </div>*/
 
     return (
         <>
@@ -98,7 +98,7 @@ const PublishedDecks = (props) => {
                 <Header />
                 <div className='mainContent'>
 
-                    {renderDeckId()}
+                    {/*renderDeckId()*/}
 
                     {renderDeckName()}
 

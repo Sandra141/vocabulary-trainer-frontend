@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import HeaderBlank from "../layout/HeaderBlank";
 import useFetch from '../../hooks/useFetch.js';
 import Loading from '../modals/Loading.js';
 import { NavLink } from 'react-router-dom';
@@ -55,10 +56,14 @@ const RequireAuthentification = ({ children }) => {
 
     // Step 2: no access
     if (!access) return (
-        <div>
-            <h1>NO ACCESS</h1>
-            <NavLink to="/login">GO back to login</NavLink>
+        <>
+        <HeaderBlank />
+        <div className="pageNotFoundContainer">
+            <h2>NO ACCESS</h2>
+            <p>Would you like to log in?</p>
+            <div className='lightBlue'><NavLink to="/login" >Go back to login</NavLink></div>
         </div>
+        </>
     )
 
     // Step 3: access

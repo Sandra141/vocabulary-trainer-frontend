@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import './../../css/flashcards.css';
 import { useVocabulary } from "../../contexts/Vocabulary";
-import Header from "../layout/Header";
+import Header from "../layout/HeaderBlank";
 import Footer from "../layout/Footer";
 
 const SHOWN_SIDE_ENUM = {
@@ -28,10 +28,10 @@ const Flashcards = () => {
     console.log(shownSide, hiddenSide)
 
     /*---- logic for popup ----*/
-    const handleAddDecksButton = (e) => {
+    /*const handleAddDecksButton = (e) => {
         document.body.style.overflow = 'hidden';
         setDeckSelectionPopupIsShown(current => !current);
-    }
+    }*/
 
     useEffect(() => {
         renderDecks()

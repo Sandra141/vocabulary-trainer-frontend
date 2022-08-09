@@ -2,9 +2,9 @@ import React, { useRef, useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import './../css/myDecks.css';
 import './../css/popup.css';
-import emptyHeart from './../images/emptyHeart.svg';
-import filledHeart from './../images/filledHeart.svg';
-import dotMenu from './../images/dotMenu.svg';
+//import emptyHeart from './../images/emptyHeart.svg';
+//import filledHeart from './../images/filledHeart.svg';
+//import dotMenu from './../images/dotMenu.svg';
 import Decks from './../images/decks.png';
 import { useVocabulary } from '../contexts/Vocabulary.js'
 import Header from './layout/Header';
@@ -20,24 +20,24 @@ const MyDecks = () => {
 
     const decks = vocabulary.decks
 
-    const cardsFromDeck = vocabulary.getCardsFromDeck(decks[0])
+    //const cardsFromDeck = vocabulary.getCardsFromDeck(decks[0])
 
-    /*---- add a deck to favourites ----*/
+    /*---- add a deck to favourites ----
     const handleHeartClick = (e) => {
-        /*---- needs to be reworked ----*/
+        /*---- needs to be reworked ----
         const cardId = e.target.id.replace('heartOfCard', '');
         const positionInArray = decks.findIndex(decks => decks._id === cardId);
 
         if (decks[positionInArray].liked) {
-            /*---- change: send to database ----*/
+            /*---- change: send to database ----
             decks[positionInArray].liked = false;
         } else if (!decks[positionInArray].liked) {
-            /*---- change: send to database ----*/
+            /*---- change: send to database ----
             decks[positionInArray].liked = true;
         } else {
             console.log('error when trying to like/unlike a deck');
         }
-    }
+    }*/
 
     /*---- logic for popup ----*/
     const handleAddDecksButton = (e) => {
@@ -67,7 +67,7 @@ const MyDecks = () => {
     }
 
     /*---- logic for dot menu ----*/
-    const handleShowDotMenu = (e) => {
+    /*const handleShowDotMenu = (e) => {
         const dotMenuContainer = e.target.parentElement.parentElement.querySelector('.dotMenuContainer');
         if (dotMenuContainer) {
             dotMenuContainer.style.display = 'block';
@@ -91,7 +91,7 @@ const MyDecks = () => {
         if (dotMenuContainer) {
             dotMenuContainer.style.display = 'none';
         }
-    }
+    }*/
 
     const renderDecks = () => decks.sort().map((deck, i) =>
         <div className='deck' key={deck._id}>
