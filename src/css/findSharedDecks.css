@@ -45,6 +45,7 @@
     justify-content: space-around;
     padding: 0 10%;
     z-index: 1;
+    color: #3A3A6A;
     position: absolute;
     left: 0;
     bottom: calc(2rem + 1.5rem - 1rem); /* 2rem: margin, 1.5rem: half of height of .publicDeckBottom, 1 rem: half of own hight*/

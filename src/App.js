@@ -48,7 +48,6 @@ function App() {
           <Route path="/games/Connect" element={<RequireAuthentification><Connect /></RequireAuthentification>} />
 
           <Route path="/profile" element={<RequireAuthentification><Profile /></RequireAuthentification>} />
-          <Route path="/settings" element={<RequireAuthentification><Settings /></RequireAuthentification>} />
           <Route path="/decks" element={<RequireAuthentification><MyDecks /></RequireAuthentification>} />
           <Route path="/decks/:id" element={<RequireAuthentification><Cards /></RequireAuthentification>} />
         </Routes >

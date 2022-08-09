@@ -12,7 +12,11 @@
     z-index: 20;
 }
 
-nav {
+.appHeader h1 {
+    font-size: 1.8rem;
+}
+
+.appHeader nav {
     width: 100%;
     display: flex;
     justify-content: space-between;
