@@ -20,7 +20,7 @@ const Profile = () => {
         <div className='ContainerForHeaderAndMain'>
             <HeaderBlank />
             <div className='mainContent profileMainContent'>
-                <img src={footerProfileWhite} className="lightBlue" />
+                <img src={footerProfileWhite} className="lightBlue" alt="image icon" />
                 <h2>Hi, [name]</h2>
                 <div className='profileAchievementsContainer'>
                     <div className='ProfileAchievements'>
