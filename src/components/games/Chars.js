@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import Footer from "../layout/Footer";
-import Header from "../layout/Header";
+import Header from "../layout/HeaderBlank";
 import dummyDataArrayDecks from "../../mockups/dummyDataArrayDecks";
 import dummyDataArrayCards from "../../mockups/dummyDataArrayCards";
 
@@ -8,14 +8,14 @@ const Chars = () => {
     const refPopupBackground = useRef(null);
     const [deckSelectionPopupIsShown, setDeckSelectionPopupIsShown] = useState(true);
     const [sideSelectionPopupIsShown, setSideSelectionPopupIsShown] = useState(false);
-    const [deckSelection, setdeckSelection] = useState('');
-    const [hiddenSide, setHiddenSide] = useState('firstSide');
+    //const [deckSelection, setdeckSelection] = useState('');
+    //const [hiddenSide, setHiddenSide] = useState('firstSide');
 
     /*---- logic for popup ----*/
-    const handleAddDecksButton = (e) => {
+    /*const handleAddDecksButton = (e) => {
         document.body.style.overflow = 'hidden';
         setDeckSelectionPopupIsShown(current => !current);
-    }
+    }*/
 
     useEffect(() => {
         const popupBackground = refPopupBackground.current;

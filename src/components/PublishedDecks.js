@@ -84,13 +84,13 @@ const PublishedDecks = (props) => {
             <input type="text" value={decks.name} className="editableCardDetails" />
         </div>
 
-    const renderDeckId = () => !decks
+    /*const renderDeckId = () => !decks
         ? null
         : <div>
             share your deck with others :)
             <br />
             id: {decks._id}
-        </div>
+        </div>*/
 
     return (
         <>
@@ -98,7 +98,7 @@ const PublishedDecks = (props) => {
                 <Header />
                 <div className='mainContent'>
 
-                    {renderDeckId()}
+                    {/*renderDeckId()*/}
 
                     {renderDeckName()}
 

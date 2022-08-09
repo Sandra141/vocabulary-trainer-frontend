@@ -1,7 +1,7 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import './../../css/multipleChoice.css';
 import Footer from "../layout/Footer";
-import Header from "../layout/Header";
+import Header from "../layout/HeaderBlank";
 import { useVocabulary } from "../../contexts/Vocabulary";
 
 const SHOWN_SIDE_ENUM = {
@@ -30,7 +30,7 @@ const MultipleChoice = () => {
 
     //# state
     const [possible_decks, set_possible_decks] = useState(getPossibleDecks())
-    const [selected_deck, set_selected_deck] = useState(null);
+    //const [selected_deck, set_selected_deck] = useState(null);
     const [cards, set_cards] = useState([]);
     const [tmpCards, setTmpCards] = useState([]);
     const [show_card_question_side, set_show_card_question_side] = useState(SHOWN_SIDE_ENUM.back);

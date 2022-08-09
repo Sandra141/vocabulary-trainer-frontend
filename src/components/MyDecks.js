@@ -67,7 +67,7 @@ const MyDecks = () => {
     }
 
     /*---- logic for dot menu ----*/
-    const handleShowDotMenu = (e) => {
+    /*const handleShowDotMenu = (e) => {
         const dotMenuContainer = e.target.parentElement.parentElement.querySelector('.dotMenuContainer');
         if (dotMenuContainer) {
             dotMenuContainer.style.display = 'block';
@@ -91,7 +91,7 @@ const MyDecks = () => {
         if (dotMenuContainer) {
             dotMenuContainer.style.display = 'none';
         }
-    }
+    }*/
 
     const renderDecks = () => decks.sort().map((deck, i) =>
         <div className='deck' key={deck._id}>
