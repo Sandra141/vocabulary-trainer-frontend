@@ -144,6 +144,11 @@ const MultipleChoice = () => {
         startNewRound()
     }, [cards])
 
+    //## reset when popup change
+    useEffect(() => {
+        startNewRound()
+    }, [popup_state])
+
     //## 
     useEffect(() => {
         if (!tmpCards.length) return
