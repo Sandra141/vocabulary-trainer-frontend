@@ -375,19 +375,20 @@ export const Vocabulary = ({ children }) => {
         if (!decks_id) return
 
         const all = getAllFromDeckId(decks_id)
-        console.log(11111111, all)
 
         // delete local
+        const index_decks = decks.findIndex(x => x._id === all.found_decks._id)
         set_decks(prev => {
             const copy = [...prev]
-            copy.splice(all.found_decks._id, 1)
+            copy.splice(index_decks, 1)
 
             return copy
         })
 
+        const index_users_decks = users_decks.findIndex(x => x._id === all.found_users_decks._id)
         set_users_decks(prev => {
             const copy = [...prev]
-            copy.splice(all.found_users_decks._id, 1)
+            copy.splice(index_users_decks, 1)
 
             return copy
         })
