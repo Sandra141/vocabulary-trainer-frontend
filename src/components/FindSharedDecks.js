@@ -135,7 +135,7 @@ const FindSharedDecks = () => {
             <NavLink to={'/find-Decks/search?_id=' + card._id} className={getColorClassName(i) + " publicDeck"} >
                 <div className='publicDeckTop'>
                     <h2>{card.name}</h2>
-                    <p>{card.vocabNumber + ' words'}</p>
+                    <p>{card.cards_size + ' words'}</p>
                 </div>
                 <div className='publicDeckBottom'>
 
