@@ -89,12 +89,15 @@ const Memory = () => {
     }
 
     const handleButtonClick = (clickedButton) => {
+        console.log('twoTurnedCards', twoTurnedCards)
         if (moveCounter === 2) {
             //---------compare cards-----------
-            const idCard1 = twoTurnedCards[0]._id;
-            const idCard2 = twoTurnedCards[1]._id;
+            const idCard1 = twoTurnedCards[0].id;
+            const idCard2 = twoTurnedCards[1].id;
             const keyCard1 = twoTurnedCards[0].key;
             const keyCard2 = twoTurnedCards[1].key;
+            console.log(twoTurnedCards)
+            console.log('idCard1', idCard1, 'idCard2', idCard2)
             //--------same cards and user clicked "right button"-------------
             if (idCard1 === idCard2 && clickedButton === 'right') {
                 moveCounter = 0;
@@ -188,7 +191,7 @@ const Memory = () => {
                             {
                                 cardArray.map((word) => {
                                     return (
-                                        <div className={`${allTurnedCardsArray[word.key] ? 'memoryCard memoryCardWordShown' : 'memoryCard lightBlue'} ${twoTurnedCards[0]?.key === word.key ? 'blueBorder' : ''} ${twoTurnedCards[1]?.key === word.key ? 'blueBorder' : ''}`} id={word.key} key={word.key} onClick={!allTurnedCardsArray[word.key] ? () => handleCardClick(word._id, word.word, word.key) : () => { }} >
+                                        <div className={`${allTurnedCardsArray[word.key] ? 'memoryCard memoryCardWordShown' : 'memoryCard lightBlue'} ${twoTurnedCards[0]?.key === word.key ? 'blueBorder' : ''} ${twoTurnedCards[1]?.key === word.key ? 'blueBorder' : ''}`} id={word.key} key={word.key} onClick={!allTurnedCardsArray[word.key] ? () => handleCardClick(word.id, word.word, word.key) : () => { }} >
                                             {allTurnedCardsArray[word.key] ? word.word : ''}
                                         </div>
                                     );
