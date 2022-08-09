@@ -3,15 +3,13 @@ import './../css/cards.css';
 import './../css/popup.css';
 import Decks from './../images/decks.png';
 import SearchIcon from './../images/searchIcon.svg';
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useVocabulary } from '../contexts/Vocabulary'
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
 
 const Cards = (props) => {
     const {
-        getDeckFromCard,
-        getCardsFromDeck,
         getCardsFromDeckId,
         getDeckFromDeckId,
         getCardsByText,
