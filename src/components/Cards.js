@@ -16,6 +16,7 @@ const Cards = (props) => {
         getDeckFromDeckId,
         getCardsByText,
         createCard,
+        updateCard,
         updateDeck,
     } = useVocabulary()
 
@@ -27,10 +28,9 @@ const Cards = (props) => {
     //# state
     const [decks_id, set_decks_id] = useState(term)
     const [popupIsShown, setPopupIsShown] = useState(false);
-    const [front, set_front] = useState('');
-    const [back, set_back] = useState('');
     const [filtered_cards, set_filtered_cards] = useState(getCardsFromDeckId(decks_id))
     const [decks, set_decks] = useState(getDeckFromDeckId(decks_id))
+    const [selected_card, set_selected_card] = useState(null)
 
     //# ref
     const refPopupBackground = useRef(null);
@@ -42,11 +42,22 @@ const Cards = (props) => {
 
     /*---- logic for popup ----*/
     const handleOpenCardDetails = (e) => {
+        const inputFront = refInputFront.current
+        const inputBack = refInputBack.current
+
         if (e.target !== addCardsButton.current) {
             const idInArray = e.target.parentElement.id;
-            const clickedObject = filtered_cards.find(obj => obj._id === idInArray);
-            set_front(clickedObject.front);
-            set_back(clickedObject.back);
+            const found_card = filtered_cards.find(obj => obj._id === idInArray);
+
+            inputFront.value = found_card.front
+            inputBack.value = found_card.back
+
+            set_selected_card(found_card)
+        } else {
+            inputFront.value = ""
+            inputBack.value = ""
+
+            set_selected_card(null)
         }
         document.body.style.overflow = 'hidden';
         setPopupIsShown(current => !current);
@@ -73,17 +84,32 @@ const Cards = (props) => {
         const inputFront = refInputFront.current
         const inputBack = refInputBack.current
 
-        // EXIT: no values
-        if (!inputFront.value || !inputBack.value) return
+        // create or update card
+        if (!selected_card) {
+            // create
+            // EXIT: no sense to create
+            if(!inputFront.value || !inputBack.value) return
 
-        const newCard = createCard(decks_id, inputFront.value, inputBack.value)
-        set_filtered_cards(prev => [...prev, newCard])
+            const newCard = createCard(decks_id, inputFront.value, inputBack.value)
+            set_filtered_cards(prev => [...prev, newCard])
+        } else {
+            // update
 
-        // reset
-        inputFront.placeholder = ""
-        inputBack.placeholder = ""
-        inputFront.value = ""
-        inputBack.value = ""
+            const newCard = {
+                ...selected_card,
+                front: inputFront.value,
+                back: inputBack.value
+            }
+            updateCard(newCard)
+
+            const index = filtered_cards.findIndex(x => x._id === selected_card._id)
+            set_filtered_cards(prev => {
+                const copy = [...prev]
+                copy[index] = newCard
+
+                return copy
+            })
+        }
     }
 
     const handleSearchOnKeyDown = e => {
@@ -133,6 +159,7 @@ const Cards = (props) => {
         set_decks(newDeck)
     }
 
+
     const renderSharedButton = () => !decks
         ? null
         : (
@@ -181,46 +208,40 @@ const Cards = (props) => {
             </>)
 
     return (
-        <>
-            <div className='ContainerForHeaderAndMain'>
-                <Header />
-                <div className='mainContent' id='vocabContent'>
-                    {renderSharedButton()}
+        <div className='ContainerForHeaderAndMain'>
 
-                    {renderCards()}
+            <Header />
 
-                    {/*---- popup ----*/}
-                    <div className="hidden" ref={refPopupBackground} onClick={closePopup} ></div>
-                    <div className="popup" style={{ display: popupIsShown ? 'block' : 'none' }} >
-                        <div className="popupDecksContent">
-                            <p>Side 1:</p>
-                            <input type="text" placeholder={front ? front : ''} ref={refInputFront} className="editableCardDetails" />
-                            {/*<ContentEditable
-                                ref={refInputFront}
-                                className="editableCardDetails"
-                                html={front ? front : ''}
-                                disabled={false} // use true to disable edition
-                            />*/}
+            <div className='mainContent' id='vocabContent'>
 
-                            <p>Side 2:</p>
-                            <input type="text" placeholder={back ? back : ''} ref={refInputBack} className="editableCardDetails" />
-                            {/*<ContentEditable
-                                ref={refInputBack}
-                                className="editableCardDetails"
-                                html={back ? back : ''}
-                                disabled={false}
-                            />*/}
-                            <div className="cardDetailsPopupBottom">
-                                <button onClick={saveCard} >Save this Card</button>
-                                <p><a onClick={closePopup} href='https://image.emojisky.com/401/147401-middle.png' target='_blank' rel="noreferrer" >Delete</a> this Card</p>
+                {renderSharedButton()}
 
-                            </div>
+                {renderCards()}
+
+                {/*---- popup ----*/}
+                <div className="hidden" ref={refPopupBackground} onClick={closePopup} ></div>
+                <div className="popup" style={{ display: popupIsShown ? 'block' : 'none' }} >
+                    <div className="popupDecksContent">
+
+                        <p>Side 1:</p>
+                        <input type="text" ref={refInputFront} className="editableCardDetails" />
+
+                        <p>Side 2:</p>
+                        <input type="text" ref={refInputBack} className="editableCardDetails" />
+
+                        <div className="cardDetailsPopupBottom">
+                            <button onClick={saveCard} >Save this Card</button>
+                            <p><a onClick={closePopup} href='https://image.emojisky.com/401/147401-middle.png' target='_blank' rel="noreferrer" >Delete</a> this Card</p>
+
                         </div>
                     </div>
                 </div>
             </div>
+
             <Footer />
-        </>
+
+        </div>
+
     );
 }
 
