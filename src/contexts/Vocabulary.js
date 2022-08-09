@@ -3,11 +3,20 @@ import useFetch from '../hooks/useFetch'
 import { ObjectID } from 'bson';
 import {
     url_sync_read,
+
     url_decks_update,
     url_users_decks_update,
     url_cards_update,
     url_decks_cards_update,
+
     url_search_public_decks,
+
+    url_shared,
+
+    url_cards_delete,
+    url_decks_cards_delete,
+    url_decks_delete,
+    url_users_decks_delete,
 } from '../services/vocabulary.js'
 
 import { useAuthentification } from './Authentification.js'
@@ -146,7 +155,6 @@ export const Vocabulary = ({ children }) => {
                 decks_id: decks_id,
                 cards_id: x._id
             }
-
         })
 
         // users_decks
@@ -158,15 +166,6 @@ export const Vocabulary = ({ children }) => {
             decks_id,
             liked: 0
         }
-
-        console.log("+++++++++++++++++++++++")
-        console.log(new_decks)
-        console.log(new_cards)
-        console.log(new_decks_cards)
-
-
-
-        console.log("--------------------")
 
         // local
         set_cards(prev => [...prev, ...new_cards])
@@ -309,6 +308,120 @@ export const Vocabulary = ({ children }) => {
         }
     }
 
+    const getAllFromDeckId = decks_id => {
+        // EXIT: required forgotten
+        if (!decks_id) return
+
+        // (one) users_decks
+        const found_users_decks = users_decks.find(x => x.decks_id === decks_id)
+
+        // (one) decks
+        const found_decks = decks.find(x => x._id === decks_id)
+
+        // (many) decks_cards
+        const found_decks_cards = decks_cards.filter(x => x.decks_id === decks_id)
+
+        // (many) cards
+        const found_decks_cards_cards_ids = found_decks_cards.map(x => x.cards_id)
+        const found_cards = cards.filter(x => found_decks_cards_cards_ids.includes(x._id))
+
+        return {
+            found_users_decks,
+            found_decks,
+            found_decks_cards,
+            found_decks_cards_cards_ids,
+            found_cards
+        }
+    }
+
+    //# delete
+    //##
+    const delete_cards = cards_id => {
+        // EXIT: required forgotten
+        if (!cards_id) return
+
+        // index
+        const decks_cards_index = decks_cards.findIndex(x => x.cards_id === cards_id)
+        const cards_index = cards.findIndex(x => x._id === cards_id)
+
+        // EXIT:
+        if (decks_cards_index === -1 || cards_index === -1) return
+
+        const decks_cards_id = decks_cards[decks_cards_index]._id
+
+        // local
+        set_decks_cards(prev => {
+            const copy = [...prev]
+            copy.splice(decks_cards_index, 1)
+
+            return copy
+        })
+
+        set_cards(prev => {
+            const copy = [...prev]
+            copy.splice(cards_index, 1)
+
+            return copy
+        })
+
+        // db
+        set_decks_cards_request(url_decks_cards_delete(token, decks_cards_id))
+        set_cards_request(url_cards_delete(token, cards_id))
+    }
+
+    //##
+    const delete_decks = decks_id => {
+        // EXIT: required forgotten
+        if (!decks_id) return
+
+        const all = getAllFromDeckId(decks_id)
+        console.log(11111111, all)
+
+        // delete local
+        set_decks(prev => {
+            const copy = [...prev]
+            copy.splice(all.found_decks._id, 1)
+
+            return copy
+        })
+
+        set_users_decks(prev => {
+            const copy = [...prev]
+            copy.splice(all.found_users_decks._id, 1)
+
+            return copy
+        })
+
+        set_cards(prev => {
+            const copy = [...prev]
+            const result = copy.filter(x => !all.found_decks_cards_cards_ids.includes(x._id))
+
+            return copy
+        })
+
+        const found_decks_cards_ids = all.found_decks_cards.map(x => x._id)
+        set_decks_cards(prev => {
+            const copy = [...prev]
+            const result = copy.filter(x => !found_decks_cards_ids.includes(x._id))
+
+            return copy
+        })
+
+        // array ids
+        const cards_ids = all.found_cards.map(x => x._id)
+        const decks_cards = all.found_decks_cards.map(x => x._id)
+
+        // delete db
+        set_decks_request(url_decks_delete(token, [all.found_decks._id]))
+        set_users_decks_request(url_users_decks_delete(token, [all.found_users_decks._id]))
+        set_cards_request(url_cards_delete(token, cards_ids))
+        set_decks_cards_request(url_decks_cards_delete(token, decks_cards))
+
+        return all
+    }
+
+
+
     return (
         <VocabularyContext.Provider
             value={{
@@ -343,6 +456,11 @@ export const Vocabulary = ({ children }) => {
                 getDeckFromDeckId,
                 getCardsByText,
                 getProgressFromDeck,
+                getAllFromDeckId,
+
+                // delete
+                delete_cards,
+                delete_decks,
             }}
         >
             {children}

@@ -3,7 +3,7 @@ import './../css/cards.css';
 import './../css/popup.css';
 import Decks from './../images/decks.png';
 import SearchIcon from './../images/searchIcon.svg';
-import { useLocation, useSearchParams } from "react-router-dom";
+import { Navigate, useLocation, useSearchParams } from "react-router-dom";
 import { useVocabulary } from '../contexts/Vocabulary'
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
@@ -18,6 +18,8 @@ const Cards = (props) => {
         createCard,
         updateCard,
         updateDeck,
+        delete_cards,
+        delete_decks,
     } = useVocabulary()
 
     //# read url term
@@ -31,6 +33,7 @@ const Cards = (props) => {
     const [filtered_cards, set_filtered_cards] = useState(getCardsFromDeckId(decks_id))
     const [decks, set_decks] = useState(getDeckFromDeckId(decks_id))
     const [selected_card, set_selected_card] = useState(null)
+    const [navigate_back, set_navigate_back] = useState(false)
 
     //# ref
     const refPopupBackground = useRef(null);
@@ -88,7 +91,7 @@ const Cards = (props) => {
         if (!selected_card) {
             // create
             // EXIT: no sense to create
-            if(!inputFront.value || !inputBack.value) return
+            if (!inputFront.value || !inputBack.value) return
 
             const newCard = createCard(decks_id, inputFront.value, inputBack.value)
             set_filtered_cards(prev => [...prev, newCard])
@@ -110,6 +113,32 @@ const Cards = (props) => {
                 return copy
             })
         }
+    }
+
+    const handle_delete_card = e => {
+        // EXIT: no card
+        if (!selected_card) return
+
+        const index = filtered_cards.findIndex(x => x._id === selected_card._id)
+        set_filtered_cards(prev => {
+            const copy = [...prev]
+            copy.splice(index, 1)
+
+            return copy
+        })
+
+        delete_cards(selected_card._id)
+    }
+
+    const handle_delete_deck = e => {
+        console.log(111111111111111)
+        // EXIT:
+        if (!decks_id) return
+
+        delete_decks(decks_id)
+
+
+        set_navigate_back(true)
     }
 
     const handleSearchOnKeyDown = e => {
@@ -173,6 +202,14 @@ const Cards = (props) => {
             </button>
         )
 
+    const renderDeleteDeckButton = () => (
+        <button onClick={handle_delete_deck}>
+            DELETE DECK
+        </button>
+    )
+
+
+
     const renderCards = () => !filtered_cards || !decks
         ? <div>Du hast kein Deck</div>
         : (filtered_cards.length === 0
@@ -207,12 +244,18 @@ const Cards = (props) => {
                 }
             </>)
 
+
+    // EXIT: Navigate back
+    if (navigate_back) return <Navigate to="/decks" state={{ from: location }} replace />;
+
     return (
         <div className='ContainerForHeaderAndMain'>
 
             <Header />
 
             <div className='mainContent' id='vocabContent'>
+
+                {renderDeleteDeckButton()}
 
                 {renderSharedButton()}
 
@@ -231,7 +274,7 @@ const Cards = (props) => {
 
                         <div className="cardDetailsPopupBottom">
                             <button onClick={saveCard} >Save this Card</button>
-                            <p><a onClick={closePopup} href='https://image.emojisky.com/401/147401-middle.png' target='_blank' rel="noreferrer" >Delete</a> this Card</p>
+                            <p><button onClick={handle_delete_card} >Delete</button> this Card</p>
 
                         </div>
                     </div>

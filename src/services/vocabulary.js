@@ -1,5 +1,5 @@
 const API_URL = process.env.REACT_APP_API_URL + "/vocabulary"
-const PATH_Cards = "/cards"
+const PATH_CARDS = "/cards"
 const PATH_DECKS_CARDS = "/decks_cards"
 const PATH_DECKS = "/decks"
 const PATH_SYNC = "/sync"
@@ -109,7 +109,7 @@ const url_users_decks_update = (token, users_decks) => {
 //     ]
 // }
 const url_cards_update = (token, cards) => {
-    const url = API_URL + PATH_Cards
+    const url = API_URL + PATH_CARDS
 
     return {
         url: url,
@@ -208,12 +208,120 @@ const url_shared = (token, decks_id) => {
     }
 }
 
+
+
+
+
+// ### LÖSCHEN
+// DELETE http://localhost:9000/vocabulary/cards
+// Content-Type: application/json
+
+// {
+//     "authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmU3YWVkZmY0ZWZhMmJjOGEwNzNmMmQiLCJlbWFpbCI6ImVuZ2xpc2giLCJpc0xvZ2dlZEluIjp0cnVlLCJpYXQiOjE2NTkzNTY1NTMsImV4cCI6MTY2Mjk1NjU1M30.SvWRO5TQBhGQR40NaaOAXTmAK8Pr1AqG4UjY0bfgYEI",
+//     "cards_id": "62e990b96fe26e51b5ae6f55"
+// }
+const url_cards_delete = (token, cards_ids) => {
+    const url = API_URL + PATH_CARDS
+
+    return {
+        url: url,
+        options: {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                'authorization': 'Bearer ' + token,
+                cards_ids
+            })
+        }
+    }
+}
+
+// ### LÖSCHEN
+// DELETE http://localhost:9000/vocabulary/decks_cards
+// Content-Type: application/json
+
+// {
+//     "authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmU3YWVkZmY0ZWZhMmJjOGEwNzNmMmQiLCJlbWFpbCI6ImVuZ2xpc2giLCJpc0xvZ2dlZEluIjp0cnVlLCJpYXQiOjE2NTkzNTY1NTMsImV4cCI6MTY2Mjk1NjU1M30.SvWRO5TQBhGQR40NaaOAXTmAK8Pr1AqG4UjY0bfgYEI",
+//     "decks_cards_id": "62e990b96fe26e51b5ae6f55"
+// }
+const url_decks_cards_delete = (token, decks_cards_ids) => {
+    const url = API_URL + PATH_DECKS_CARDS
+
+    return {
+        url: url,
+        options: {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                'authorization': 'Bearer ' + token,
+                decks_cards_ids
+            })
+        }
+    }
+}
+
+// ### LÖSCHEN
+// DELETE http://localhost:9000/vocabulary/decks
+// Content-Type: application/json
+
+// {
+//     "authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmU3YWVkZmY0ZWZhMmJjOGEwNzNmMmQiLCJlbWFpbCI6ImVuZ2xpc2giLCJpc0xvZ2dlZEluIjp0cnVlLCJpYXQiOjE2NTkzNTY1NTMsImV4cCI6MTY2Mjk1NjU1M30.SvWRO5TQBhGQR40NaaOAXTmAK8Pr1AqG4UjY0bfgYEI",
+//     "decks_id": "62e990b96fe26e51b5ae6f55"
+// }
+const url_decks_delete = (token, decks_ids) => {
+    const url = API_URL + PATH_DECKS
+
+    return {
+        url: url,
+        options: {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                'authorization': 'Bearer ' + token,
+                decks_ids
+            })
+        }
+    }
+}
+
+// ### LÖSCHEN
+// DELETE http://localhost:9000/vocabulary/users_decks
+// Content-Type: application/json
+
+// {
+//     "authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmU3YWVkZmY0ZWZhMmJjOGEwNzNmMmQiLCJlbWFpbCI6ImVuZ2xpc2giLCJpc0xvZ2dlZEluIjp0cnVlLCJpYXQiOjE2NTkzNTY1NTMsImV4cCI6MTY2Mjk1NjU1M30.SvWRO5TQBhGQR40NaaOAXTmAK8Pr1AqG4UjY0bfgYEI",
+//     "users_decks_id": "62e990b96fe26e51b5ae6f55"
+// }
+const url_users_decks_delete = (token, users_decks_ids) => {
+    const url = API_URL + PATH_USERS_DECKS
+
+    return {
+        url: url,
+        options: {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                'authorization': 'Bearer ' + token,
+                users_decks_ids
+            })
+        }
+    }
+}
+
 export {
     url_sync_read,
+
     url_decks_update,
     url_users_decks_update,
     url_cards_update,
     url_decks_cards_update,
+
     url_search_public_decks,
+
     url_shared,
+
+    url_cards_delete,
+    url_decks_cards_delete,
+    url_decks_delete,
+    url_users_decks_delete,
 }
