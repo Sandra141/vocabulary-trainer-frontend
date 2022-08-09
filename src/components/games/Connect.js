@@ -8,8 +8,8 @@ const Connect = () => {
     const refPopupBackground = useRef(null);
     const [deckSelectionPopupIsShown, setDeckSelectionPopupIsShown] = useState(true);
     const [sideSelectionPopupIsShown, setSideSelectionPopupIsShown] = useState(false);
-    //const [deckSelection, setdeckSelection] = useState('');
-    //const [hiddenSide, setHiddenSide] = useState('firstSide');
+    const [deckSelection, setdeckSelection] = useState('');
+    const [hiddenSide, setHiddenSide] = useState('firstSide');
 
     /*---- logic for popup ----*/
     /*const handleAddDecksButton = (e) => {
