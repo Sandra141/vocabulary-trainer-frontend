@@ -1,13 +1,11 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 import useFetch from '../hooks/useFetch'
 import { ObjectID } from 'bson';
 import {
-    url_sync_read,
     url_decks_update,
     url_users_decks_update,
     url_cards_update,
-    url_decks_cards_update,
-    url_search_public_decks,
+    url_decks_cards_update
 } from '../services/vocabulary.js'
 
 import { useAuthentification } from './Authentification.js'
@@ -45,7 +43,7 @@ export const Vocabulary = ({ children }) => {
     //# create
     //## create new deck
     const createDeck = (name, shared = false, liked = 0) => {
-        // EXIT: required forgetten
+        // EXIT: required forgotten
         if (!name) return
 
         // decks

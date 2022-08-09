@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import '../../css/games.css';
-import gamesArray from '../../mockups/gamesArray';
+//import gamesArray from '../../mockups/gamesArray';
 import emptyHeart from '../../images/emptyHeart.svg';
 import filledHeart from '../../images/filledHeart.svg';
 
@@ -10,7 +10,7 @@ import MemoryIcon from '../../images/MemoryIcon.svg';
 import MultipleChoiceIcon from '../../images/MultipleChoiceIcon.svg';
 import CharsIcon from '../../images/CharsIcon.svg';
 import ConnectIcon from '../../images/ConnectIcon.svg';
-import Header from '../layout/Header';
+import Header from '../layout/HeaderBlank';
 import Footer from '../layout/Footer';
 import { getColorClassName } from '../../utils/className.js'
 
