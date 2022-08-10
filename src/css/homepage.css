@@ -2,7 +2,7 @@
 .homepageHeader {
     background-color: white;
     border-radius: 0 0 30px 30px;
-    padding: 1.3rem 2rem;
+    padding: 0.7rem 2rem;
     position: sticky;
     top: 0;
     width: 100%;
@@ -78,5 +78,21 @@
 
 /*---- main Content ----*/
 .homepageMainContentContainer {
-  padding: 6% 6% 10vh;
+  padding: 6% 6%;
+}
+
+.homepageGamesContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.homepageGamesContainer div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e2e7f0;
+    width: 32%;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 10px;
 }

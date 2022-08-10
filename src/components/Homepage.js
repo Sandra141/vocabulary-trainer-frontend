@@ -3,7 +3,40 @@ import '../css/homepage.css';
 import { NavLink } from 'react-router-dom';
 import logo from '../images/logo.png';
 
+import homepageFlashcardsBackground from '../images/homepageFlashcardsBackground.svg'
+
+//import FlashcardsIcon from '../images/FlashcardsIcon.svg';
+import MultipleChoiceIcon from '../images/MultipleChoiceIcon.svg';
+import MemoryIcon from '../images/MemoryIcon.svg';
+
 const Homepage = () => {
+
+    const styleFlashcards = {
+        style: {
+            backgroundImage: `url(${homepageFlashcardsBackground})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'left 50% bottom 0%',
+            backgroundSize: '80%'
+        }
+    }
+
+    const styleMultipleChoice = {
+        style: {
+            backgroundImage: `url(${MultipleChoiceIcon})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: '90% 50%'
+        }
+    }
+
+    const styleMemory = {
+        style: {
+            backgroundImage: `url(${MemoryIcon})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'left 90% bottom 0%',
+            backgroundSize: '60%'
+        }
+    }
+
     return (
         <>
         <header className="homepageHeader">
@@ -48,9 +81,16 @@ const Homepage = () => {
                 </div>
             </div>
             <div className="homepageMainContentContainer">
-                <p>With Professor Cards you can create your own decks and learn them at your own pace and through different methods.</p>
+                <p>Professor Cards wants to help you improve your knowledge!</p><br />
+                <p>He has many different methods to help you learn, including traditional flashcards, multiple choice, or a memory game.</p><br />
+                <div className="homepageGamesContainer">
+                    <div style={styleFlashcards.style}>Flash&shy;cards</div>
+                    <div style={styleMultipleChoice.style}>Multiple Choice</div>
+                    <div style={styleMemory.style}>Memory</div>
+                </div>
+                <p>Of course, you can create your own word decks and if you want, you can share them with others.</p><br />
+                <p>Try it out!</p>
             </div>
-
         </div>
         </>
     );
