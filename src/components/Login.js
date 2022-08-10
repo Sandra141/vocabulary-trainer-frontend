@@ -137,10 +137,10 @@ const Login = () => {
             <div className='content'>
                 <h2 id="registrationH2">Welcome back!</h2>
                 <form onSubmit={handleSubmit} className='registrationForm'>
-                    <label for="username">Username / E-mail:</label><br />
+                    <label htmlFor="username">Username / E-mail:</label><br />
                     <input ref={refUsername} onChange={handleChange} type="text" id="username" name="username" className='gray' /><br />
                     {renderNotificationUsername()}
-                    <label for="password">Password:</label><br />
+                    <label htmlFor="password">Password:</label><br />
                     <input ref={refPassword} onChange={handleChange} type="password" id="password" name="password" className='darkBlue' /><br />
                     {renderNotificationPassword()}
                     <input type="submit" value="Log in" id="submitRegistration" className='pink' />
