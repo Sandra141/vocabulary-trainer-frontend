@@ -32,6 +32,8 @@ const RequireAuthentification = ({ children }) => {
         // EXIT: authentification is not ok
         if (!data.success) return console.log("authentification is not ok")
 
+        if(!data.data.length) return console.log("no data") 
+
         // SUCCESS: authentification und download ok
         const { users, decks, users_decks, cards, decks_cards } = data.data[0]
         set_users(users)
