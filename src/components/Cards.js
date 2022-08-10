@@ -75,7 +75,6 @@ const Cards = (props) => {
         }
     }, [popupIsShown]);
 
-
     useEffect(() => {
         refInputDeckName.current.value = decks.name
     }, [decks])
@@ -131,6 +130,7 @@ const Cards = (props) => {
 
             return copy
         })
+
         delete_cards(selected_card._id)
     }
 
@@ -198,31 +198,20 @@ const Cards = (props) => {
         : (
             <button
                 onClick={handleToggleShared}
-                className="button"
                 style={{ backgroundColor: decks.shared ? "gold" : "white" }}
             >
-                
                 {decks.shared
-                    ? "Shared"
-                    : "Private"}
+                    ? "Deck is shared! Press here to deactivate"
+                    : "Deck is private. Press here if you want to share it with others!"}
             </button>
         )
 
     const renderDeleteDeckButton = () => (
-        <button className="button" onClick={handle_delete_deck}>
-            Delete Deck
+        <button onClick={handle_delete_deck}>
+            DELETE DECK
         </button>
     )
 
-    const renderAddButton = () => (
-        <div className="addButton" ref={addCardsButton} onClick={handleOpenCardDetails} >+</div>
-    )
-
-    const renderDeckName = () => (
-        <div className="name">
-            <input type="text" placeholder={decks.name} onKeyDown={handleRenameDeck} ref={refInputDeckName} className="editableCardDetails" />
-        </div>
-    )
 
 
     const renderCards = () => !filtered_cards || !decks
@@ -235,12 +224,14 @@ const Cards = (props) => {
                 </div>
                 <h2>You don't have any cards yet</h2>
                 <div className='noContentImgContainer' ><img src={Decks} alt='no cards icon' /></div>
-
+                <div className="addButton" ref={addCardsButton} onClick={handleOpenCardDetails} >+</div>
             </div>
             /*---- cards were fetched ----*/
             : <>
                 <div className="addButton" ref={addCardsButton} onClick={handleOpenCardDetails} id='cardAddButton' >+</div>
-
+                <div className="cardsDeckName lightBlue">
+                    <input type="text" placeholder={decks.name} onKeyDown={handleRenameDeck} ref={refInputDeckName} className="editableCardDetails" />
+                </div>
                 <div className="cardSearchField">
                     <input ref={refInputSearchCards} type='text' onKeyDown={handleSearchOnKeyDown} />
                     <img src={SearchIcon} alt='search icon' />
@@ -268,21 +259,9 @@ const Cards = (props) => {
 
             <div className='mainContent' id='vocabContent'>
 
-                <div className="cardssssssss">
+                {renderDeleteDeckButton()}
 
-                    <div className="top">
-                        {renderDeleteDeckButton()}
-
-                        {renderSharedButton()}
-                    </div>
-
-                    {renderDeckName()}
-
-
-
-                </div>
-
-
+                {renderSharedButton()}
 
                 {renderCards()}
 
@@ -299,7 +278,8 @@ const Cards = (props) => {
 
                         <div className="cardDetailsPopupBottom">
                             <button onClick={saveCard} >Save this Card</button>
-                            <p onClick={handle_delete_card} id='cardDetailsPopupBottomP'>Delete this Card</p>
+                            <p><button onClick={handle_delete_card} >Delete</button> this Card</p>
+
                         </div>
                     </div>
                 </div>
