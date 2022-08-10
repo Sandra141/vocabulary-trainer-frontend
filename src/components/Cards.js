@@ -117,6 +117,10 @@ const Cards = (props) => {
                 return copy
             })
         }
+
+        // reset
+        inputFront.value = ""
+        inputBack.value = ""
     }
 
     const handle_delete_card = e => {
