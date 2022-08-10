@@ -42,10 +42,10 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    text-align: center;
+    text-align: left;
 }
 
-.homepageWelcomeContainerHeading h2 {
+.homepageWelcomeContainerHeading h3 {
     margin-bottom: 1rem;
 }
 
@@ -87,12 +87,22 @@
 }
 
 .homepageGamesContainer div {
+    height: 6rem;
     display: flex;
     justify-content: center;
-    align-items: center;
     background-color: #e2e7f0;
     width: 32%;
     text-align: center;
-    padding: 1rem;
+    padding: 0.2rem 1rem;
     border-radius: 10px;
+    font-size: 1.2rem;
+}
+
+.homepageBottomContentContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.homepageBottomContentContainer h3 {
+    margin-left: 6%;
 }

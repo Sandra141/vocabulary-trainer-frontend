@@ -25,8 +25,6 @@ const Flashcards = () => {
     const [sortedCards, setSortedCards] = useState([]);
     const [tmpCards, setTmpCards] = useState([]);
 
-    console.log(shownSide, hiddenSide)
-
     /*---- logic for popup ----*/
     /*const handleAddDecksButton = (e) => {
         document.body.style.overflow = 'hidden';
@@ -44,11 +42,9 @@ const Flashcards = () => {
 
     useEffect(() => {
         if (!deckSelection.length) return
-        console.log('resort')
 
         if(!tmpCards.length) {
             setTmpCards(sortedCards.slice(0, 7))
-            console.log('resort')
         }
     }, [sortedCards])
 
@@ -93,9 +89,7 @@ const Flashcards = () => {
         // setSortedCards(cardsClone);
         const tmpCardsClone = [...tmpCards];
         tmpCardsClone.shift();
-        console.log(6666666, tmpCardsClone)
         if (tmpCardsClone.length === 0) {
-            console.log("repopulating buffer", cardsClone);
             // update
             vocabulary.updateCard(cardsClone)
             setTmpCards(sortedCards.sort((a, b) => a.rank - b.rank).slice(0, 7));
