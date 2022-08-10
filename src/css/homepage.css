@@ -2,7 +2,7 @@
 .homepageHeader {
     background-color: white;
     border-radius: 0 0 30px 30px;
-    padding: 1.3rem 2rem;
+    padding: 0.7rem 2rem;
     position: sticky;
     top: 0;
     width: 100%;
@@ -42,10 +42,10 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    text-align: center;
+    text-align: left;
 }
 
-.homepageWelcomeContainerHeading h2 {
+.homepageWelcomeContainerHeading h3 {
     margin-bottom: 1rem;
 }
 
@@ -78,5 +78,31 @@
 
 /*---- main Content ----*/
 .homepageMainContentContainer {
-  padding: 6% 6% 10vh;
+  padding: 6% 6%;
+}
+
+.homepageGamesContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.homepageGamesContainer div {
+    height: 6rem;
+    display: flex;
+    justify-content: center;
+    background-color: #e2e7f0;
+    width: 32%;
+    text-align: center;
+    padding: 0.2rem 1rem;
+    border-radius: 10px;
+    font-size: 1.2rem;
+}
+
+.homepageBottomContentContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.homepageBottomContentContainer h3 {
+    margin-left: 6%;
 }

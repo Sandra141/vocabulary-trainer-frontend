@@ -42,7 +42,7 @@ const Games = () => {
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: '90% 50%'
             }
-        },
+        }/*,
         {
             name: 'Chars',
             style: {
@@ -59,7 +59,7 @@ const Games = () => {
                 backgroundPosition: '90% 50%',
                 backgroundSize: '40%'
             }
-        }
+        }*/
     ]
 
     const renderGames = () => !games_data.length

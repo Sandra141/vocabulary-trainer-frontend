@@ -8,12 +8,13 @@
 }
 
 .progressBar .total {
-    background: #eee;
+    background: rgba(255, 255, 255, 0.8);
     border-radius: 1rem;
 }
 
 .progressBar .progress {
     height: .5rem;
+    border-radius: 10px;
     background: #37b554a8;
     --color-progressbar: #0091466a;
     background-image: linear-gradient(45deg,
@@ -23,8 +24,24 @@
             var(--color-progressbar) 0,
             var(--color-progressbar) 75%,
             transparent 0,
-            transparent);
-    background-size: 2rem 2rem;
-    border-radius: 1rem;
-    /* border: 2px solid white; */
+            transparent);}
+    /*
+    background-size: 300% 300%;
+    background-image: repeating-linear-gradient(
+		-45deg,
+		#1a2c63 0%,
+        #334e9d 10%,
+        #5f6d96 25%,
+        #2a428a 40%,
+		#1a2c63 45%
+	);
+    animation: diagonal alternate 30s infinite;
 }
+
+@keyframes diagonal {
+    0% {background-position: 0% 50%}
+    100% {background-position: 100% 50%}
+}
+    
+    
+    */
