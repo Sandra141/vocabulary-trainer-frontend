@@ -201,8 +201,8 @@ const Cards = (props) => {
                 style={{ backgroundColor: decks.shared ? "gold" : "white" }}
             >
                 {decks.shared
-                    ? "Deck is shared! Press here to deactivate"
-                    : "Deck is private. Press here if you want to share it with others!"}
+                    ? "Deck is shared! Click here to deactivate"
+                    : "Deck is private. Click here if you want to share it with others!"}
             </button>
         )
 
@@ -278,7 +278,7 @@ const Cards = (props) => {
 
                         <div className="cardDetailsPopupBottom">
                             <button onClick={saveCard} >Save this Card</button>
-                            <p><button onClick={handle_delete_card} >Delete</button> this Card</p>
+                            <p onClick={handle_delete_card} id='cardDetailsPopupBottomP'>Delete this Card</p>
 
                         </div>
                     </div>
