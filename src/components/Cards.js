@@ -126,7 +126,6 @@ const Cards = (props) => {
 
             return copy
         })
-
         delete_cards(selected_card._id)
     }
 
@@ -274,8 +273,7 @@ const Cards = (props) => {
 
                         <div className="cardDetailsPopupBottom">
                             <button onClick={saveCard} >Save this Card</button>
-                            <p><button onClick={handle_delete_card} >Delete</button> this Card</p>
-
+                            <p onClick={handle_delete_card} id='cardDetailsPopupBottomP'>Delete this Card</p>
                         </div>
                     </div>
                 </div>

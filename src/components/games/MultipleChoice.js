@@ -173,7 +173,7 @@ const MultipleChoice = () => {
     const renderQuestion = () => !tmpCards.length
         ? null
         : (
-            <div className="cards white">
+            <div className="cards">
                 <h2>{show_card_question_side === SHOWN_SIDE_ENUM.front ? tmpCards[0].front : tmpCards[0].back}</h2>
             </div>
         )
@@ -193,7 +193,7 @@ const MultipleChoice = () => {
                     <h2 className='gamesPopupDeckSelectionH2'>Which Deck would you like to learn?</h2>
 
                     {
-                        possible_decks.map((x, i) => <div onClick={handleDeckSelection(x._id)} id={i}>{x.name}</div>)
+                        possible_decks.map((x, i) => <p onClick={handleDeckSelection(x._id)} id={i} className="gamesPopupDeckSelectionP">{x.name}</p>)
                     }
 
                 </div>

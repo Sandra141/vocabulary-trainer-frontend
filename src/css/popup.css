@@ -79,6 +79,11 @@
     color: white;
 }
 
+#cardDetailsPopupBottomP:hover {
+    cursor: pointer;
+    color: rgb(255, 157, 157);
+}
+
 /*---- dark Background ----*/
 
 .darkBackground {
